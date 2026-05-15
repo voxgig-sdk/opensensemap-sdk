@@ -1,0 +1,22 @@
+# BasicMeasurementFlow
+
+main: kit: flow: BasicMeasurementFlow:
+{
+  entity: "measurement",
+  kind: "basic",
+  name: "BasicMeasurementFlow",
+  step: [
+    {
+      input: {
+        ref: "measurement_ref01"
+      }
+
+      match: {
+        box_id: "box01"
+      }
+
+      op: "create"
+    }
+  ],
+  "key$": "BasicMeasurementFlow"
+}

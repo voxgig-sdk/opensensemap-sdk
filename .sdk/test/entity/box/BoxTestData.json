@@ -1,0 +1,67 @@
+{
+  "existing": {
+    "box": {
+      "BOX00": {
+        "created_at": "s6e",
+        "description": "s6f",
+        "exposure": "s70",
+        "grouptag": "s71",
+        "id": "BOX00",
+        "location": {},
+        "model": "s74",
+        "name": "s75",
+        "sensor": [],
+        "updated_at": "s77",
+        "value": "s78",
+        "box_id": "BOX01",
+        "sensor_id": "SENSOR01"
+      },
+      "BOX01": {
+        "created_at": "sdc",
+        "description": "sdd",
+        "exposure": "sde",
+        "grouptag": "sdf",
+        "id": "BOX01",
+        "location": {},
+        "model": "se2",
+        "name": "se3",
+        "sensor": [],
+        "updated_at": "se5",
+        "value": "se6",
+        "box_id": "BOX01",
+        "sensor_id": "SENSOR01"
+      },
+      "BOX02": {
+        "created_at": "s14a",
+        "description": "s14b",
+        "exposure": "s14c",
+        "grouptag": "s14d",
+        "id": "BOX02",
+        "location": {},
+        "model": "s150",
+        "name": "s151",
+        "sensor": [],
+        "updated_at": "s153",
+        "value": "s154",
+        "box_id": "BOX01",
+        "sensor_id": "SENSOR01"
+      }
+    }
+  },
+  "new": {
+    "box": {
+      "box_ref01": {
+        "created_at": "s1b8",
+        "description": "s1b9",
+        "exposure": "s1ba",
+        "grouptag": "s1bb",
+        "location": {},
+        "model": "s1be",
+        "name": "s1bf",
+        "sensor": [],
+        "updated_at": "s1c1",
+        "value": "s1c2"
+      }
+    }
+  }
+}

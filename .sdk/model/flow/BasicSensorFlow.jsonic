@@ -1,0 +1,26 @@
+# BasicSensorFlow
+
+main: kit: flow: BasicSensorFlow:
+{
+  entity: "sensor",
+  kind: "basic",
+  name: "BasicSensorFlow",
+  step: [
+    {
+      match: {
+        box_id: "box01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "sensor_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicSensorFlow"
+}

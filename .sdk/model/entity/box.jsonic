@@ -1,0 +1,382 @@
+# Entity: box
+
+main: kit: entity: box: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "created_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "description"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "exposure"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+        update: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "grouptag"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "location"
+      op: {
+        create: {
+          req: true
+          type: "`$OBJECT`"
+        }
+        update: {
+          req: true
+          type: "`$OBJECT`"
+        }
+      }
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "model"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      op: {
+        create: {
+          req: true
+          type: "`$STRING`"
+        }
+        update: {
+          req: true
+          type: "`$STRING`"
+        }
+      }
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "sensor"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "updated_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "value"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "box"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/boxes"
+          parts: [
+            "boxes"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "box_id"
+                orig: "box_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "sensor_id"
+                orig: "sensor_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "json"
+                kind: "query"
+                name: "format"
+                orig: "format"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "from_date"
+                orig: "from_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "to_date"
+                orig: "to_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/boxes/{boxId}/{sensorId}"
+          parts: [
+            "boxes"
+            "{box_id}"
+            "{sensor_id}"
+          ]
+          rename: {
+            param: {
+              boxId: "box_id"
+              sensorId: "sensor_id"
+            }
+          }
+          select: {
+            exist: [
+              "box_id"
+              "format"
+              "from_date"
+              "sensor_id"
+              "to_date"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "bbox"
+                orig: "bbox"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "exposure"
+                orig: "exposure"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                example: "json"
+                kind: "query"
+                name: "format"
+                orig: "format"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "grouptag"
+                orig: "grouptag"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/boxes"
+          parts: [
+            "boxes"
+          ]
+          select: {
+            exist: [
+              "bbox"
+              "exposure"
+              "format"
+              "grouptag"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "box_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+            query: [
+              {
+                example: "json"
+                kind: "query"
+                name: "format"
+                orig: "format"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/boxes/{boxId}"
+          parts: [
+            "boxes"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              boxId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "format"
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    remove: {
+      name: "remove"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "box_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "DELETE"
+          orig: "/boxes/{boxId}"
+          parts: [
+            "boxes"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              boxId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    update: {
+      name: "update"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "box_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "PUT"
+          orig: "/boxes/{boxId}"
+          parts: [
+            "boxes"
+            "{id}"
+          ]
+          rename: {
+            param: {
+              boxId: "id"
+            }
+          }
+          select: {
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "box"
+      ]
+    ]
+  }
+
+
+
+}

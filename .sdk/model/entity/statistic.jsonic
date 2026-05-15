@@ -1,0 +1,104 @@
+# Entity: statistic
+
+main: kit: entity: statistic: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "count"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "max"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "mean"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "median"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "min"
+      req: false
+      type: "`$NUMBER`"
+    }
+    {
+      name: "sum"
+      req: false
+      type: "`$NUMBER`"
+    }
+  ]
+
+  name: "statistic"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "box_id"
+                orig: "box_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "from_date"
+                orig: "from_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "sensor_id"
+                orig: "sensor_id"
+                reqd: false
+                type: "`$STRING`"
+              }
+              {
+                kind: "query"
+                name: "to_date"
+                orig: "to_date"
+                reqd: false
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/statistics/descriptive"
+          parts: [
+            "statistics"
+            "descriptive"
+          ]
+          select: {
+            "$action": "descriptive"
+            exist: [
+              "box_id"
+              "from_date"
+              "sensor_id"
+              "to_date"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

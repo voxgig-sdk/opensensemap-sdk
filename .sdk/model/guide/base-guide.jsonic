@@ -1,0 +1,63 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 5
+  metrics: count: path: 9
+  metrics: count: method: 12
+
+  entity: box: {
+    path: "/boxes": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+    path: "/boxes/{boxId}": {
+      rename: param: "boxId": *"id"
+      op: load: method: *GET
+      op: remove: method: *DELETE
+      op: update: method: *PUT
+    }
+    path: "/boxes/{boxId}/{sensorId}": {
+      rename: param: "boxId": *"box_id"
+      rename: param: "sensorId": *"sensor_id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: measurement: {
+    path: "/boxes/{boxId}/data": {
+      rename: param: "boxId": *"box_id"
+      op: create: method: *POST
+    }
+  }
+
+  entity: sensor: {
+    path: "/boxes/{boxId}/sensors": {
+      rename: param: "boxId": *"box_id"
+      op: list: method: *GET
+    }
+  }
+
+  entity: statistic: {
+    path: "/statistics/descriptive": {
+      action: "descriptive": {}
+      op: load: method: *GET
+    }
+  }
+
+  entity: user: {
+    path: "/users/me": {
+      action: "me": {}
+      op: list: method: *GET
+    }
+    path: "/users/register": {
+      action: "register": {}
+      op: create: method: *POST
+    }
+    path: "/users/sign-in": {
+      action: "sign_in": {}
+      op: create: method: *POST
+      op: create: transform: res: *("`body.user`")|top
+    }
+  }
+
+}

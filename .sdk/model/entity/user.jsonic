@@ -1,0 +1,133 @@
+# Entity: user
+
+main: kit: entity: user: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "box"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "created_at"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "email"
+      op: {
+        list: {
+          req: false
+          type: "`$STRING`"
+        }
+      }
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      op: {
+        list: {
+          req: false
+          type: "`$STRING`"
+        }
+      }
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "password"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "role"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "token"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "user"
+      req: false
+      type: "`$OBJECT`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "user"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/users/register"
+          parts: [
+            "users"
+            "register"
+          ]
+          select: {
+            "$action": "register"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "POST"
+          orig: "/users/sign-in"
+          parts: [
+            "users"
+            "sign-in"
+          ]
+          select: {
+            "$action": "sign_in"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/users/me"
+          parts: [
+            "users"
+            "me"
+          ]
+          select: {
+            "$action": "me"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

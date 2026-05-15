@@ -1,0 +1,53 @@
+{
+  "existing": {
+    "user": {
+      "USER00": {
+        "box": [],
+        "created_at": "s5b",
+        "email": "s5c",
+        "id": "USER00",
+        "name": "s5e",
+        "password": "s5f",
+        "role": "s60",
+        "token": "s61",
+        "user": {}
+      },
+      "USER01": {
+        "box": [],
+        "created_at": "sb5",
+        "email": "sb6",
+        "id": "USER01",
+        "name": "sb8",
+        "password": "sb9",
+        "role": "sba",
+        "token": "sbb",
+        "user": {}
+      },
+      "USER02": {
+        "box": [],
+        "created_at": "s10f",
+        "email": "s110",
+        "id": "USER02",
+        "name": "s112",
+        "password": "s113",
+        "role": "s114",
+        "token": "s115",
+        "user": {}
+      }
+    }
+  },
+  "new": {
+    "user": {
+      "user_ref01": {
+        "box": [],
+        "created_at": "s169",
+        "email": "s16a",
+        "name": "s16c",
+        "password": "s16d",
+        "role": "s16e",
+        "token": "s16f",
+        "user": {}
+      }
+    }
+  }
+}

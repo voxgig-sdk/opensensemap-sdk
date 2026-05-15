@@ -1,0 +1,60 @@
+# Entity: measurement
+
+main: kit: entity: measurement: {
+
+  alias: field: {}
+
+  name: "measurement"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "box_id"
+                orig: "box_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/boxes/{boxId}/data"
+          parts: [
+            "boxes"
+            "{box_id}"
+            "data"
+          ]
+          rename: {
+            param: {
+              boxId: "box_id"
+            }
+          }
+          select: {
+            exist: [
+              "box_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "box"
+      ]
+    ]
+  }
+
+
+
+}

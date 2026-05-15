@@ -1,0 +1,20 @@
+{
+  "existing": {
+    "measurement": {
+      "MEASUREMENT00": {
+        "box_id": "BOX01"
+      },
+      "MEASUREMENT01": {
+        "box_id": "BOX01"
+      },
+      "MEASUREMENT02": {
+        "box_id": "BOX01"
+      }
+    }
+  },
+  "new": {
+    "measurement": {
+      "measurement_ref01": {}
+    }
+  }
+}

@@ -1,0 +1,7 @@
+# Entity Models
+
+@"box.jsonic"
+@"measurement.jsonic"
+@"sensor.jsonic"
+@"statistic.jsonic"
+@"user.jsonic"

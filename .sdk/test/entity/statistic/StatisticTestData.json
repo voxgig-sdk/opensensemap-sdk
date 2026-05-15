@@ -1,0 +1,42 @@
+{
+  "existing": {
+    "statistic": {
+      "STATISTIC00": {
+        "count": "s3c",
+        "max": 61,
+        "mean": 62,
+        "median": 63,
+        "min": 64,
+        "sum": 65
+      },
+      "STATISTIC01": {
+        "count": "s78",
+        "max": 121,
+        "mean": 122,
+        "median": 123,
+        "min": 124,
+        "sum": 125
+      },
+      "STATISTIC02": {
+        "count": "sb4",
+        "max": 181,
+        "mean": 182,
+        "median": 183,
+        "min": 184,
+        "sum": 185
+      }
+    }
+  },
+  "new": {
+    "statistic": {
+      "statistic_ref01": {
+        "count": "sf0",
+        "max": 241,
+        "mean": 242,
+        "median": 243,
+        "min": 244,
+        "sum": 245
+      }
+    }
+  }
+}

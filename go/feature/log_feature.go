@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/opensensemap-sdk/core"
+	"github.com/voxgig-sdk/opensensemap-sdk/go/core"
 )
 
 type LogFeature struct {

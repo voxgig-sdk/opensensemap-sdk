@@ -2,13 +2,16 @@
   "existing": {
     "measurement": {
       "MEASUREMENT00": {
-        "box_id": "BOX01"
+        "box_id": "BOX01",
+        "id": "MEASUREMENT00"
       },
       "MEASUREMENT01": {
-        "box_id": "BOX01"
+        "box_id": "BOX01",
+        "id": "MEASUREMENT01"
       },
       "MEASUREMENT02": {
-        "box_id": "BOX01"
+        "box_id": "BOX01",
+        "id": "MEASUREMENT02"
       }
     }
   },

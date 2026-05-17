@@ -1,10 +1,10 @@
 package voxgigopensensemapsdk
 
 import (
-	"github.com/voxgig-sdk/opensensemap-sdk/core"
-	"github.com/voxgig-sdk/opensensemap-sdk/entity"
-	"github.com/voxgig-sdk/opensensemap-sdk/feature"
-	_ "github.com/voxgig-sdk/opensensemap-sdk/utility"
+	"github.com/voxgig-sdk/opensensemap-sdk/go/core"
+	"github.com/voxgig-sdk/opensensemap-sdk/go/entity"
+	"github.com/voxgig-sdk/opensensemap-sdk/go/feature"
+	_ "github.com/voxgig-sdk/opensensemap-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

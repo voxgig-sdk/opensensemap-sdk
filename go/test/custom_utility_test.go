@@ -3,7 +3,7 @@ package sdktest
 import (
 	"testing"
 
-	sdk "github.com/voxgig-sdk/opensensemap-sdk"
+	sdk "github.com/voxgig-sdk/opensensemap-sdk/go"
 )
 
 func TestCustomUtility(t *testing.T) {

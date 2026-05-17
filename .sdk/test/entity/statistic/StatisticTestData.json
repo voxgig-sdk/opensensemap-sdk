@@ -7,7 +7,8 @@
         "mean": 62,
         "median": 63,
         "min": 64,
-        "sum": 65
+        "sum": 65,
+        "id": "STATISTIC00"
       },
       "STATISTIC01": {
         "count": "s78",
@@ -15,7 +16,8 @@
         "mean": 122,
         "median": 123,
         "min": 124,
-        "sum": 125
+        "sum": 125,
+        "id": "STATISTIC01"
       },
       "STATISTIC02": {
         "count": "sb4",
@@ -23,7 +25,8 @@
         "mean": 182,
         "median": 183,
         "min": 184,
-        "sum": 185
+        "sum": 185,
+        "id": "STATISTIC02"
       }
     }
   },

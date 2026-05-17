@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/opensensemap-sdk"
-	"github.com/voxgig-sdk/opensensemap-sdk/core"
+	sdk "github.com/voxgig-sdk/opensensemap-sdk/go"
+	"github.com/voxgig-sdk/opensensemap-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/opensensemap-sdk/go/utility/struct"
 )
 
 func TestMeasurementEntity(t *testing.T) {

@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/opensensemap-sdk"
-	"github.com/voxgig-sdk/opensensemap-sdk/core"
+	sdk "github.com/voxgig-sdk/opensensemap-sdk/go"
+	"github.com/voxgig-sdk/opensensemap-sdk/go/core"
 )
 
 func TestBoxDirect(t *testing.T) {

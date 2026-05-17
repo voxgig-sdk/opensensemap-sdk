@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/opensensemap-sdk/core"
+	"github.com/voxgig-sdk/opensensemap-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/opensensemap-sdk/go/utility/struct"
 )
 
 type BoxEntity struct {

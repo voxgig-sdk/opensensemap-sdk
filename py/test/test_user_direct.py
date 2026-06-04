@@ -61,14 +61,12 @@ def _user_direct_setup(mockres):
     env = runner.env_override({
         "OPENSENSEMAP_TEST_USER_ENTID": {},
         "OPENSENSEMAP_TEST_LIVE": "FALSE",
-        "OPENSENSEMAP_APIKEY": "NONE",
     })
 
     live = env.get("OPENSENSEMAP_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("OPENSENSEMAP_APIKEY"),
         }
         client = OpensensemapSDK(merged_opts)
         return {

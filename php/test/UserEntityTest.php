@@ -93,7 +93,6 @@ function user_basic_setup($extra)
         "OPENSENSEMAP_TEST_USER_ENTID" => $idmap,
         "OPENSENSEMAP_TEST_LIVE" => "FALSE",
         "OPENSENSEMAP_TEST_EXPLAIN" => "FALSE",
-        "OPENSENSEMAP_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -105,7 +104,6 @@ function user_basic_setup($extra)
     if ($env["OPENSENSEMAP_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["OPENSENSEMAP_APIKEY"],
             ],
             $extra ?? [],
         ]);

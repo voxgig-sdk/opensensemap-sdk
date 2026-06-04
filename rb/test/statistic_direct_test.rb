@@ -61,14 +61,12 @@ def statistic_direct_setup(mockres)
   env = Runner.env_override({
     "OPENSENSEMAP_TEST_STATISTIC_ENTID" => {},
     "OPENSENSEMAP_TEST_LIVE" => "FALSE",
-    "OPENSENSEMAP_APIKEY" => "NONE",
   })
 
   live = env["OPENSENSEMAP_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["OPENSENSEMAP_APIKEY"],
     }
     client = OpensensemapSDK.new(merged_opts)
     return {

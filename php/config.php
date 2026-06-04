@@ -20,9 +20,6 @@ class OpensensemapConfig
             ],
             "options" => [
                 "base" => "https://api.opensensemap.org",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

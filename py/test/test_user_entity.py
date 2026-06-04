@@ -100,7 +100,6 @@ def _user_basic_setup(extra):
         "OPENSENSEMAP_TEST_USER_ENTID": idmap,
         "OPENSENSEMAP_TEST_LIVE": "FALSE",
         "OPENSENSEMAP_TEST_EXPLAIN": "FALSE",
-        "OPENSENSEMAP_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -111,7 +110,6 @@ def _user_basic_setup(extra):
     if env.get("OPENSENSEMAP_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("OPENSENSEMAP_APIKEY"),
             },
             extra or {},
         ])

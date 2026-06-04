@@ -79,14 +79,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'OPENSENSEMAP_TEST_USER_ENTID': {},
     'OPENSENSEMAP_TEST_LIVE': 'FALSE',
-    'OPENSENSEMAP_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.OPENSENSEMAP_TEST_LIVE
 
   if (live) {
     const client = new OpensensemapSDK({
-      apikey: env.OPENSENSEMAP_APIKEY,
     })
 
     let idmap: any = env['OPENSENSEMAP_TEST_USER_ENTID']

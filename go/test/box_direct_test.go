@@ -237,14 +237,12 @@ func boxDirectSetup(mockres any) *boxDirectSetupResult {
 	env := envOverride(map[string]any{
 		"OPENSENSEMAP_TEST_BOX_ENTID": map[string]any{},
 		"OPENSENSEMAP_TEST_LIVE":    "FALSE",
-		"OPENSENSEMAP_APIKEY":       "NONE",
 	})
 
 	live := env["OPENSENSEMAP_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["OPENSENSEMAP_APIKEY"],
 		}
 		client := sdk.NewOpensensemapSDK(mergedOpts)
 

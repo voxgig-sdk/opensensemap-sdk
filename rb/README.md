@@ -1,6 +1,11 @@
 # Opensensemap Ruby SDK
 
-The Ruby SDK for the Opensensemap API. Provides an entity-oriented interface using idiomatic Ruby conventions.
+
+
+The Ruby SDK for the Opensensemap API — an entity-oriented client using idiomatic Ruby conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -31,13 +36,15 @@ loading a specific record.
 ```ruby
 require_relative "Opensensemap_sdk"
 
-client = OpensensemapSDK.new({})
+client = OpensensemapSDK.new({
+  "apikey" => ENV["OPENSENSEMAP_APIKEY"],
+})
 ```
 
 ### 2. List boxs
 
 ```ruby
-result, err = client.Box(nil).list(nil, nil)
+result, err = client.Box().list
 raise err if err
 
 if result.is_a?(Array)
@@ -51,7 +58,7 @@ end
 ### 3. Load a box
 
 ```ruby
-result, err = client.Box(nil).load({ "id" => "example_id" }, nil)
+result, err = client.Box().load({ "id" => "example_id" })
 raise err if err
 puts result
 ```
@@ -60,13 +67,13 @@ puts result
 
 ```ruby
 # Create
-created, _ = client.Box(nil).create({ "name" => "Example" }, nil)
+created, _ = client.Box().create({ "name" => "Example" })
 
 # Update
-client.Box(nil).update({ "id" => created["id"], "name" => "Example-Renamed" }, nil)
+client.Box().update({ "id" => created["id"], "name" => "Example-Renamed" })
 
 # Remove
-client.Box(nil).remove({ "id" => created["id"] }, nil)
+client.Box().remove({ "id" => created["id"] })
 ```
 
 
@@ -110,11 +117,9 @@ puts fetchdef["headers"]
 Create a mock client for unit testing — no server required:
 
 ```ruby
-client = OpensensemapSDK.test(nil, nil)
+client = OpensensemapSDK.test
 
-result, err = client.Opensensemap(nil).load(
-  { "id" => "test01" }, nil
-)
+result, err = client.Opensensemap().load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -146,6 +151,7 @@ Create a `.env.local` file at the project root:
 
 ```
 OPENSENSEMAP_TEST_LIVE=TRUE
+OPENSENSEMAP_APIKEY=<your-key>
 ```
 
 Then run:
@@ -168,6 +174,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |

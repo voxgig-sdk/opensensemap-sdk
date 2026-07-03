@@ -17,27 +17,7 @@ main: {
       ]
       title: "openSenseMap API"
       version: "1.0.0"
-      tagline: "Citizen-science platform for registering senseBoxes and sharing environmental sensor measurements"
-      homepage: "https://opensensemap.org"
-      docs_url: "https://docs.opensensemap.org"
-      about_md: `[openSenseMap](https://opensensemap.org) is an open data platform that collects and publishes environmental measurements from citizen-science sensor stations called senseBoxes. The API at \`https://api.opensensemap.org\` lets you register and administer boxes, post new sensor readings, and query measurements and statistics from boxes around the world.
-
-What you get from the API:
-
-- Box management: list, retrieve, create, update, claim, and delete senseBoxes, and fetch the Arduino sketch for a given hardware configuration
-- Measurements: submit individual or batched sensor readings, fetch raw and aggregated measurement data across boxes, and retrieve location history for mobile boxes
-- Statistics: descriptive statistics, inverse-distance-weighting (IDW) interpolation across an area, and platform-wide counts
-- Users: registration, sign-in, sign-out, password reset, JWT refresh, and profile management
-
-Public read endpoints (boxes, sensors, measurements, statistics) require no authentication and CORS is enabled. Write operations and any per-user data use JWT bearer tokens issued by the sign-in endpoint. Responses are returned as JSON, with CSV and GeoJSON available for several measurement and box endpoints.`
-      entity_desc: {
-        box: "A senseBox sensor station registered on the platform, exposed via `/boxes` and `/boxes/{boxId}` for listing, retrieval, registration, and administration."
-        measurement: "Individual sensor readings posted to and read from a box, via endpoints such as `/boxes/{boxId}/{sensorId}` and the cross-box `/boxes/data` query."
-        sensor: "A single phenomenon (e.g. temperature, PM2.5) attached to a box, addressed under `/boxes/{boxId}/sensors` and used as the target for measurement uploads."
-        statistic: "Aggregate views over measurements and the platform, including descriptive statistics, IDW interpolation, and overall counts under `/statistics`."
-        user: "Registered account that can own and administer boxes; managed through `/users` endpoints for sign-up, sign-in, profile, and JWT refresh."
-      }
-      auth: false
     }
   }
 }
+

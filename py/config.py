@@ -15,6 +15,9 @@ def make_config():
         },
         "options": {
             "base": "https://api.opensensemap.org",
+            "auth": {
+                "prefix": "Bearer",
+            },
             "headers": {
         "content-type": "application/json",
       },
@@ -30,20 +33,21 @@ def make_config():
       "box": {
         "fields": [
           {
+            "active": True,
             "name": "created_at",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "description",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "exposure",
             "op": {
               "create": {
@@ -57,24 +61,24 @@ def make_config():
             },
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "grouptag",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "id",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 4,
           },
           {
+            "active": True,
             "name": "location",
             "op": {
               "create": {
@@ -88,17 +92,17 @@ def make_config():
             },
             "req": False,
             "type": "`$OBJECT`",
-            "active": True,
             "index$": 5,
           },
           {
+            "active": True,
             "name": "model",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 6,
           },
           {
+            "active": True,
             "name": "name",
             "op": {
               "create": {
@@ -112,103 +116,104 @@ def make_config():
             },
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 7,
           },
           {
+            "active": True,
             "name": "sensor",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 8,
           },
           {
+            "active": True,
             "name": "updated_at",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 9,
           },
           {
+            "active": True,
             "name": "value",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 10,
           },
         ],
         "name": "box",
         "op": {
           "create": {
+            "input": "data",
             "name": "create",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "POST",
                 "orig": "/boxes",
                 "parts": [
                   "boxes",
                 ],
+                "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
-                "select": {},
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "create",
           },
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "kind": "param",
                       "name": "box_id",
                       "orig": "box_id",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "kind": "param",
                       "name": "sensor_id",
                       "orig": "sensor_id",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                   "query": [
                     {
+                      "active": True,
                       "example": "json",
                       "kind": "query",
                       "name": "format",
                       "orig": "format",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "from_date",
                       "orig": "from_date",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "to_date",
                       "orig": "to_date",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -238,44 +243,44 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
               {
+                "active": True,
                 "args": {
                   "query": [
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "bbox",
                       "orig": "bbox",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "exposure",
                       "orig": "exposure",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "example": "json",
                       "kind": "query",
                       "name": "format",
                       "orig": "format",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "grouptag",
                       "orig": "grouptag",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -296,37 +301,37 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 1,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
           "load": {
+            "input": "data",
             "name": "load",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "kind": "param",
                       "name": "id",
                       "orig": "box_id",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                   "query": [
                     {
+                      "active": True,
                       "example": "json",
                       "kind": "query",
                       "name": "format",
                       "orig": "format",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -351,26 +356,26 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "load",
           },
           "remove": {
+            "input": "data",
             "name": "remove",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "kind": "param",
                       "name": "id",
                       "orig": "box_id",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -394,26 +399,26 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "remove",
           },
           "update": {
+            "input": "data",
             "name": "update",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "kind": "param",
                       "name": "id",
                       "orig": "box_id",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -437,11 +442,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "update",
           },
         },
@@ -458,18 +461,20 @@ def make_config():
         "name": "measurement",
         "op": {
           "create": {
+            "input": "data",
             "name": "create",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "kind": "param",
                       "name": "box_id",
                       "orig": "box_id",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -494,11 +499,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "create",
           },
         },
@@ -513,63 +516,65 @@ def make_config():
       "sensor": {
         "fields": [
           {
+            "active": True,
             "name": "icon",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "id",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "last_measurement",
             "req": False,
             "type": "`$OBJECT`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "sensor_type",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "title",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 4,
           },
           {
+            "active": True,
             "name": "unit",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 5,
           },
         ],
         "name": "sensor",
         "op": {
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "kind": "param",
                       "name": "box_id",
                       "orig": "box_id",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -594,11 +599,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
         },
@@ -613,87 +616,89 @@ def make_config():
       "statistic": {
         "fields": [
           {
+            "active": True,
             "name": "count",
             "req": False,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "max",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "mean",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "median",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "min",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 4,
           },
           {
+            "active": True,
             "name": "sum",
             "req": False,
             "type": "`$NUMBER`",
-            "active": True,
             "index$": 5,
           },
         ],
         "name": "statistic",
         "op": {
           "load": {
+            "input": "data",
             "name": "load",
             "points": [
               {
+                "active": True,
                 "args": {
                   "query": [
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "box_id",
                       "orig": "box_id",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "from_date",
                       "orig": "from_date",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "sensor_id",
                       "orig": "sensor_id",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                     {
+                      "active": True,
                       "kind": "query",
                       "name": "to_date",
                       "orig": "to_date",
                       "reqd": False,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -716,11 +721,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "load",
           },
         },
@@ -731,20 +734,21 @@ def make_config():
       "user": {
         "fields": [
           {
+            "active": True,
             "name": "box",
             "req": False,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "created_at",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "email",
             "op": {
               "list": {
@@ -754,17 +758,17 @@ def make_config():
             },
             "req": True,
             "type": "`$STRING`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "id",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "name",
             "op": {
               "list": {
@@ -774,44 +778,46 @@ def make_config():
             },
             "req": True,
             "type": "`$STRING`",
-            "active": True,
             "index$": 4,
           },
           {
+            "active": True,
             "name": "password",
             "req": True,
             "type": "`$STRING`",
-            "active": True,
             "index$": 5,
           },
           {
+            "active": True,
             "name": "role",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 6,
           },
           {
+            "active": True,
             "name": "token",
             "req": False,
             "type": "`$STRING`",
-            "active": True,
             "index$": 7,
           },
           {
+            "active": True,
             "name": "user",
             "req": False,
             "type": "`$OBJECT`",
-            "active": True,
             "index$": 8,
           },
         ],
         "name": "user",
         "op": {
           "create": {
+            "input": "data",
             "name": "create",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "POST",
                 "orig": "/users/register",
                 "parts": [
@@ -825,11 +831,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
                 "index$": 0,
               },
               {
+                "active": True,
+                "args": {},
                 "method": "POST",
                 "orig": "/users/sign-in",
                 "parts": [
@@ -841,20 +847,20 @@ def make_config():
                 },
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body`",
+                  "res": "`body.user`",
                 },
-                "active": True,
-                "args": {},
                 "index$": 1,
               },
             ],
-            "input": "data",
             "key$": "create",
           },
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "GET",
                 "orig": "/users/me",
                 "parts": [
@@ -868,12 +874,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
         },

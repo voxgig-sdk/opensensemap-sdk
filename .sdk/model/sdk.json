@@ -1,42 +1,13 @@
 {
-  "name": "opensensemap",
-  "origin": "voxgig-sdk",
   "def": "opensensemap_0.1.0.json",
   "main": {
+    "def": {
+      "desc": ""
+    },
     "kit": {
-      "info": {
-        "contact": {
-          "name": "openSenseMap API Documentation",
-          "url": "https://docs.opensensemap.org/"
-        },
-        "description": "The openSenseMap API allows for managing users, senseBoxes (stations), and measurements, providing functionalities such as posting new data, retrieving sensor information, and managing senseBoxes. It also supports various operations with parameters for filtering and formatting responses, including JSON and CSV formats.",
-        "servers": [
-          {
-            "description": "Production server",
-            "url": "https://api.opensensemap.org"
-          }
-        ],
-        "title": "openSenseMap API",
-        "version": "1.0.0",
-        "tagline": "Citizen-science platform for registering senseBoxes and sharing environmental sensor measurements",
-        "homepage": "https://opensensemap.org",
-        "docs_url": "https://docs.opensensemap.org",
-        "about_md": "[openSenseMap](https://opensensemap.org) is an open data platform that collects and publishes environmental measurements from citizen-science sensor stations called senseBoxes. The API at `https://api.opensensemap.org` lets you register and administer boxes, post new sensor readings, and query measurements and statistics from boxes around the world.\n\nWhat you get from the API:\n\n- Box management: list, retrieve, create, update, claim, and delete senseBoxes, and fetch the Arduino sketch for a given hardware configuration\n- Measurements: submit individual or batched sensor readings, fetch raw and aggregated measurement data across boxes, and retrieve location history for mobile boxes\n- Statistics: descriptive statistics, inverse-distance-weighting (IDW) interpolation across an area, and platform-wide counts\n- Users: registration, sign-in, sign-out, password reset, JWT refresh, and profile management\n\nPublic read endpoints (boxes, sensors, measurements, statistics) require no authentication and CORS is enabled. Write operations and any per-user data use JWT bearer tokens issued by the sign-in endpoint. Responses are returned as JSON, with CSV and GeoJSON available for several measurement and box endpoints.",
-        "entity_desc": {
-          "box": "A senseBox sensor station registered on the platform, exposed via `/boxes` and `/boxes/{boxId}` for listing, retrieval, registration, and administration.",
-          "measurement": "Individual sensor readings posted to and read from a box, via endpoints such as `/boxes/{boxId}/{sensorId}` and the cross-box `/boxes/data` query.",
-          "sensor": "A single phenomenon (e.g. temperature, PM2.5) attached to a box, addressed under `/boxes/{boxId}/sensors` and used as the target for measurement uploads.",
-          "statistic": "Aggregate views over measurements and the platform, including descriptive statistics, IDW interpolation, and overall counts under `/statistics`.",
-          "user": "Registered account that can own and administer boxes; managed through `/users` endpoints for sign-up, sign-in, profile, and JWT refresh."
-        },
-        "auth": false
-      },
       "config": {
         "auth": {
           "prefix": "Bearer"
-        },
-        "headers": {
-          "content-type": "application/json"
         },
         "docs_order": [
           "ts",
@@ -45,27 +16,32 @@
           "go",
           "rb",
           "lua"
-        ]
+        ],
+        "headers": {
+          "content-type": "application/json"
+        }
       },
       "entity": {
         "box": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "created_at",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "description",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "exposure",
               "op": {
                 "create": {
@@ -78,22 +54,22 @@
                 }
               },
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "grouptag",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "id",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "location",
               "op": {
                 "create": {
@@ -106,16 +82,16 @@
                 }
               },
               "req": false,
-              "type": "`$OBJECT`",
-              "active": true
+              "type": "`$OBJECT`"
             },
             {
+              "active": true,
               "name": "model",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "name",
               "op": {
                 "create": {
@@ -128,26 +104,25 @@
                 }
               },
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "sensor",
               "req": false,
-              "type": "`$ARRAY`",
-              "active": true
+              "type": "`$ARRAY`"
             },
             {
+              "active": true,
               "name": "updated_at",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "value",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             }
           ],
           "id": {
@@ -157,73 +132,75 @@
           "name": "box",
           "op": {
             "create": {
+              "input": "data",
               "name": "create",
               "points": [
                 {
+                  "active": true,
+                  "args": {},
                   "method": "POST",
                   "orig": "/boxes",
                   "parts": [
                     "boxes"
                   ],
+                  "select": {},
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true,
-                  "args": {},
-                  "select": {}
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             },
             "list": {
+              "input": "data",
               "name": "list",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "params": [
                       {
+                        "active": true,
                         "kind": "param",
                         "name": "box_id",
                         "orig": "box_id",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "param",
                         "name": "sensor_id",
                         "orig": "sensor_id",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ],
                     "query": [
                       {
+                        "active": true,
                         "example": "json",
                         "kind": "query",
                         "name": "format",
                         "orig": "format",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "from_date",
                         "orig": "from_date",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "to_date",
                         "orig": "to_date",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -252,44 +229,44 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 },
                 {
+                  "active": true,
                   "args": {
                     "query": [
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "bbox",
                         "orig": "bbox",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "exposure",
                         "orig": "exposure",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "example": "json",
                         "kind": "query",
                         "name": "format",
                         "orig": "format",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "grouptag",
                         "orig": "grouptag",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -309,36 +286,36 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             },
             "load": {
+              "input": "data",
               "name": "load",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "params": [
                       {
+                        "active": true,
                         "kind": "param",
                         "name": "id",
                         "orig": "box_id",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ],
                     "query": [
                       {
+                        "active": true,
                         "example": "json",
                         "kind": "query",
                         "name": "format",
                         "orig": "format",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -362,25 +339,25 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             },
             "remove": {
+              "input": "data",
               "name": "remove",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "params": [
                       {
+                        "active": true,
                         "kind": "param",
                         "name": "id",
                         "orig": "box_id",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -403,25 +380,25 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             },
             "update": {
+              "input": "data",
               "name": "update",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "params": [
                       {
+                        "active": true,
                         "kind": "param",
                         "name": "id",
                         "orig": "box_id",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -444,11 +421,9 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
           "relations": {
@@ -457,28 +432,31 @@
                 "box"
               ]
             ]
-          },
-          "active": true
+          }
         },
         "measurement": {
+          "active": true,
           "alias": {
             "field": {}
           },
+          "fields": [],
           "name": "measurement",
           "op": {
             "create": {
+              "input": "data",
               "name": "create",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "params": [
                       {
+                        "active": true,
                         "kind": "param",
                         "name": "box_id",
                         "orig": "box_id",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -502,11 +480,9 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
           "relations": {
@@ -515,50 +491,49 @@
                 "box"
               ]
             ]
-          },
-          "active": true,
-          "fields": []
+          }
         },
         "sensor": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "icon",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "id",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "last_measurement",
               "req": false,
-              "type": "`$OBJECT`",
-              "active": true
+              "type": "`$OBJECT`"
             },
             {
+              "active": true,
               "name": "sensor_type",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "title",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "unit",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             }
           ],
           "id": {
@@ -568,18 +543,20 @@
           "name": "sensor",
           "op": {
             "list": {
+              "input": "data",
               "name": "list",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "params": [
                       {
+                        "active": true,
                         "kind": "param",
                         "name": "box_id",
                         "orig": "box_id",
                         "reqd": true,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -603,11 +580,9 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
           "relations": {
@@ -616,90 +591,92 @@
                 "box"
               ]
             ]
-          },
-          "active": true
+          }
         },
         "statistic": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "count",
               "req": false,
-              "type": "`$INTEGER`",
-              "active": true
+              "type": "`$INTEGER`"
             },
             {
+              "active": true,
               "name": "max",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             },
             {
+              "active": true,
               "name": "mean",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             },
             {
+              "active": true,
               "name": "median",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             },
             {
+              "active": true,
               "name": "min",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             },
             {
+              "active": true,
               "name": "sum",
               "req": false,
-              "type": "`$NUMBER`",
-              "active": true
+              "type": "`$NUMBER`"
             }
           ],
           "name": "statistic",
           "op": {
             "load": {
+              "input": "data",
               "name": "load",
               "points": [
                 {
+                  "active": true,
                   "args": {
                     "query": [
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "box_id",
                         "orig": "box_id",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "from_date",
                         "orig": "from_date",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "sensor_id",
                         "orig": "sensor_id",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       },
                       {
+                        "active": true,
                         "kind": "query",
                         "name": "to_date",
                         "orig": "to_date",
                         "reqd": false,
-                        "type": "`$STRING`",
-                        "active": true
+                        "type": "`$STRING`"
                       }
                     ]
                   },
@@ -721,36 +698,35 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
-          "active": true,
           "relations": {
             "ancestors": []
           }
         },
         "user": {
+          "active": true,
           "alias": {
             "field": {}
           },
           "fields": [
             {
+              "active": true,
               "name": "box",
               "req": false,
-              "type": "`$ARRAY`",
-              "active": true
+              "type": "`$ARRAY`"
             },
             {
+              "active": true,
               "name": "created_at",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "email",
               "op": {
                 "list": {
@@ -759,16 +735,16 @@
                 }
               },
               "req": true,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "id",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "name",
               "op": {
                 "list": {
@@ -777,32 +753,31 @@
                 }
               },
               "req": true,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "password",
               "req": true,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "role",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "token",
               "req": false,
-              "type": "`$STRING`",
-              "active": true
+              "type": "`$STRING`"
             },
             {
+              "active": true,
               "name": "user",
               "req": false,
-              "type": "`$OBJECT`",
-              "active": true
+              "type": "`$OBJECT`"
             }
           ],
           "id": {
@@ -812,9 +787,12 @@
           "name": "user",
           "op": {
             "create": {
+              "input": "data",
               "name": "create",
               "points": [
                 {
+                  "active": true,
+                  "args": {},
                   "method": "POST",
                   "orig": "/users/register",
                   "parts": [
@@ -827,11 +805,11 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true,
-                  "args": {}
+                  }
                 },
                 {
+                  "active": true,
+                  "args": {},
                   "method": "POST",
                   "orig": "/users/sign-in",
                   "parts": [
@@ -843,18 +821,18 @@
                   },
                   "transform": {
                     "req": "`reqdata`",
-                    "res": "`body`"
-                  },
-                  "active": true,
-                  "args": {}
+                    "res": "`body.user`"
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             },
             "list": {
+              "input": "data",
               "name": "list",
               "points": [
                 {
+                  "active": true,
+                  "args": {},
                   "method": "GET",
                   "orig": "/users/me",
                   "parts": [
@@ -867,15 +845,11 @@
                   "transform": {
                     "req": "`reqdata`",
                     "res": "`body`"
-                  },
-                  "active": true,
-                  "args": {}
+                  }
                 }
-              ],
-              "input": "data"
+              ]
             }
           },
-          "active": true,
           "relations": {
             "ancestors": []
           }
@@ -883,9 +857,6 @@
       },
       "feature": {
         "test": {
-          "name": "test",
-          "title": "In-memory mock transport for testing without a live server",
-          "version": "0.0.1",
           "active": true,
           "config": {
             "options": {
@@ -893,6 +864,14 @@
             }
           },
           "hook": {
+            "GetData": {
+              "active": true,
+              "await": false
+            },
+            "GetMatch": {
+              "active": true,
+              "await": false
+            },
             "PostConstruct": {
               "active": true,
               "await": false
@@ -901,25 +880,11 @@
               "active": true,
               "await": false
             },
-            "SetData": {
-              "active": true,
-              "await": false
-            },
-            "GetData": {
-              "active": true,
-              "await": false
-            },
-            "SetMatch": {
-              "active": true
-            },
-            "GetMatch": {
-              "active": true,
+            "PostOperation": {
+              "active": false,
               "await": false
             },
             "PrePoint": {
-              "active": true
-            },
-            "PreSpec": {
               "active": true,
               "await": false
             },
@@ -935,20 +900,32 @@
               "active": true,
               "await": false
             },
+            "PreSpec": {
+              "active": true,
+              "await": false
+            },
             "PreTarget": {
               "active": false,
               "await": false
             },
-            "PostOperation": {
-              "active": false,
+            "SetData": {
+              "active": true,
+              "await": false
+            },
+            "SetMatch": {
+              "active": true,
               "await": false
             }
           },
+          "name": "test",
           "target": {
-            "ts": {
+            "go": {
               "deps": {}
             },
-            "go": {
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
               "deps": {}
             },
             "lua": {
@@ -963,22 +940,26 @@
             "rb": {
               "deps": {}
             },
-            "go-cli": {
-              "deps": {}
-            },
-            "go-mcp": {
+            "ts": {
               "deps": {}
             }
-          }
+          },
+          "title": "In-memory mock transport for testing without a live server",
+          "version": "0.0.1"
         }
       },
       "flow": {
         "BasicBoxFlow": {
+          "active": true,
           "entity": "box",
+          "key$": "BasicBoxFlow",
           "kind": "basic",
           "name": "BasicBoxFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "box_ref01"
               },
@@ -987,13 +968,16 @@
                 "sensor_id": "sensor01"
               },
               "op": "create",
-              "active": true,
-              "data": {},
               "spec": [],
               "valid": []
             },
             {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
               "op": "list",
+              "spec": [],
               "valid": [
                 {
                   "apply": "ItemExists",
@@ -1001,20 +985,18 @@
                     "ref": "box_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "match": {},
-              "data": {},
-              "input": {},
-              "spec": []
+              ]
             },
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "box_ref01",
                 "srcdatavar": "box_ref01_data",
                 "suffix": "_up0",
                 "textfield": "created_at"
               },
+              "match": {},
               "op": "update",
               "spec": [
                 {
@@ -1024,12 +1006,11 @@
                   }
                 }
               ],
-              "active": true,
-              "match": {},
-              "data": {},
               "valid": []
             },
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "box_ref01",
                 "srcdatavar": "box_ref01_data",
@@ -1039,6 +1020,7 @@
                 "id": "box01"
               },
               "op": "load",
+              "spec": [],
               "valid": [
                 {
                   "apply": "TextFieldMark",
@@ -1046,12 +1028,11 @@
                     "mark": "Mark01-box_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "data": {},
-              "spec": []
+              ]
             },
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "box_ref01",
                 "suffix": "_rm0"
@@ -1060,16 +1041,18 @@
                 "id": "box01"
               },
               "op": "remove",
-              "active": true,
-              "data": {},
               "spec": [],
               "valid": []
             },
             {
+              "active": true,
+              "data": {},
               "input": {
                 "suffix": "_rt0"
               },
+              "match": {},
               "op": "list",
+              "spec": [],
               "valid": [
                 {
                   "apply": "ItemNotExists",
@@ -1077,23 +1060,21 @@
                     "ref": "box_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "match": {},
-              "data": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicBoxFlow",
-          "active": true,
-          "param": {}
+          ]
         },
         "BasicMeasurementFlow": {
+          "active": true,
           "entity": "measurement",
+          "key$": "BasicMeasurementFlow",
           "kind": "basic",
           "name": "BasicMeasurementFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "measurement_ref01"
               },
@@ -1101,26 +1082,28 @@
                 "box_id": "box01"
               },
               "op": "create",
-              "active": true,
-              "data": {},
               "spec": [],
               "valid": []
             }
-          ],
-          "key$": "BasicMeasurementFlow",
-          "active": true,
-          "param": {}
+          ]
         },
         "BasicSensorFlow": {
+          "active": true,
           "entity": "sensor",
+          "key$": "BasicSensorFlow",
           "kind": "basic",
           "name": "BasicSensorFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
+              "input": {},
               "match": {
                 "box_id": "box01"
               },
               "op": "list",
+              "spec": [],
               "valid": [
                 {
                   "apply": "ItemExists",
@@ -1128,29 +1111,29 @@
                     "ref": "sensor_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "data": {},
-              "input": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicSensorFlow",
-          "active": true,
-          "param": {}
+          ]
         },
         "BasicStatisticFlow": {
+          "active": true,
           "entity": "statistic",
+          "key$": "BasicStatisticFlow",
           "kind": "basic",
           "name": "BasicStatisticFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "statistic_ref01",
                 "srcdatavar": "statistic_ref01_data",
                 "suffix": "_dt0"
               },
+              "match": {},
               "op": "load",
+              "spec": [],
               "valid": [
                 {
                   "apply": "TextFieldMark",
@@ -1158,35 +1141,36 @@
                     "mark": "Mark01-statistic_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "match": {},
-              "data": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicStatisticFlow",
-          "active": true,
-          "param": {}
+          ]
         },
         "BasicUserFlow": {
+          "active": true,
           "entity": "user",
+          "key$": "BasicUserFlow",
           "kind": "basic",
           "name": "BasicUserFlow",
+          "param": {},
           "step": [
             {
+              "active": true,
+              "data": {},
               "input": {
                 "ref": "user_ref01"
               },
-              "op": "create",
-              "active": true,
               "match": {},
-              "data": {},
+              "op": "create",
               "spec": [],
               "valid": []
             },
             {
+              "active": true,
+              "data": {},
+              "input": {},
+              "match": {},
               "op": "list",
+              "spec": [],
               "valid": [
                 {
                   "apply": "ItemExists",
@@ -1194,29 +1178,53 @@
                     "ref": "user_ref01"
                   }
                 }
-              ],
-              "active": true,
-              "match": {},
-              "data": {},
-              "input": {},
-              "spec": []
+              ]
             }
-          ],
-          "key$": "BasicUserFlow",
-          "active": true,
-          "param": {}
+          ]
         }
       },
+      "info": {
+        "contact": {
+          "name": "openSenseMap API Documentation",
+          "url": "https://docs.opensensemap.org/"
+        },
+        "description": "The openSenseMap API allows for managing users, senseBoxes (stations), and measurements, providing functionalities such as posting new data, retrieving sensor information, and managing senseBoxes. It also supports various operations with parameters for filtering and formatting responses, including JSON and CSV formats.",
+        "servers": [
+          {
+            "description": "Production server",
+            "url": "https://api.opensensemap.org"
+          }
+        ],
+        "title": "openSenseMap API",
+        "version": "1.0.0"
+      },
+      "option": {},
       "target": {
-        "go-cli": {
-          "title": "Go CLI",
-          "ext": "go",
+        "go": {
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "go",
           "module": {
             "name": "opensensemap"
           },
+          "name": "go",
+          "srcfeature": false,
+          "title": "Golang"
+        },
+        "go-cli": {
+          "active": true,
+          "comment": {
+            "line": "//"
+          },
+          "deps": {},
+          "ext": "go",
+          "module": {
+            "name": "opensensemap"
+          },
+          "name": "go-cli",
           "phase": {
             "entity": {
               "active": false
@@ -1231,19 +1239,19 @@
               "active": false
             }
           },
-          "deps": {},
-          "name": "go-cli",
-          "active": true
+          "title": "Go CLI"
         },
         "go-mcp": {
-          "title": "Go MCP server",
-          "ext": "go",
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "go",
           "module": {
             "name": "opensensemap"
           },
+          "name": "go-mcp",
           "phase": {
             "entity": {
               "active": false
@@ -1258,138 +1266,120 @@
               "active": false
             }
           },
-          "deps": {},
-          "name": "go-mcp",
-          "active": true
-        },
-        "ts": {
-          "title": "TypeScript",
-          "ext": "ts",
-          "comment": {
-            "line": "//"
-          },
-          "module": {
-            "name": "opensensemap"
-          },
-          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
-          "deps": {
-            "dotenv": {
-              "active": true,
-              "version": "^17.4.2",
-              "kind": "dev"
-            },
-            "typescript": {
-              "active": true,
-              "version": "^5.9.3",
-              "kind": "dev"
-            },
-            "@types/node": {
-              "active": true,
-              "version": "^25.6.0",
-              "kind": "dev"
-            }
-          },
-          "name": "ts",
-          "active": true
-        },
-        "go": {
-          "title": "Golang",
-          "ext": "go",
-          "comment": {
-            "line": "//"
-          },
-          "module": {
-            "name": "opensensemap"
-          },
-          "srcfeature": false,
-          "deps": {},
-          "name": "go",
-          "active": true
+          "title": "Go MCP server"
         },
         "lua": {
-          "title": "Lua",
-          "ext": "lua",
+          "active": true,
           "comment": {
             "line": "--"
           },
-          "module": {
-            "name": "opensensemap"
-          },
-          "srcfeature": false,
           "deps": {
             "dkjson": {
               "active": true,
-              "version": "2.5",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "2.5"
             }
           },
+          "ext": "lua",
+          "module": {
+            "name": "opensensemap"
+          },
           "name": "lua",
-          "active": true
+          "srcfeature": false,
+          "title": "Lua"
         },
         "php": {
-          "title": "PHP",
-          "ext": "php",
+          "active": true,
           "comment": {
             "line": "//"
           },
+          "deps": {},
+          "ext": "php",
           "module": {
             "name": "opensensemap"
           },
-          "srcfeature": false,
-          "deps": {},
           "name": "php",
-          "active": true
+          "srcfeature": false,
+          "title": "PHP"
         },
         "py": {
-          "title": "Python",
-          "ext": "py",
+          "active": true,
           "comment": {
             "line": "#"
           },
-          "module": {
-            "name": "opensensemap"
-          },
-          "srcfeature": false,
           "deps": {
             "requests": {
               "active": true,
-              "version": "2.33",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "2.33"
             }
           },
-          "name": "py",
-          "active": true
-        },
-        "rb": {
-          "title": "Ruby",
-          "ext": "rb",
-          "comment": {
-            "line": "#"
-          },
+          "ext": "py",
           "module": {
             "name": "opensensemap"
           },
+          "name": "py",
           "srcfeature": false,
+          "title": "Python"
+        },
+        "rb": {
+          "active": true,
+          "comment": {
+            "line": "#"
+          },
           "deps": {
-            "voxgig-struct": {
-              "active": true,
-              "version": "0.0.10",
-              "kind": "prod"
-            },
             "json": {
               "active": true,
-              "version": "0",
-              "kind": "prod"
+              "kind": "prod",
+              "version": "0"
+            },
+            "voxgig-struct": {
+              "active": true,
+              "kind": "prod",
+              "version": "0.0.10"
             }
           },
+          "ext": "rb",
+          "module": {
+            "name": "opensensemap"
+          },
           "name": "rb",
-          "active": true
+          "srcfeature": false,
+          "title": "Ruby"
+        },
+        "ts": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "comment": {
+            "line": "//"
+          },
+          "deps": {
+            "@types/node": {
+              "active": true,
+              "kind": "dev",
+              "version": "^25.6.0"
+            },
+            "dotenv": {
+              "active": true,
+              "kind": "dev",
+              "version": "^17.4.2"
+            },
+            "typescript": {
+              "active": true,
+              "kind": "dev",
+              "version": "^5.9.3"
+            }
+          },
+          "ext": "ts",
+          "module": {
+            "name": "opensensemap"
+          },
+          "name": "ts",
+          "title": "TypeScript"
         }
-      },
-      "option": {}
-    },
-    "def": {
-      "desc": ""
+      }
     }
-  }
+  },
+  "name": "opensensemap",
+  "origin": "voxgig-sdk"
 }

@@ -130,6 +130,7 @@ func userBasicSetup(extra map[string]any) *entityTestSetup {
 		"OPENSENSEMAP_TEST_USER_ENTID": idmap,
 		"OPENSENSEMAP_TEST_LIVE":      "FALSE",
 		"OPENSENSEMAP_TEST_EXPLAIN":   "FALSE",
+		"OPENSENSEMAP_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["OPENSENSEMAP_TEST_USER_ENTID"])
@@ -140,6 +141,7 @@ func userBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["OPENSENSEMAP_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["OPENSENSEMAP_APIKEY"],
 			},
 			extra,
 		})

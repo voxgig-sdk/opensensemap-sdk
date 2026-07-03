@@ -1,6 +1,11 @@
 # Opensensemap Python SDK
 
-The Python SDK for the Opensensemap API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the Opensensemap API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from opensensemap_sdk import OpensensemapSDK
 
-client = OpensensemapSDK({})
+client = OpensensemapSDK({
+    "apikey": os.environ.get("OPENSENSEMAP_APIKEY"),
+})
 ```
 
 ### 2. List boxs
 
 ```python
-result, err = client.Box(None).list(None, None)
+result, err = client.Box().list()
 if err:
     raise Exception(err)
 
@@ -44,7 +52,7 @@ if isinstance(result, list):
 ### 3. Load a box
 
 ```python
-result, err = client.Box(None).load({"id": "example_id"}, None)
+result, err = client.Box().load({"id": "example_id"})
 if err:
     raise Exception(err)
 print(result)
@@ -54,13 +62,13 @@ print(result)
 
 ```python
 # Create
-created, _ = client.Box(None).create({"name": "Example"}, None)
+created, _ = client.Box().create({"name": "Example"})
 
 # Update
-client.Box(None).update({"id": created["id"], "name": "Example-Renamed"}, None)
+client.Box().update({"id": created["id"], "name": "Example-Renamed"})
 
 # Remove
-client.Box(None).remove({"id": created["id"]}, None)
+client.Box().remove({"id": created["id"]})
 ```
 
 
@@ -105,11 +113,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = OpensensemapSDK.test(None, None)
+client = OpensensemapSDK.test()
 
-result, err = client.Opensensemap(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.Opensensemap().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -140,6 +146,7 @@ Create a `.env.local` file at the project root:
 
 ```
 OPENSENSEMAP_TEST_LIVE=TRUE
+OPENSENSEMAP_APIKEY=<your-key>
 ```
 
 Then run:
@@ -163,6 +170,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

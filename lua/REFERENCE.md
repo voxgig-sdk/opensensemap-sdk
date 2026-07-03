@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -142,8 +142,8 @@ local box = client:Box(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Box(nil):create({
-}, nil)
+local result, err = client:Box():create({
+})
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
@@ -151,7 +151,7 @@ local result, err = client:Box(nil):create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Box(nil):list(nil, nil)
+local results, err = client:Box():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -159,7 +159,7 @@ local results, err = client:Box(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Box(nil):load({ id = "box_id" }, nil)
+local result, err = client:Box():load({ id = "box_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -167,7 +167,7 @@ local result, err = client:Box(nil):load({ id = "box_id" }, nil)
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Box(nil):remove({ id = "box_id" }, nil)
+local result, err = client:Box():remove({ id = "box_id" })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -175,10 +175,10 @@ local result, err = client:Box(nil):remove({ id = "box_id" }, nil)
 Update an existing entity. The data must include the entity `id`.
 
 ```lua
-local result, err = client:Box(nil):update({
+local result, err = client:Box():update({
   id = "box_id",
   -- Fields to update
-}, nil)
+})
 ```
 
 ### Common Methods
@@ -224,8 +224,8 @@ local measurement = client:Measurement(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Measurement(nil):create({
-}, nil)
+local result, err = client:Measurement():create({
+})
 ```
 
 ### Common Methods
@@ -282,7 +282,7 @@ local sensor = client:Sensor(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Sensor(nil):list(nil, nil)
+local results, err = client:Sensor():list()
 ```
 
 ### Common Methods
@@ -339,7 +339,7 @@ local statistic = client:Statistic(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Statistic(nil):load({ id = "statistic_id" }, nil)
+local result, err = client:Statistic():load({ id = "statistic_id" })
 ```
 
 ### Common Methods
@@ -413,11 +413,11 @@ local user = client:User(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:User(nil):create({
+local result, err = client:User():create({
   email = --[[ `$STRING` ]],
   name = --[[ `$STRING` ]],
   password = --[[ `$STRING` ]],
-}, nil)
+})
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
@@ -425,7 +425,7 @@ local result, err = client:User(nil):create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:User(nil):list(nil, nil)
+local results, err = client:User():list()
 ```
 
 ### Common Methods

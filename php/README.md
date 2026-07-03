@@ -1,6 +1,11 @@
 # Opensensemap PHP SDK
 
-The PHP SDK for the Opensensemap API. Provides an entity-oriented interface using PHP conventions.
+
+
+The PHP SDK for the Opensensemap API — an entity-oriented client using PHP conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -20,13 +25,15 @@ loading a specific record.
 <?php
 require_once 'opensensemap_sdk.php';
 
-$client = new OpensensemapSDK([]);
+$client = new OpensensemapSDK([
+    "apikey" => getenv("OPENSENSEMAP_APIKEY"),
+]);
 ```
 
 ### 2. List boxs
 
 ```php
-[$result, $err] = $client->Box(null)->list(null, null);
+[$result, $err] = $client->Box()->list();
 if ($err) { throw new \Exception($err); }
 
 if (is_array($result)) {
@@ -40,7 +47,7 @@ if (is_array($result)) {
 ### 3. Load a box
 
 ```php
-[$result, $err] = $client->Box(null)->load(["id" => "example_id"], null);
+[$result, $err] = $client->Box()->load(["id" => "example_id"]);
 if ($err) { throw new \Exception($err); }
 print_r($result);
 ```
@@ -49,13 +56,13 @@ print_r($result);
 
 ```php
 // Create
-[$created, $_] = $client->Box(null)->create(["name" => "Example"], null);
+[$created, $_] = $client->Box()->create(["name" => "Example"]);
 
 // Update
-$client->Box(null)->update(["id" => $created["id"], "name" => "Example-Renamed"], null);
+$client->Box()->update(["id" => $created["id"], "name" => "Example-Renamed"]);
 
 // Remove
-$client->Box(null)->remove(["id" => $created["id"]], null);
+$client->Box()->remove(["id" => $created["id"]]);
 ```
 
 
@@ -99,11 +106,9 @@ print_r($fetchdef["headers"]);
 Create a mock client for unit testing — no server required:
 
 ```php
-$client = OpensensemapSDK::test(null, null);
+$client = OpensensemapSDK::test();
 
-[$result, $err] = $client->Opensensemap(null)->load(
-    ["id" => "test01"], null
-);
+[$result, $err] = $client->Opensensemap()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -138,6 +143,7 @@ Create a `.env.local` file at the project root:
 
 ```
 OPENSENSEMAP_TEST_LIVE=TRUE
+OPENSENSEMAP_APIKEY=<your-key>
 ```
 
 Then run:
@@ -160,6 +166,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

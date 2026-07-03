@@ -113,6 +113,7 @@ function basicSetup(extra?: any) {
     'OPENSENSEMAP_TEST_STATISTIC_ENTID': idmap,
     'OPENSENSEMAP_TEST_LIVE': 'FALSE',
     'OPENSENSEMAP_TEST_EXPLAIN': 'FALSE',
+    'OPENSENSEMAP_APIKEY': 'NONE',
   })
 
   idmap = env['OPENSENSEMAP_TEST_STATISTIC_ENTID']
@@ -122,6 +123,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new OpensensemapSDK(merge([
       {
+        apikey: env.OPENSENSEMAP_APIKEY,
       },
       extra
     ]))

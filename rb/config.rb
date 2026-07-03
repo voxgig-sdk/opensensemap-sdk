@@ -15,6 +15,9 @@ module OpensensemapConfig
       },
       "options" => {
         "base" => "https://api.opensensemap.org",
+        "auth" => {
+          "prefix" => "Bearer",
+        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -30,20 +33,21 @@ module OpensensemapConfig
         "box" => {
           "fields" => [
             {
+              "active" => true,
               "name" => "created_at",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 0,
             },
             {
+              "active" => true,
               "name" => "description",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 1,
             },
             {
+              "active" => true,
               "name" => "exposure",
               "op" => {
                 "create" => {
@@ -57,24 +61,24 @@ module OpensensemapConfig
               },
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 2,
             },
             {
+              "active" => true,
               "name" => "grouptag",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 3,
             },
             {
+              "active" => true,
               "name" => "id",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 4,
             },
             {
+              "active" => true,
               "name" => "location",
               "op" => {
                 "create" => {
@@ -88,17 +92,17 @@ module OpensensemapConfig
               },
               "req" => false,
               "type" => "`$OBJECT`",
-              "active" => true,
               "index$" => 5,
             },
             {
+              "active" => true,
               "name" => "model",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 6,
             },
             {
+              "active" => true,
               "name" => "name",
               "op" => {
                 "create" => {
@@ -112,103 +116,104 @@ module OpensensemapConfig
               },
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 7,
             },
             {
+              "active" => true,
               "name" => "sensor",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 8,
             },
             {
+              "active" => true,
               "name" => "updated_at",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 9,
             },
             {
+              "active" => true,
               "name" => "value",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 10,
             },
           ],
           "name" => "box",
           "op" => {
             "create" => {
+              "input" => "data",
               "name" => "create",
               "points" => [
                 {
+                  "active" => true,
+                  "args" => {},
                   "method" => "POST",
                   "orig" => "/boxes",
                   "parts" => [
                     "boxes",
                   ],
+                  "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
-                  "args" => {},
-                  "select" => {},
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "create",
             },
             "list" => {
+              "input" => "data",
               "name" => "list",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "kind" => "param",
                         "name" => "box_id",
                         "orig" => "box_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "kind" => "param",
                         "name" => "sensor_id",
                         "orig" => "sensor_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                     "query" => [
                       {
+                        "active" => true,
                         "example" => "json",
                         "kind" => "query",
                         "name" => "format",
                         "orig" => "format",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "from_date",
                         "orig" => "from_date",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "to_date",
                         "orig" => "to_date",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -238,44 +243,44 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
                 {
+                  "active" => true,
                   "args" => {
                     "query" => [
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "bbox",
                         "orig" => "bbox",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "exposure",
                         "orig" => "exposure",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "example" => "json",
                         "kind" => "query",
                         "name" => "format",
                         "orig" => "format",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "grouptag",
                         "orig" => "grouptag",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -296,37 +301,37 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 1,
                 },
               ],
-              "input" => "data",
               "key$" => "list",
             },
             "load" => {
+              "input" => "data",
               "name" => "load",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "kind" => "param",
                         "name" => "id",
                         "orig" => "box_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                     "query" => [
                       {
+                        "active" => true,
                         "example" => "json",
                         "kind" => "query",
                         "name" => "format",
                         "orig" => "format",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -351,26 +356,26 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "load",
             },
             "remove" => {
+              "input" => "data",
               "name" => "remove",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "kind" => "param",
                         "name" => "id",
                         "orig" => "box_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -394,26 +399,26 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "remove",
             },
             "update" => {
+              "input" => "data",
               "name" => "update",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "kind" => "param",
                         "name" => "id",
                         "orig" => "box_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -437,11 +442,9 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "update",
             },
           },
@@ -458,18 +461,20 @@ module OpensensemapConfig
           "name" => "measurement",
           "op" => {
             "create" => {
+              "input" => "data",
               "name" => "create",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "kind" => "param",
                         "name" => "box_id",
                         "orig" => "box_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -494,11 +499,9 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "create",
             },
           },
@@ -513,63 +516,65 @@ module OpensensemapConfig
         "sensor" => {
           "fields" => [
             {
+              "active" => true,
               "name" => "icon",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 0,
             },
             {
+              "active" => true,
               "name" => "id",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 1,
             },
             {
+              "active" => true,
               "name" => "last_measurement",
               "req" => false,
               "type" => "`$OBJECT`",
-              "active" => true,
               "index$" => 2,
             },
             {
+              "active" => true,
               "name" => "sensor_type",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 3,
             },
             {
+              "active" => true,
               "name" => "title",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 4,
             },
             {
+              "active" => true,
               "name" => "unit",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 5,
             },
           ],
           "name" => "sensor",
           "op" => {
             "list" => {
+              "input" => "data",
               "name" => "list",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "params" => [
                       {
+                        "active" => true,
                         "kind" => "param",
                         "name" => "box_id",
                         "orig" => "box_id",
                         "reqd" => true,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -594,11 +599,9 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "list",
             },
           },
@@ -613,87 +616,89 @@ module OpensensemapConfig
         "statistic" => {
           "fields" => [
             {
+              "active" => true,
               "name" => "count",
               "req" => false,
               "type" => "`$INTEGER`",
-              "active" => true,
               "index$" => 0,
             },
             {
+              "active" => true,
               "name" => "max",
               "req" => false,
               "type" => "`$NUMBER`",
-              "active" => true,
               "index$" => 1,
             },
             {
+              "active" => true,
               "name" => "mean",
               "req" => false,
               "type" => "`$NUMBER`",
-              "active" => true,
               "index$" => 2,
             },
             {
+              "active" => true,
               "name" => "median",
               "req" => false,
               "type" => "`$NUMBER`",
-              "active" => true,
               "index$" => 3,
             },
             {
+              "active" => true,
               "name" => "min",
               "req" => false,
               "type" => "`$NUMBER`",
-              "active" => true,
               "index$" => 4,
             },
             {
+              "active" => true,
               "name" => "sum",
               "req" => false,
               "type" => "`$NUMBER`",
-              "active" => true,
               "index$" => 5,
             },
           ],
           "name" => "statistic",
           "op" => {
             "load" => {
+              "input" => "data",
               "name" => "load",
               "points" => [
                 {
+                  "active" => true,
                   "args" => {
                     "query" => [
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "box_id",
                         "orig" => "box_id",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "from_date",
                         "orig" => "from_date",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "sensor_id",
                         "orig" => "sensor_id",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                       {
+                        "active" => true,
                         "kind" => "query",
                         "name" => "to_date",
                         "orig" => "to_date",
                         "reqd" => false,
                         "type" => "`$STRING`",
-                        "active" => true,
                       },
                     ],
                   },
@@ -716,11 +721,9 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "load",
             },
           },
@@ -731,20 +734,21 @@ module OpensensemapConfig
         "user" => {
           "fields" => [
             {
+              "active" => true,
               "name" => "box",
               "req" => false,
               "type" => "`$ARRAY`",
-              "active" => true,
               "index$" => 0,
             },
             {
+              "active" => true,
               "name" => "created_at",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 1,
             },
             {
+              "active" => true,
               "name" => "email",
               "op" => {
                 "list" => {
@@ -754,17 +758,17 @@ module OpensensemapConfig
               },
               "req" => true,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 2,
             },
             {
+              "active" => true,
               "name" => "id",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 3,
             },
             {
+              "active" => true,
               "name" => "name",
               "op" => {
                 "list" => {
@@ -774,44 +778,46 @@ module OpensensemapConfig
               },
               "req" => true,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 4,
             },
             {
+              "active" => true,
               "name" => "password",
               "req" => true,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 5,
             },
             {
+              "active" => true,
               "name" => "role",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 6,
             },
             {
+              "active" => true,
               "name" => "token",
               "req" => false,
               "type" => "`$STRING`",
-              "active" => true,
               "index$" => 7,
             },
             {
+              "active" => true,
               "name" => "user",
               "req" => false,
               "type" => "`$OBJECT`",
-              "active" => true,
               "index$" => 8,
             },
           ],
           "name" => "user",
           "op" => {
             "create" => {
+              "input" => "data",
               "name" => "create",
               "points" => [
                 {
+                  "active" => true,
+                  "args" => {},
                   "method" => "POST",
                   "orig" => "/users/register",
                   "parts" => [
@@ -825,11 +831,11 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
-                  "args" => {},
                   "index$" => 0,
                 },
                 {
+                  "active" => true,
+                  "args" => {},
                   "method" => "POST",
                   "orig" => "/users/sign-in",
                   "parts" => [
@@ -841,20 +847,20 @@ module OpensensemapConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.user`",
                   },
-                  "active" => true,
-                  "args" => {},
                   "index$" => 1,
                 },
               ],
-              "input" => "data",
               "key$" => "create",
             },
             "list" => {
+              "input" => "data",
               "name" => "list",
               "points" => [
                 {
+                  "active" => true,
+                  "args" => {},
                   "method" => "GET",
                   "orig" => "/users/me",
                   "parts" => [
@@ -868,12 +874,9 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                  "active" => true,
-                  "args" => {},
                   "index$" => 0,
                 },
               ],
-              "input" => "data",
               "key$" => "list",
             },
           },

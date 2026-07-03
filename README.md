@@ -1,21 +1,8 @@
 # Opensensemap SDK
 
-Citizen-science platform for registering senseBoxes and sharing environmental sensor measurements
+openSenseMap API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About openSenseMap API
-
-[openSenseMap](https://opensensemap.org) is an open data platform that collects and publishes environmental measurements from citizen-science sensor stations called senseBoxes. The API at `https://api.opensensemap.org` lets you register and administer boxes, post new sensor readings, and query measurements and statistics from boxes around the world.
-
-What you get from the API:
-
-- Box management: list, retrieve, create, update, claim, and delete senseBoxes, and fetch the Arduino sketch for a given hardware configuration
-- Measurements: submit individual or batched sensor readings, fetch raw and aggregated measurement data across boxes, and retrieve location history for mobile boxes
-- Statistics: descriptive statistics, inverse-distance-weighting (IDW) interpolation across an area, and platform-wide counts
-- Users: registration, sign-in, sign-out, password reset, JWT refresh, and profile management
-
-Public read endpoints (boxes, sensors, measurements, statistics) require no authentication and CORS is enabled. Write operations and any per-user data use JWT bearer tokens issued by the sign-in endpoint. Responses are returned as JSON, with CSV and GeoJSON available for several measurement and box endpoints.
 
 ## Try it
 
@@ -49,29 +36,31 @@ gem install opensensemap-sdk
 luarocks install opensensemap-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { OpensensemapSDK } from 'opensensemap'
 
-const client = new OpensensemapSDK({})
+const client = new OpensensemapSDK({
+  apikey: process.env.OPENSENSEMAP_APIKEY,
+})
 
 // List all boxs
 const boxs = await client.Box().list()
+console.log(boxs.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -101,11 +90,11 @@ The API exposes 5 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Box** | A senseBox sensor station registered on the platform, exposed via `/boxes` and `/boxes/{boxId}` for listing, retrieval, registration, and administration. | `/boxes` |
-| **Measurement** | Individual sensor readings posted to and read from a box, via endpoints such as `/boxes/{boxId}/{sensorId}` and the cross-box `/boxes/data` query. | `/boxes/{boxId}/data` |
-| **Sensor** | A single phenomenon (e.g. temperature, PM2.5) attached to a box, addressed under `/boxes/{boxId}/sensors` and used as the target for measurement uploads. | `/boxes/{boxId}/sensors` |
-| **Statistic** | Aggregate views over measurements and the platform, including descriptive statistics, IDW interpolation, and overall counts under `/statistics`. | `/statistics/descriptive` |
-| **User** | Registered account that can own and administer boxes; managed through `/users` endpoints for sign-up, sign-in, profile, and JWT refresh. | `/users/register` |
+| **Box** |  | `/boxes` |
+| **Measurement** |  | `/boxes/{boxId}/data` |
+| **Sensor** |  | `/boxes/{boxId}/sensors` |
+| **Statistic** |  | `/statistics/descriptive` |
+| **User** |  | `/users/register` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -115,17 +104,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from opensensemap_sdk import OpensensemapSDK
 
-client = OpensensemapSDK({})
+client = OpensensemapSDK({
+    "apikey": os.environ.get("OPENSENSEMAP_APIKEY"),
+})
 
 # List all boxs
-boxs, err = client.Box(None).list(None, None)
+boxs, err = client.Box().list()
+print(boxs)
 
 # Load a specific box
-box, err = client.Box(None).load(
-    {"id": "example_id"}, None
-)
+box, err = client.Box().load({"id": "example_id"})
+print(box)
 ```
 
 ### PHP
@@ -134,15 +126,17 @@ box, err = client.Box(None).load(
 <?php
 require_once 'opensensemap_sdk.php';
 
-$client = new OpensensemapSDK([]);
+$client = new OpensensemapSDK([
+    "apikey" => getenv("OPENSENSEMAP_APIKEY"),
+]);
 
 // List all boxs
-[$boxs, $err] = $client->Box(null)->list(null, null);
+[$boxs, $err] = $client->Box()->list();
+print_r($boxs);
 
 // Load a specific box
-[$box, $err] = $client->Box(null)->load(
-    ["id" => "example_id"], null
-);
+[$box, $err] = $client->Box()->load(["id" => "example_id"]);
+print_r($box);
 ```
 
 ### Golang
@@ -150,10 +144,13 @@ $client = new OpensensemapSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/opensensemap-sdk/go"
 
-client := sdk.NewOpensensemapSDK(map[string]any{})
+client := sdk.NewOpensensemapSDK(map[string]any{
+    "apikey": os.Getenv("OPENSENSEMAP_APIKEY"),
+})
 
 // List all boxs
 boxs, err := client.Box(nil).List(nil, nil)
+fmt.Println(boxs)
 ```
 
 ### Ruby
@@ -161,15 +158,17 @@ boxs, err := client.Box(nil).List(nil, nil)
 ```ruby
 require_relative "Opensensemap_sdk"
 
-client = OpensensemapSDK.new({})
+client = OpensensemapSDK.new({
+  "apikey" => ENV["OPENSENSEMAP_APIKEY"],
+})
 
 # List all boxs
-boxs, err = client.Box(nil).list(nil, nil)
+boxs, err = client.Box().list
+puts boxs
 
 # Load a specific box
-box, err = client.Box(nil).load(
-  { "id" => "example_id" }, nil
-)
+box, err = client.Box().load({ "id" => "example_id" })
+puts box
 ```
 
 ### Lua
@@ -177,15 +176,17 @@ box, err = client.Box(nil).load(
 ```lua
 local sdk = require("opensensemap_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("OPENSENSEMAP_APIKEY"),
+})
 
 -- List all boxs
-local boxs, err = client:Box(nil):list(nil, nil)
+local boxs, err = client:Box():list()
+print(boxs)
 
 -- Load a specific box
-local box, err = client:Box(nil):load(
-  { id = "example_id" }, nil
-)
+local box, err = client:Box():load({ id = "example_id" })
+print(box)
 ```
 
 ## Unit testing in offline mode
@@ -204,25 +205,21 @@ const result = await client.Box().load({ id: 'test01' })
 ### Python
 
 ```python
-client = OpensensemapSDK.test(None, None)
-result, err = client.Box(None).load(
-    {"id": "test01"}, None
-)
+client = OpensensemapSDK.test()
+result, err = client.Box().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = OpensensemapSDK::test(null, null);
-[$result, $err] = $client->Box(null)->load(
-    ["id" => "test01"], null
-);
+$client = OpensensemapSDK::test();
+[$result, $err] = $client->Box()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Box(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -231,19 +228,15 @@ result, err := client.Box(nil).Load(
 ### Ruby
 
 ```ruby
-client = OpensensemapSDK.test(nil, nil)
-result, err = client.Box(nil).load(
-  { "id" => "test01" }, nil
-)
+client = OpensensemapSDK.test
+result, err = client.Box().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Box(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Box():load({ id = "test01" })
 ```
 
 ## How it works
@@ -347,11 +340,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the openSenseMap API
-
-- Upstream: [https://opensensemap.org](https://opensensemap.org)
-- API docs: [https://docs.opensensemap.org](https://docs.opensensemap.org)
 
 ---
 

@@ -82,12 +82,14 @@ function sensor_direct_setup($mockres)
     $env = Runner::env_override([
         "OPENSENSEMAP_TEST_SENSOR_ENTID" => [],
         "OPENSENSEMAP_TEST_LIVE" => "FALSE",
+        "OPENSENSEMAP_APIKEY" => "NONE",
     ]);
 
     $live = $env["OPENSENSEMAP_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
+            "apikey" => $env["OPENSENSEMAP_APIKEY"],
         ];
         $client = new OpensensemapSDK($merged_opts);
         return [

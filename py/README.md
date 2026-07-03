@@ -10,7 +10,7 @@ The Python SDK for the Opensensemap API — an entity-oriented client following 
 
 ## Install
 ```bash
-pip install opensensemap-sdk
+pip install voxgig-sdk-opensensemap
 ```
 
 Or install from source:

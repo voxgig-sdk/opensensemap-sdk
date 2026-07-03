@@ -10,7 +10,7 @@ The TypeScript SDK for the Opensensemap API — a type-safe, entity-oriented cli
 
 ## Install
 ```bash
-npm install opensensemap
+npm install @voxgig-sdk/opensensemap
 ```
 ## Tutorial: your first API call
 

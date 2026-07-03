@@ -8,12 +8,14 @@ source = {
   dir = "opensensemap-sdk/lua"
 }
 description = {
-  summary = "Opensensemap SDK for Lua",
-  license = "MIT"
+  summary = "Unofficial generated Lua SDK for the openSenseMap public API. Not affiliated with or endorsed by the upstream API provider.",
+  homepage = "https://github.com/voxgig-sdk/opensensemap-sdk",
+  issues_url = "https://github.com/voxgig-sdk/opensensemap-sdk/issues",
+  license = "MIT",
+  labels = { "voxgig", "sdk", "generated-sdk", "openapi", "api-client", "opensensemap" }
 }
 dependencies = {
   "lua >= 5.3",
-  "dkjson >= 2.5",
   "dkjson >= 2.5",
 }
 build = {

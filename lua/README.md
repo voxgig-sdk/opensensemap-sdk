@@ -10,7 +10,7 @@ The Lua SDK for the Opensensemap API — an entity-oriented client using Lua con
 
 ## Install
 ```bash
-luarocks install opensensemap-sdk
+luarocks install voxgig-sdk-opensensemap
 ```
 
 If the module is not yet published, add the source directory to

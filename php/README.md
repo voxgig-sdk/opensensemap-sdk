@@ -10,7 +10,7 @@ The PHP SDK for the Opensensemap API — an entity-oriented client using PHP con
 
 ## Install
 ```bash
-composer require voxgig/opensensemap-sdk
+composer require voxgig-sdk/opensensemap
 ```
 
 

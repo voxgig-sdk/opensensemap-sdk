@@ -10,13 +10,13 @@ The Ruby SDK for the Opensensemap API — an entity-oriented client using idioma
 
 ## Install
 ```bash
-gem install opensensemap-sdk
+gem install voxgig-sdk-opensensemap
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "opensensemap-sdk"
+gem "voxgig-sdk-opensensemap"
 ```
 
 Then run:

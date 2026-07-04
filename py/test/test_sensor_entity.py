@@ -52,8 +52,7 @@ class TestSensorEntity:
             "box_id": setup["idmap"]["box01"],
         }
 
-        sensor_ref01_list_result, err = sensor_ref01_ent.list(sensor_ref01_match, None)
-        assert err is None
+        sensor_ref01_list_result = sensor_ref01_ent.list(sensor_ref01_match, None)
         assert isinstance(sensor_ref01_list_result, list)
 
 

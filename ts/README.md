@@ -9,9 +9,12 @@ The TypeScript SDK for the Opensensemap API — a type-safe, entity-oriented cli
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/opensensemap
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/opensensemap-sdk/releases](https://github.com/voxgig-sdk/opensensemap-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,7 +23,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { OpensensemapSDK } from 'opensensemap'
+import { OpensensemapSDK } from '@voxgig-sdk/opensensemap'
 
 const client = new OpensensemapSDK({
   apikey: process.env.OPENSENSEMAP_APIKEY,
@@ -30,7 +33,7 @@ const client = new OpensensemapSDK({
 ### 2. List boxs
 
 ```ts
-const result = await client.Box().list()
+const result = await client.box.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -42,7 +45,7 @@ if (result.ok) {
 ### 3. Load a box
 
 ```ts
-const result = await client.Box().load({ id: 'example_id' })
+const result = await client.box.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -53,18 +56,18 @@ if (result.ok) {
 
 ```ts
 // Create
-const created = await client.Box().create({
+const created = await client.box.create({
   name: 'Example',
 })
 
 // Update
-const updated = await client.Box().update({
+const updated = await client.box.update({
   id: created.data.id,
   name: 'Example-Renamed',
 })
 
 // Remove
-const removed = await client.Box().remove({
+const removed = await client.box.remove({
   id: created.data.id,
 })
 ```
@@ -111,7 +114,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = OpensensemapSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.box.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -128,7 +131,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.box
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -369,7 +372,7 @@ API path: `/users/register`
 
 ### Box
 
-Create an instance: `const box = client.Box()`
+Create an instance: `const box = client.box`
 
 #### Operations
 
@@ -400,26 +403,26 @@ Create an instance: `const box = client.Box()`
 #### Example: Load
 
 ```ts
-const box = await client.Box().load({ id: 'box_id' })
+const box = await client.box.load({ id: 'box_id' })
 ```
 
 #### Example: List
 
 ```ts
-const boxs = await client.Box().list()
+const boxs = await client.box.list()
 ```
 
 #### Example: Create
 
 ```ts
-const box = await client.Box().create({
+const box = await client.box.create({
 })
 ```
 
 
 ### Measurement
 
-Create an instance: `const measurement = client.Measurement()`
+Create an instance: `const measurement = client.measurement`
 
 #### Operations
 
@@ -430,14 +433,14 @@ Create an instance: `const measurement = client.Measurement()`
 #### Example: Create
 
 ```ts
-const measurement = await client.Measurement().create({
+const measurement = await client.measurement.create({
 })
 ```
 
 
 ### Sensor
 
-Create an instance: `const sensor = client.Sensor()`
+Create an instance: `const sensor = client.sensor`
 
 #### Operations
 
@@ -459,13 +462,13 @@ Create an instance: `const sensor = client.Sensor()`
 #### Example: List
 
 ```ts
-const sensors = await client.Sensor().list()
+const sensors = await client.sensor.list()
 ```
 
 
 ### Statistic
 
-Create an instance: `const statistic = client.Statistic()`
+Create an instance: `const statistic = client.statistic`
 
 #### Operations
 
@@ -487,13 +490,13 @@ Create an instance: `const statistic = client.Statistic()`
 #### Example: Load
 
 ```ts
-const statistic = await client.Statistic().load({ id: 'statistic_id' })
+const statistic = await client.statistic.load({ id: 'statistic_id' })
 ```
 
 
 ### User
 
-Create an instance: `const user = client.User()`
+Create an instance: `const user = client.user`
 
 #### Operations
 
@@ -519,13 +522,13 @@ Create an instance: `const user = client.User()`
 #### Example: List
 
 ```ts
-const users = await client.User().list()
+const users = await client.user.list()
 ```
 
 #### Example: Create
 
 ```ts
-const user = await client.User().create({
+const user = await client.user.create({
   email: /* `$STRING` */,
   name: /* `$STRING` */,
   password: /* `$STRING` */,
@@ -590,7 +593,7 @@ opensensemap/
 Import the SDK from the package root:
 
 ```ts
-import { OpensensemapSDK } from 'opensensemap'
+import { OpensensemapSDK } from '@voxgig-sdk/opensensemap'
 ```
 
 ### Entity state
@@ -600,11 +603,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const box = client.box
+await box.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// box.data() now returns the loaded box data
+// box.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

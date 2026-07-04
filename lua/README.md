@@ -9,12 +9,9 @@ The Lua SDK for the Opensensemap API — an entity-oriented client using Lua con
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-opensensemap
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/opensensemap-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -39,7 +36,7 @@ local client = sdk.new({
 ### 2. List boxs
 
 ```lua
-local result, err = client:Box():list()
+local result, err = client:box():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -53,7 +50,7 @@ end
 ### 3. Load a box
 
 ```lua
-local result, err = client:Box():load({ id = "example_id" })
+local result, err = client:box():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -62,13 +59,13 @@ print(result)
 
 ```lua
 -- Create
-local created, _ = client:Box():create({ name = "Example" })
+local created, _ = client:box():create({ name = "Example" })
 
 -- Update
-client:Box():update({ id = created["id"], name = "Example-Renamed" })
+client:box():update({ id = created["id"], name = "Example-Renamed" })
 
 -- Remove
-client:Box():remove({ id = created["id"] })
+client:box():remove({ id = created["id"] })
 ```
 
 
@@ -114,7 +111,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Opensensemap():load({ id = "test01" })
+local result, err = client:box():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -319,7 +316,7 @@ API path: `/users/register`
 
 ### Box
 
-Create an instance: `const box = client.Box()`
+Create an instance: `const box = client.box`
 
 #### Operations
 
@@ -350,26 +347,26 @@ Create an instance: `const box = client.Box()`
 #### Example: Load
 
 ```ts
-const box = await client.Box().load({ id: 'box_id' })
+const box = await client.box.load({ id: 'box_id' })
 ```
 
 #### Example: List
 
 ```ts
-const boxs = await client.Box().list()
+const boxs = await client.box.list()
 ```
 
 #### Example: Create
 
 ```ts
-const box = await client.Box().create({
+const box = await client.box.create({
 })
 ```
 
 
 ### Measurement
 
-Create an instance: `const measurement = client.Measurement()`
+Create an instance: `const measurement = client.measurement`
 
 #### Operations
 
@@ -380,14 +377,14 @@ Create an instance: `const measurement = client.Measurement()`
 #### Example: Create
 
 ```ts
-const measurement = await client.Measurement().create({
+const measurement = await client.measurement.create({
 })
 ```
 
 
 ### Sensor
 
-Create an instance: `const sensor = client.Sensor()`
+Create an instance: `const sensor = client.sensor`
 
 #### Operations
 
@@ -409,13 +406,13 @@ Create an instance: `const sensor = client.Sensor()`
 #### Example: List
 
 ```ts
-const sensors = await client.Sensor().list()
+const sensors = await client.sensor.list()
 ```
 
 
 ### Statistic
 
-Create an instance: `const statistic = client.Statistic()`
+Create an instance: `const statistic = client.statistic`
 
 #### Operations
 
@@ -437,13 +434,13 @@ Create an instance: `const statistic = client.Statistic()`
 #### Example: Load
 
 ```ts
-const statistic = await client.Statistic().load({ id: 'statistic_id' })
+const statistic = await client.statistic.load({ id: 'statistic_id' })
 ```
 
 
 ### User
 
-Create an instance: `const user = client.User()`
+Create an instance: `const user = client.user`
 
 #### Operations
 
@@ -469,13 +466,13 @@ Create an instance: `const user = client.User()`
 #### Example: List
 
 ```ts
-const users = await client.User().list()
+const users = await client.user.list()
 ```
 
 #### Example: Create
 
 ```ts
-const user = await client.User().create({
+const user = await client.user.create({
   email: /* `$STRING` */,
   name: /* `$STRING` */,
   password: /* `$STRING` */,
@@ -554,11 +551,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local box = client:box()
+box:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- box:data_get() now returns the loaded box data
+-- box:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

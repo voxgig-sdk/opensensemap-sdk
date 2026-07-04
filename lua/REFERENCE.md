@@ -100,7 +100,7 @@ same parameters as `direct()`.
 ## BoxEntity
 
 ```lua
-local box = client:Box(nil)
+local box = client:box(nil)
 ```
 
 ### Fields
@@ -142,7 +142,7 @@ local box = client:Box(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Box():create({
+local result, err = client:box():create({
 })
 ```
 
@@ -151,7 +151,7 @@ local result, err = client:Box():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Box():list()
+local results, err = client:box():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -159,7 +159,7 @@ local results, err = client:Box():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Box():load({ id = "box_id" })
+local result, err = client:box():load({ id = "box_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -167,7 +167,7 @@ local result, err = client:Box():load({ id = "box_id" })
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Box():remove({ id = "box_id" })
+local result, err = client:box():remove({ id = "box_id" })
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -175,7 +175,7 @@ local result, err = client:Box():remove({ id = "box_id" })
 Update an existing entity. The data must include the entity `id`.
 
 ```lua
-local result, err = client:Box():update({
+local result, err = client:box():update({
   id = "box_id",
   -- Fields to update
 })
@@ -214,7 +214,7 @@ Return the entity name.
 ## MeasurementEntity
 
 ```lua
-local measurement = client:Measurement(nil)
+local measurement = client:measurement(nil)
 ```
 
 ### Operations
@@ -224,7 +224,7 @@ local measurement = client:Measurement(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Measurement():create({
+local result, err = client:measurement():create({
 })
 ```
 
@@ -261,7 +261,7 @@ Return the entity name.
 ## SensorEntity
 
 ```lua
-local sensor = client:Sensor(nil)
+local sensor = client:sensor(nil)
 ```
 
 ### Fields
@@ -282,7 +282,7 @@ local sensor = client:Sensor(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Sensor():list()
+local results, err = client:sensor():list()
 ```
 
 ### Common Methods
@@ -318,7 +318,7 @@ Return the entity name.
 ## StatisticEntity
 
 ```lua
-local statistic = client:Statistic(nil)
+local statistic = client:statistic(nil)
 ```
 
 ### Fields
@@ -339,7 +339,7 @@ local statistic = client:Statistic(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Statistic():load({ id = "statistic_id" })
+local result, err = client:statistic():load({ id = "statistic_id" })
 ```
 
 ### Common Methods
@@ -375,7 +375,7 @@ Return the entity name.
 ## UserEntity
 
 ```lua
-local user = client:User(nil)
+local user = client:user(nil)
 ```
 
 ### Fields
@@ -413,7 +413,7 @@ local user = client:User(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:User():create({
+local result, err = client:user():create({
   email = --[[ `$STRING` ]],
   name = --[[ `$STRING` ]],
   password = --[[ `$STRING` ]],
@@ -425,7 +425,7 @@ local result, err = client:User():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:User():list()
+local results, err = client:user():list()
 ```
 
 ### Common Methods

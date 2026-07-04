@@ -45,8 +45,7 @@ class BoxEntityTest extends TestCase
         $box_ref01_data["box_id"] = $setup["idmap"]["box01"];
         $box_ref01_data["sensor_id"] = $setup["idmap"]["sensor01"];
 
-        [$box_ref01_data_result, $err] = $box_ref01_ent->create($box_ref01_data, null);
-        $this->assertNull($err);
+        $box_ref01_data_result = $box_ref01_ent->create($box_ref01_data, null);
         $box_ref01_data = Helpers::to_map($box_ref01_data_result);
         $this->assertNotNull($box_ref01_data);
         $this->assertNotNull($box_ref01_data["id"]);
@@ -54,8 +53,7 @@ class BoxEntityTest extends TestCase
         // LIST
         $box_ref01_match = [];
 
-        [$box_ref01_list_result, $err] = $box_ref01_ent->list($box_ref01_match, null);
-        $this->assertNull($err);
+        $box_ref01_list_result = $box_ref01_ent->list($box_ref01_match, null);
         $this->assertIsArray($box_ref01_list_result);
 
         $found_item = sdk_select(
@@ -72,8 +70,7 @@ class BoxEntityTest extends TestCase
         $box_ref01_markdef_up0_value = "Mark01-box_ref01_" . $setup["now"];
         $box_ref01_data_up0_up[$box_ref01_markdef_up0_name] = $box_ref01_markdef_up0_value;
 
-        [$box_ref01_resdata_up0_result, $err] = $box_ref01_ent->update($box_ref01_data_up0_up, null);
-        $this->assertNull($err);
+        $box_ref01_resdata_up0_result = $box_ref01_ent->update($box_ref01_data_up0_up, null);
         $box_ref01_resdata_up0 = Helpers::to_map($box_ref01_resdata_up0_result);
         $this->assertNotNull($box_ref01_resdata_up0);
         $this->assertEquals($box_ref01_resdata_up0["id"], $box_ref01_data_up0_up["id"]);
@@ -83,8 +80,7 @@ class BoxEntityTest extends TestCase
         $box_ref01_match_dt0 = [
             "id" => $box_ref01_data["id"],
         ];
-        [$box_ref01_data_dt0_loaded, $err] = $box_ref01_ent->load($box_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $box_ref01_data_dt0_loaded = $box_ref01_ent->load($box_ref01_match_dt0, null);
         $box_ref01_data_dt0_load_result = Helpers::to_map($box_ref01_data_dt0_loaded);
         $this->assertNotNull($box_ref01_data_dt0_load_result);
         $this->assertEquals($box_ref01_data_dt0_load_result["id"], $box_ref01_data["id"]);
@@ -93,14 +89,12 @@ class BoxEntityTest extends TestCase
         $box_ref01_match_rm0 = [
             "id" => $box_ref01_data["id"],
         ];
-        [$_, $err] = $box_ref01_ent->remove($box_ref01_match_rm0, null);
-        $this->assertNull($err);
+        $box_ref01_ent->remove($box_ref01_match_rm0, null);
 
         // LIST
         $box_ref01_match_rt0 = [];
 
-        [$box_ref01_list_rt0_result, $err] = $box_ref01_ent->list($box_ref01_match_rt0, null);
-        $this->assertNull($err);
+        $box_ref01_list_rt0_result = $box_ref01_ent->list($box_ref01_match_rt0, null);
         $this->assertIsArray($box_ref01_list_rt0_result);
 
         $not_found_item = sdk_select(

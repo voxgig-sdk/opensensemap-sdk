@@ -36,8 +36,7 @@ class UserEntityTest < Minitest::Test
     user_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.user"), "user_ref01"))
 
-    user_ref01_data_result, err = user_ref01_ent.create(user_ref01_data, nil)
-    assert_nil err
+    user_ref01_data_result = user_ref01_ent.create(user_ref01_data, nil)
     user_ref01_data = Helpers.to_map(user_ref01_data_result)
     assert !user_ref01_data.nil?
     assert !user_ref01_data["id"].nil?
@@ -45,8 +44,7 @@ class UserEntityTest < Minitest::Test
     # LIST
     user_ref01_match = {}
 
-    user_ref01_list_result, err = user_ref01_ent.list(user_ref01_match, nil)
-    assert_nil err
+    user_ref01_list_result = user_ref01_ent.list(user_ref01_match, nil)
     assert user_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(

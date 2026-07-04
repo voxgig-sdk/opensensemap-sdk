@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch SensorListMatch
+---@param ctrl? table
+---@return Sensor[]
+---@return string? err
 function SensorEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

@@ -43,8 +43,7 @@ class UserEntityTest extends TestCase
         $user_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.user"), "user_ref01"));
 
-        [$user_ref01_data_result, $err] = $user_ref01_ent->create($user_ref01_data, null);
-        $this->assertNull($err);
+        $user_ref01_data_result = $user_ref01_ent->create($user_ref01_data, null);
         $user_ref01_data = Helpers::to_map($user_ref01_data_result);
         $this->assertNotNull($user_ref01_data);
         $this->assertNotNull($user_ref01_data["id"]);
@@ -52,8 +51,7 @@ class UserEntityTest extends TestCase
         // LIST
         $user_ref01_match = [];
 
-        [$user_ref01_list_result, $err] = $user_ref01_ent->list($user_ref01_match, null);
-        $this->assertNull($err);
+        $user_ref01_list_result = $user_ref01_ent->list($user_ref01_match, null);
         $this->assertIsArray($user_ref01_list_result);
 
         $found_item = sdk_select(

@@ -49,8 +49,7 @@ class TestStatisticEntity:
         # LOAD
         statistic_ref01_ent = client.Statistic(None)
         statistic_ref01_match_dt0 = {}
-        statistic_ref01_data_dt0_loaded, err = statistic_ref01_ent.load(statistic_ref01_match_dt0, None)
-        assert err is None
+        statistic_ref01_data_dt0_loaded = statistic_ref01_ent.load(statistic_ref01_match_dt0, None)
         assert statistic_ref01_data_dt0_loaded is not None
 
 

@@ -6,6 +6,8 @@ import { SensorEntity } from './entity/SensorEntity'
 import { StatisticEntity } from './entity/StatisticEntity'
 import { UserEntity } from './entity/UserEntity'
 
+export type * from './OpensensemapTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -206,30 +208,70 @@ class OpensensemapSDK {
 
 
 
+  _box?: BoxEntity
+
+  // Idiomatic facade: `client.box.list()` / `client.box.load({ id })`.
+  get box(): BoxEntity {
+    return (this._box ??= new BoxEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.box` instead. */
   Box(data?: any) {
     const self = this
     return new BoxEntity(self,data)
   }
 
 
+  _measurement?: MeasurementEntity
+
+  // Idiomatic facade: `client.measurement.list()` / `client.measurement.load({ id })`.
+  get measurement(): MeasurementEntity {
+    return (this._measurement ??= new MeasurementEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.measurement` instead. */
   Measurement(data?: any) {
     const self = this
     return new MeasurementEntity(self,data)
   }
 
 
+  _sensor?: SensorEntity
+
+  // Idiomatic facade: `client.sensor.list()` / `client.sensor.load({ id })`.
+  get sensor(): SensorEntity {
+    return (this._sensor ??= new SensorEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.sensor` instead. */
   Sensor(data?: any) {
     const self = this
     return new SensorEntity(self,data)
   }
 
 
+  _statistic?: StatisticEntity
+
+  // Idiomatic facade: `client.statistic.list()` / `client.statistic.load({ id })`.
+  get statistic(): StatisticEntity {
+    return (this._statistic ??= new StatisticEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.statistic` instead. */
   Statistic(data?: any) {
     const self = this
     return new StatisticEntity(self,data)
   }
 
 
+  _user?: UserEntity
+
+  // Idiomatic facade: `client.user.list()` / `client.user.load({ id })`.
+  get user(): UserEntity {
+    return (this._user ??= new UserEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.user` instead. */
   User(data?: any) {
     const self = this
     return new UserEntity(self,data)

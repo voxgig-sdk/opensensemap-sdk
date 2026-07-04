@@ -144,16 +144,23 @@ class OpensensemapSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class OpensensemapSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,35 +212,90 @@ class OpensensemapSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def box(self):
+        """Idiomatic facade: client.box.list() / client.box.load({"id": ...})."""
+        from entity.box_entity import BoxEntity
+        cached = getattr(self, "_box", None)
+        if cached is None:
+            cached = BoxEntity(self, None)
+            self._box = cached
+        return cached
 
     def Box(self, data=None):
+        # Deprecated: use client.box instead.
         from entity.box_entity import BoxEntity
         return BoxEntity(self, data)
 
 
+    @property
+    def measurement(self):
+        """Idiomatic facade: client.measurement.list() / client.measurement.load({"id": ...})."""
+        from entity.measurement_entity import MeasurementEntity
+        cached = getattr(self, "_measurement", None)
+        if cached is None:
+            cached = MeasurementEntity(self, None)
+            self._measurement = cached
+        return cached
+
     def Measurement(self, data=None):
+        # Deprecated: use client.measurement instead.
         from entity.measurement_entity import MeasurementEntity
         return MeasurementEntity(self, data)
 
 
+    @property
+    def sensor(self):
+        """Idiomatic facade: client.sensor.list() / client.sensor.load({"id": ...})."""
+        from entity.sensor_entity import SensorEntity
+        cached = getattr(self, "_sensor", None)
+        if cached is None:
+            cached = SensorEntity(self, None)
+            self._sensor = cached
+        return cached
+
     def Sensor(self, data=None):
+        # Deprecated: use client.sensor instead.
         from entity.sensor_entity import SensorEntity
         return SensorEntity(self, data)
 
 
+    @property
+    def statistic(self):
+        """Idiomatic facade: client.statistic.list() / client.statistic.load({"id": ...})."""
+        from entity.statistic_entity import StatisticEntity
+        cached = getattr(self, "_statistic", None)
+        if cached is None:
+            cached = StatisticEntity(self, None)
+            self._statistic = cached
+        return cached
+
     def Statistic(self, data=None):
+        # Deprecated: use client.statistic instead.
         from entity.statistic_entity import StatisticEntity
         return StatisticEntity(self, data)
 
 
+    @property
+    def user(self):
+        """Idiomatic facade: client.user.list() / client.user.load({"id": ...})."""
+        from entity.user_entity import UserEntity
+        cached = getattr(self, "_user", None)
+        if cached is None:
+            cached = UserEntity(self, None)
+            self._user = cached
+        return cached
+
     def User(self, data=None):
+        # Deprecated: use client.user instead.
         from entity.user_entity import UserEntity
         return UserEntity(self, data)
 

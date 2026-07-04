@@ -42,8 +42,7 @@ class StatisticEntityTest < Minitest::Test
     # LOAD
     statistic_ref01_ent = client.Statistic(nil)
     statistic_ref01_match_dt0 = {}
-    statistic_ref01_data_dt0_loaded, err = statistic_ref01_ent.load(statistic_ref01_match_dt0, nil)
-    assert_nil err
+    statistic_ref01_data_dt0_loaded = statistic_ref01_ent.load(statistic_ref01_match_dt0, nil)
     assert !statistic_ref01_data_dt0_loaded.nil?
 
   end

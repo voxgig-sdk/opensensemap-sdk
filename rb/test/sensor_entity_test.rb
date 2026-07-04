@@ -45,8 +45,7 @@ class SensorEntityTest < Minitest::Test
       "box_id" => setup[:idmap]["box01"],
     }
 
-    sensor_ref01_list_result, err = sensor_ref01_ent.list(sensor_ref01_match, nil)
-    assert_nil err
+    sensor_ref01_list_result = sensor_ref01_ent.list(sensor_ref01_match, nil)
     assert sensor_ref01_list_result.is_a?(Array)
 
   end

@@ -245,26 +245,41 @@ func (sdk *OpensensemapSDK) Direct(fetchargs map[string]any) (map[string]any, er
 }
 
 
+// Box returns a Box entity bound to this client.
+// Idiomatic usage: client.Box(nil).List(nil, nil) or
+// client.Box(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *OpensensemapSDK) Box(data map[string]any) OpensensemapEntity {
 	return NewBoxEntityFunc(sdk, data)
 }
 
 
+// Measurement returns a Measurement entity bound to this client.
+// Idiomatic usage: client.Measurement(nil).List(nil, nil) or
+// client.Measurement(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *OpensensemapSDK) Measurement(data map[string]any) OpensensemapEntity {
 	return NewMeasurementEntityFunc(sdk, data)
 }
 
 
+// Sensor returns a Sensor entity bound to this client.
+// Idiomatic usage: client.Sensor(nil).List(nil, nil) or
+// client.Sensor(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *OpensensemapSDK) Sensor(data map[string]any) OpensensemapEntity {
 	return NewSensorEntityFunc(sdk, data)
 }
 
 
+// Statistic returns a Statistic entity bound to this client.
+// Idiomatic usage: client.Statistic(nil).List(nil, nil) or
+// client.Statistic(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *OpensensemapSDK) Statistic(data map[string]any) OpensensemapEntity {
 	return NewStatisticEntityFunc(sdk, data)
 }
 
 
+// User returns a User entity bound to this client.
+// Idiomatic usage: client.User(nil).List(nil, nil) or
+// client.User(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *OpensensemapSDK) User(data map[string]any) OpensensemapEntity {
 	return NewUserEntityFunc(sdk, data)
 }

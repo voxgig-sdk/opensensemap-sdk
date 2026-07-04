@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Statistic,
+  StatisticLoadMatch,
+} from '../OpensensemapTypes'
 
 // TODO: needs Entity superclass
-class StatisticEntity extends OpensensemapEntityBase {
+class StatisticEntity extends OpensensemapEntityBase<Statistic> {
 
   constructor(client: OpensensemapSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class StatisticEntity extends OpensensemapEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: StatisticLoadMatch, ctrl?: Control): Promise<Statistic> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class StatisticEntity extends OpensensemapEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Statistic> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

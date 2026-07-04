@@ -103,7 +103,7 @@ class OpensensemapSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class OpensensemapSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class OpensensemapSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,52 +216,107 @@ class OpensensemapSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Box($data = null)
+    private $_box = null;
+
+    // Idiomatic facade: $client->box()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Box() (PHP method
+    // names are case-insensitive).
+    public function box($data = null)
     {
         require_once __DIR__ . '/entity/box_entity.php';
+        if ($data === null) {
+            if ($this->_box === null) {
+                $this->_box = new BoxEntity($this, null);
+            }
+            return $this->_box;
+        }
         return new BoxEntity($this, $data);
     }
 
 
-    public function Measurement($data = null)
+    private $_measurement = null;
+
+    // Idiomatic facade: $client->measurement()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Measurement() (PHP method
+    // names are case-insensitive).
+    public function measurement($data = null)
     {
         require_once __DIR__ . '/entity/measurement_entity.php';
+        if ($data === null) {
+            if ($this->_measurement === null) {
+                $this->_measurement = new MeasurementEntity($this, null);
+            }
+            return $this->_measurement;
+        }
         return new MeasurementEntity($this, $data);
     }
 
 
-    public function Sensor($data = null)
+    private $_sensor = null;
+
+    // Idiomatic facade: $client->sensor()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Sensor() (PHP method
+    // names are case-insensitive).
+    public function sensor($data = null)
     {
         require_once __DIR__ . '/entity/sensor_entity.php';
+        if ($data === null) {
+            if ($this->_sensor === null) {
+                $this->_sensor = new SensorEntity($this, null);
+            }
+            return $this->_sensor;
+        }
         return new SensorEntity($this, $data);
     }
 
 
-    public function Statistic($data = null)
+    private $_statistic = null;
+
+    // Idiomatic facade: $client->statistic()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Statistic() (PHP method
+    // names are case-insensitive).
+    public function statistic($data = null)
     {
         require_once __DIR__ . '/entity/statistic_entity.php';
+        if ($data === null) {
+            if ($this->_statistic === null) {
+                $this->_statistic = new StatisticEntity($this, null);
+            }
+            return $this->_statistic;
+        }
         return new StatisticEntity($this, $data);
     }
 
 
-    public function User($data = null)
+    private $_user = null;
+
+    // Idiomatic facade: $client->user()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias User() (PHP method
+    // names are case-insensitive).
+    public function user($data = null)
     {
         require_once __DIR__ . '/entity/user_entity.php';
+        if ($data === null) {
+            if ($this->_user === null) {
+                $this->_user = new UserEntity($this, null);
+            }
+            return $this->_user;
+        }
         return new UserEntity($this, $data);
     }
 

@@ -45,6 +45,7 @@ class BoxEntity
     end
   end
 
+  # @return [Box, Hash] the current Box data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class BoxEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Box fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Box.
+  #
+  # @param reqmatch [BoxLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Box, Hash] the loaded Box; raises OpensensemapError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class BoxEntity
 
 
   
+  # List Box items matching the given filter.
+  #
+  # @param reqmatch [BoxListMatch, Hash, nil] match filter (any subset of Box fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Box>, Array] the matching Box items; raises OpensensemapError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -106,6 +118,11 @@ class BoxEntity
 
 
   
+  # Create a new Box.
+  #
+  # @param reqdata [BoxCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Box, Hash] the created Box; raises OpensensemapError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -128,6 +145,11 @@ class BoxEntity
 
 
   
+  # Update an existing Box.
+  #
+  # @param reqdata [BoxUpdateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Box, Hash] the updated Box; raises OpensensemapError on failure
   def update(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -151,6 +173,11 @@ class BoxEntity
 
 
   
+  # Remove an Box matching the given criteria.
+  #
+  # @param reqmatch [BoxRemoveMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Box, Hash] the removed Box; raises OpensensemapError on failure
   def remove(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

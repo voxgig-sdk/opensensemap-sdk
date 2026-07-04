@@ -83,6 +83,10 @@ end
 
 
 
+---@param reqdata MeasurementCreateData
+---@param ctrl? table
+---@return Measurement
+---@return string? err
 function MeasurementEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

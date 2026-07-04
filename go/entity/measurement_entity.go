@@ -85,6 +85,27 @@ func (e *MeasurementEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Measurement; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *MeasurementEntity) DataTyped(data ...Measurement) Measurement {
+	if len(data) > 0 {
+		return typedFrom[Measurement](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Measurement](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Measurement (all fields
+// optional at the wire level).
+func (e *MeasurementEntity) MatchTyped(match ...Measurement) Measurement {
+	if len(match) > 0 {
+		return typedFrom[Measurement](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Measurement](e.Match())
+}
+
 func (e *MeasurementEntity) Load(_ map[string]any, _ map[string]any) (any, error) {
 	return core.UnsupportedOp("load", e.name)
 }
@@ -116,6 +137,17 @@ func (e *MeasurementEntity) Create(reqdata map[string]any, ctrl map[string]any) 
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// MeasurementCreateData and returns an Measurement. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *MeasurementEntity) CreateTyped(reqdata MeasurementCreateData, ctrl map[string]any) (Measurement, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Measurement{}, err
+	}
+	return typedFrom[Measurement](res), nil
 }
 
 

@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch BoxLoadMatch
+---@param ctrl? table
+---@return Box
+---@return string? err
 function BoxEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch BoxListMatch
+---@param ctrl? table
+---@return Box[]
+---@return string? err
 function BoxEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -126,6 +134,10 @@ end
 
 
 
+---@param reqdata BoxCreateData
+---@param ctrl? table
+---@return Box
+---@return string? err
 function BoxEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -148,6 +160,10 @@ end
 
 
 
+---@param reqdata BoxUpdateData
+---@param ctrl? table
+---@return Box
+---@return string? err
 function BoxEntity:update(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -173,6 +189,10 @@ end
 
 
 
+---@param reqmatch BoxRemoveMatch
+---@param ctrl? table
+---@return Box
+---@return string? err
 function BoxEntity:remove(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

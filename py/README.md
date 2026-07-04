@@ -9,11 +9,9 @@ The Python SDK for the Opensensemap API — an entity-oriented client following 
 
 
 ## Install
-```bash
-pip install voxgig-sdk-opensensemap
-```
-
-Or install from source:
+This package is not yet published to PyPI. Install it from the GitHub
+release tag (`py/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/opensensemap-sdk/releases)) or
+from a source checkout:
 
 ```bash
 pip install -e .
@@ -39,36 +37,36 @@ client = OpensensemapSDK({
 ### 2. List boxs
 
 ```python
-result, err = client.Box().list()
-if err:
-    raise Exception(err)
-
-if isinstance(result, list):
+try:
+    result = client.box.list()
     for item in result:
         d = item.data_get()
         print(d["id"], d["name"])
+except Exception as err:
+    print(f"list failed: {err}")
 ```
 
 ### 3. Load a box
 
 ```python
-result, err = client.Box().load({"id": "example_id"})
-if err:
-    raise Exception(err)
-print(result)
+try:
+    result = client.box.load({"id": "example_id"})
+    print(result)
+except Exception as err:
+    print(f"load failed: {err}")
 ```
 
 ### 4. Create, update, and remove
 
 ```python
 # Create
-created, _ = client.Box().create({"name": "Example"})
+created = client.box.create({"name": "Example"})
 
 # Update
-client.Box().update({"id": created["id"], "name": "Example-Renamed"})
+client.box.update({"id": created["id"], "name": "Example-Renamed"})
 
 # Remove
-client.Box().remove({"id": created["id"]})
+client.box.remove({"id": created["id"]})
 ```
 
 
@@ -79,29 +77,28 @@ client.Box().remove({"id": created["id"]})
 For endpoints not covered by entity methods:
 
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
+else:
+    print(result["err"])     # error value
 ```
 
 ### Prepare a request without sending it
 
 ```python
-fetchdef, err = client.prepare({
+# prepare() returns the fetch definition and raises on error.
+fetchdef = client.prepare({
     "path": "/api/resource/{id}",
     "method": "DELETE",
     "params": {"id": "example"},
 })
-if err:
-    raise Exception(err)
 
 print(fetchdef["url"])
 print(fetchdef["method"])
@@ -115,7 +112,7 @@ Create a mock client for unit testing — no server required:
 ```python
 client = OpensensemapSDK.test()
 
-result, err = client.Opensensemap().load({"id": "test01"})
+result = client.box.load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -192,8 +189,8 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | --- | --- | --- |
 | `options_map` | `() -> dict` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> (dict, err)` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> (dict, err)` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> dict` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> dict` | Build and send an HTTP request. Returns a result dict (branch on `ok`). |
 | `Box` | `(data) -> BoxEntity` | Create a Box entity instance. |
 | `Measurement` | `(data) -> MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor` | `(data) -> SensorEntity` | Create a Sensor entity instance. |
@@ -206,11 +203,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> (any, err)` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> (any, err)` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> (any, err)` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> (any, err)` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> (any, err)` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -220,8 +217,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`dict` with these keys:
+Entity operations return the bare result data (a `dict` for single-entity
+ops, a `list` for `list`) and raise on error. Wrap calls in
+`try`/`except` to handle failures.
+
+The `direct()` escape hatch never raises — it returns a result `dict`
+you branch on via `result["ok"]`:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -318,7 +319,7 @@ API path: `/users/register`
 
 ### Box
 
-Create an instance: `const box = client.Box()`
+Create an instance: `const box = client.box`
 
 #### Operations
 
@@ -349,26 +350,26 @@ Create an instance: `const box = client.Box()`
 #### Example: Load
 
 ```ts
-const box = await client.Box().load({ id: 'box_id' })
+const box = await client.box.load({ id: 'box_id' })
 ```
 
 #### Example: List
 
 ```ts
-const boxs = await client.Box().list()
+const boxs = await client.box.list()
 ```
 
 #### Example: Create
 
 ```ts
-const box = await client.Box().create({
+const box = await client.box.create({
 })
 ```
 
 
 ### Measurement
 
-Create an instance: `const measurement = client.Measurement()`
+Create an instance: `const measurement = client.measurement`
 
 #### Operations
 
@@ -379,14 +380,14 @@ Create an instance: `const measurement = client.Measurement()`
 #### Example: Create
 
 ```ts
-const measurement = await client.Measurement().create({
+const measurement = await client.measurement.create({
 })
 ```
 
 
 ### Sensor
 
-Create an instance: `const sensor = client.Sensor()`
+Create an instance: `const sensor = client.sensor`
 
 #### Operations
 
@@ -408,13 +409,13 @@ Create an instance: `const sensor = client.Sensor()`
 #### Example: List
 
 ```ts
-const sensors = await client.Sensor().list()
+const sensors = await client.sensor.list()
 ```
 
 
 ### Statistic
 
-Create an instance: `const statistic = client.Statistic()`
+Create an instance: `const statistic = client.statistic`
 
 #### Operations
 
@@ -436,13 +437,13 @@ Create an instance: `const statistic = client.Statistic()`
 #### Example: Load
 
 ```ts
-const statistic = await client.Statistic().load({ id: 'statistic_id' })
+const statistic = await client.statistic.load({ id: 'statistic_id' })
 ```
 
 
 ### User
 
-Create an instance: `const user = client.User()`
+Create an instance: `const user = client.user`
 
 #### Operations
 
@@ -468,13 +469,13 @@ Create an instance: `const user = client.User()`
 #### Example: List
 
 ```ts
-const users = await client.User().list()
+const users = await client.user.list()
 ```
 
 #### Example: Create
 
 ```ts
-const user = await client.User().create({
+const user = await client.user.create({
   email: /* `$STRING` */,
   name: /* `$STRING` */,
   password: /* `$STRING` */,
@@ -552,11 +553,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-moon = client.Moon()
-moon.load({"planet_id": "earth", "id": "luna"})
+box = client.box
+box.load({"id": "example_id"})
 
-# moon.data_get() now returns the loaded moon data
-# moon.match_get() returns the last match criteria
+# box.data_get() now returns the loaded box data
+# box.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

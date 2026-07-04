@@ -37,8 +37,7 @@ class MeasurementEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.measurement"), "measurement_ref01"))
     measurement_ref01_data["box_id"] = setup[:idmap]["box01"]
 
-    measurement_ref01_data_result, err = measurement_ref01_ent.create(measurement_ref01_data, nil)
-    assert_nil err
+    measurement_ref01_data_result = measurement_ref01_ent.create(measurement_ref01_data, nil)
     measurement_ref01_data = Helpers.to_map(measurement_ref01_data_result)
     assert !measurement_ref01_data.nil?
 

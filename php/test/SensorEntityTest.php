@@ -52,8 +52,7 @@ class SensorEntityTest extends TestCase
             "box_id" => $setup["idmap"]["box01"],
         ];
 
-        [$sensor_ref01_list_result, $err] = $sensor_ref01_ent->list($sensor_ref01_match, null);
-        $this->assertNull($err);
+        $sensor_ref01_list_result = $sensor_ref01_ent->list($sensor_ref01_match, null);
         $this->assertIsArray($sensor_ref01_list_result);
 
     }

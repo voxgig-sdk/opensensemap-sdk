@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Measurement,
+  MeasurementCreateData,
+} from '../OpensensemapTypes'
 
 // TODO: needs Entity superclass
-class MeasurementEntity extends OpensensemapEntityBase {
+class MeasurementEntity extends OpensensemapEntityBase<Measurement> {
 
   constructor(client: OpensensemapSDK, entopts: any) {
     super(client, entopts)
@@ -34,7 +38,7 @@ class MeasurementEntity extends OpensensemapEntityBase {
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: MeasurementCreateData, ctrl?: Control): Promise<Measurement> {
 
     const utility = this._utility
     const {
@@ -133,7 +137,9 @@ class MeasurementEntity extends OpensensemapEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Measurement> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

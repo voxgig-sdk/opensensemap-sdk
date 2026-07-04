@@ -216,7 +216,8 @@ class Config {
                     "name": "box_id",
                     "orig": "box_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -224,7 +225,8 @@ class Config {
                     "name": "sensor_id",
                     "orig": "sensor_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ],
                 "query": [
@@ -358,7 +360,8 @@ class Config {
                     "name": "id",
                     "orig": "box_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ],
                 "query": [
@@ -413,7 +416,8 @@ class Config {
                     "name": "id",
                     "orig": "box_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -456,7 +460,8 @@ class Config {
                     "name": "id",
                     "orig": "box_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -512,7 +517,8 @@ class Config {
                     "name": "box_id",
                     "orig": "box_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -612,7 +618,8 @@ class Config {
                     "name": "box_id",
                     "orig": "box_id",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

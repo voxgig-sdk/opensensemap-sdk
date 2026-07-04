@@ -70,9 +70,9 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs=None) -> tuple`
+#### `direct(fetchargs=None) -> dict`
 
-Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
+Make a direct HTTP request to any API endpoint. Returns a result `dict` with `ok`, `status`, `headers`, and `data` (or `err` on failure). This escape hatch never raises — branch on `result["ok"]`.
 
 **Parameters:**
 
@@ -85,11 +85,11 @@ Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
 | `fetchargs["headers"]` | `dict` | Request headers (merged with defaults). |
 | `fetchargs["body"]` | `any` | Request body (dicts are JSON-serialized). |
 
-**Returns:** `(result_dict, err)`
+**Returns:** `result_dict`
 
-#### `prepare(fetchargs=None) -> tuple`
+#### `prepare(fetchargs=None) -> dict`
 
-Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
+Prepare a fetch definition without sending. Returns the `fetchdef` and raises on error.
 
 
 ---
@@ -97,7 +97,7 @@ Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
 ## BoxEntity
 
 ```python
-box = client.Box()
+box = client.box
 ```
 
 ### Fields
@@ -134,45 +134,45 @@ box = client.Box()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.Box().create({
+result = client.box.create({
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Box().list({})
+results = client.box.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Box().load({"id": "box_id"})
+result = client.box.load({"id": "box_id"})
 ```
 
-#### `remove(reqmatch, ctrl=None) -> tuple`
+#### `remove(reqmatch, ctrl=None) -> dict`
 
-Remove the entity matching the given criteria.
+Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result, err = client.Box().remove({"id": "box_id"})
+result = client.box.remove({"id": "box_id"})
 ```
 
-#### `update(reqdata, ctrl=None) -> tuple`
+#### `update(reqdata, ctrl=None) -> dict`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity data and raises on error.
 
 ```python
-result, err = client.Box().update({
+result = client.box.update({
     "id": "box_id",
     # Fields to update
 })
@@ -210,17 +210,17 @@ Return the entity name.
 ## MeasurementEntity
 
 ```python
-measurement = client.Measurement()
+measurement = client.measurement
 ```
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.Measurement().create({
+result = client.measurement.create({
 })
 ```
 
@@ -256,7 +256,7 @@ Return the entity name.
 ## SensorEntity
 
 ```python
-sensor = client.Sensor()
+sensor = client.sensor
 ```
 
 ### Fields
@@ -272,12 +272,12 @@ sensor = client.Sensor()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Sensor().list({})
+results = client.sensor.list({})
 ```
 
 ### Common Methods
@@ -312,7 +312,7 @@ Return the entity name.
 ## StatisticEntity
 
 ```python
-statistic = client.Statistic()
+statistic = client.statistic
 ```
 
 ### Fields
@@ -328,12 +328,12 @@ statistic = client.Statistic()
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Statistic().load({"id": "statistic_id"})
+result = client.statistic.load({"id": "statistic_id"})
 ```
 
 ### Common Methods
@@ -368,7 +368,7 @@ Return the entity name.
 ## UserEntity
 
 ```python
-user = client.User()
+user = client.user
 ```
 
 ### Fields
@@ -401,24 +401,24 @@ user = client.User()
 
 ### Operations
 
-#### `create(reqdata, ctrl=None) -> tuple`
+#### `create(reqdata, ctrl=None) -> dict`
 
-Create a new entity with the given data.
+Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result, err = client.User().create({
+result = client.user.create({
     "email": # `$STRING`,
     "name": # `$STRING`,
     "password": # `$STRING`,
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.User().list({})
+results = client.user.list({})
 ```
 
 ### Common Methods

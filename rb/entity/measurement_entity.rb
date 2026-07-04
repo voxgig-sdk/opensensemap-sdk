@@ -45,6 +45,7 @@ class MeasurementEntity
     end
   end
 
+  # @return [Measurement, Hash] the current Measurement data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class MeasurementEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Measurement fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -67,6 +69,11 @@ class MeasurementEntity
   
 
   
+  # Create a new Measurement.
+  #
+  # @param reqdata [MeasurementCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Measurement, Hash] the created Measurement; raises OpensensemapError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -49,8 +49,7 @@ class StatisticEntityTest extends TestCase
         // LOAD
         $statistic_ref01_ent = $client->Statistic(null);
         $statistic_ref01_match_dt0 = [];
-        [$statistic_ref01_data_dt0_loaded, $err] = $statistic_ref01_ent->load($statistic_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $statistic_ref01_data_dt0_loaded = $statistic_ref01_ent->load($statistic_ref01_match_dt0, null);
         $this->assertNotNull($statistic_ref01_data_dt0_loaded);
 
     }

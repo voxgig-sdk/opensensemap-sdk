@@ -244,30 +244,95 @@ end
 
 
 
+-- Idiomatic facade: client:box():list() / client:box():load({ id = ... })
+function OpensensemapSDK:box(data)
+  local EntityMod = require("entity.box_entity")
+  if data == nil then
+    if self._box == nil then
+      self._box = EntityMod.new(self, nil)
+    end
+    return self._box
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:box() instead.
 function OpensensemapSDK:Box(data)
   local EntityMod = require("entity.box_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:measurement():list() / client:measurement():load({ id = ... })
+function OpensensemapSDK:measurement(data)
+  local EntityMod = require("entity.measurement_entity")
+  if data == nil then
+    if self._measurement == nil then
+      self._measurement = EntityMod.new(self, nil)
+    end
+    return self._measurement
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:measurement() instead.
 function OpensensemapSDK:Measurement(data)
   local EntityMod = require("entity.measurement_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:sensor():list() / client:sensor():load({ id = ... })
+function OpensensemapSDK:sensor(data)
+  local EntityMod = require("entity.sensor_entity")
+  if data == nil then
+    if self._sensor == nil then
+      self._sensor = EntityMod.new(self, nil)
+    end
+    return self._sensor
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:sensor() instead.
 function OpensensemapSDK:Sensor(data)
   local EntityMod = require("entity.sensor_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:statistic():list() / client:statistic():load({ id = ... })
+function OpensensemapSDK:statistic(data)
+  local EntityMod = require("entity.statistic_entity")
+  if data == nil then
+    if self._statistic == nil then
+      self._statistic = EntityMod.new(self, nil)
+    end
+    return self._statistic
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:statistic() instead.
 function OpensensemapSDK:Statistic(data)
   local EntityMod = require("entity.statistic_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:user():list() / client:user():load({ id = ... })
+function OpensensemapSDK:user(data)
+  local EntityMod = require("entity.user_entity")
+  if data == nil then
+    if self._user == nil then
+      self._user = EntityMod.new(self, nil)
+    end
+    return self._user
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:user() instead.
 function OpensensemapSDK:User(data)
   local EntityMod = require("entity.user_entity")
   return EntityMod.new(self, data)

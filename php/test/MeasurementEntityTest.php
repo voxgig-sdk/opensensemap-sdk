@@ -44,8 +44,7 @@ class MeasurementEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.measurement"), "measurement_ref01"));
         $measurement_ref01_data["box_id"] = $setup["idmap"]["box01"];
 
-        [$measurement_ref01_data_result, $err] = $measurement_ref01_ent->create($measurement_ref01_data, null);
-        $this->assertNull($err);
+        $measurement_ref01_data_result = $measurement_ref01_ent->create($measurement_ref01_data, null);
         $measurement_ref01_data = Helpers::to_map($measurement_ref01_data_result);
         $this->assertNotNull($measurement_ref01_data);
 

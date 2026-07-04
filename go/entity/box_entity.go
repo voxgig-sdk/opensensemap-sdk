@@ -85,6 +85,27 @@ func (e *BoxEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Box; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *BoxEntity) DataTyped(data ...Box) Box {
+	if len(data) > 0 {
+		return typedFrom[Box](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Box](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Box (all fields
+// optional at the wire level).
+func (e *BoxEntity) MatchTyped(match ...Box) Box {
+	if len(match) > 0 {
+		return typedFrom[Box](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Box](e.Match())
+}
+
 
 func (e *BoxEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *BoxEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, err
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// BoxLoadMatch and returns an Box. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *BoxEntity) LoadTyped(reqmatch BoxLoadMatch, ctrl map[string]any) (Box, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Box{}, err
+	}
+	return typedFrom[Box](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *BoxEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, err
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// BoxListMatch and returns []Box. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *BoxEntity) ListTyped(reqmatch BoxListMatch, ctrl map[string]any) ([]Box, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Box](res), nil
 }
 
 
@@ -156,6 +199,17 @@ func (e *BoxEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, er
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// BoxCreateData and returns an Box. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *BoxEntity) CreateTyped(reqdata BoxCreateData, ctrl map[string]any) (Box, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Box{}, err
+	}
+	return typedFrom[Box](res), nil
 }
 
 
@@ -186,6 +240,17 @@ func (e *BoxEntity) Update(reqdata map[string]any, ctrl map[string]any) (any, er
 	})
 }
 
+// UpdateTyped is the statically-typed variant of Update: it takes an
+// BoxUpdateData and returns an Box. It delegates to the untyped
+// Update (identical runtime) and converts at the typed boundary.
+func (e *BoxEntity) UpdateTyped(reqdata BoxUpdateData, ctrl map[string]any) (Box, error) {
+	res, err := e.Update(asMap(reqdata), ctrl)
+	if err != nil {
+		return Box{}, err
+	}
+	return typedFrom[Box](res), nil
+}
+
 
 
 
@@ -212,6 +277,17 @@ func (e *BoxEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (any, e
 			}
 		}
 	})
+}
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// BoxRemoveMatch and returns an Box. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *BoxEntity) RemoveTyped(reqmatch BoxRemoveMatch, ctrl map[string]any) (Box, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Box{}, err
+	}
+	return typedFrom[Box](res), nil
 }
 
 

@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:box():list() / client:box():load({ id = ... })
-function OpensensemapSDK:box(data)
+-- Idiomatic facade: client:Box():list() / client:Box():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function OpensensemapSDK:Box(data)
   local EntityMod = require("entity.box_entity")
   if data == nil then
     if self._box == nil then
@@ -256,15 +257,10 @@ function OpensensemapSDK:box(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:box() instead.
-function OpensensemapSDK:Box(data)
-  local EntityMod = require("entity.box_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:measurement():list() / client:measurement():load({ id = ... })
-function OpensensemapSDK:measurement(data)
+-- Idiomatic facade: client:Measurement():list() / client:Measurement():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function OpensensemapSDK:Measurement(data)
   local EntityMod = require("entity.measurement_entity")
   if data == nil then
     if self._measurement == nil then
@@ -275,15 +271,10 @@ function OpensensemapSDK:measurement(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:measurement() instead.
-function OpensensemapSDK:Measurement(data)
-  local EntityMod = require("entity.measurement_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:sensor():list() / client:sensor():load({ id = ... })
-function OpensensemapSDK:sensor(data)
+-- Idiomatic facade: client:Sensor():list() / client:Sensor():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function OpensensemapSDK:Sensor(data)
   local EntityMod = require("entity.sensor_entity")
   if data == nil then
     if self._sensor == nil then
@@ -294,15 +285,10 @@ function OpensensemapSDK:sensor(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:sensor() instead.
-function OpensensemapSDK:Sensor(data)
-  local EntityMod = require("entity.sensor_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:statistic():list() / client:statistic():load({ id = ... })
-function OpensensemapSDK:statistic(data)
+-- Idiomatic facade: client:Statistic():list() / client:Statistic():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function OpensensemapSDK:Statistic(data)
   local EntityMod = require("entity.statistic_entity")
   if data == nil then
     if self._statistic == nil then
@@ -313,15 +299,10 @@ function OpensensemapSDK:statistic(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:statistic() instead.
-function OpensensemapSDK:Statistic(data)
-  local EntityMod = require("entity.statistic_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:user():list() / client:user():load({ id = ... })
-function OpensensemapSDK:user(data)
+-- Idiomatic facade: client:User():list() / client:User():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function OpensensemapSDK:User(data)
   local EntityMod = require("entity.user_entity")
   if data == nil then
     if self._user == nil then
@@ -329,12 +310,6 @@ function OpensensemapSDK:user(data)
     end
     return self._user
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:user() instead.
-function OpensensemapSDK:User(data)
-  local EntityMod = require("entity.user_entity")
   return EntityMod.new(self, data)
 end
 

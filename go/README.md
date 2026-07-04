@@ -30,7 +30,12 @@ go mod edit -replace github.com/voxgig-sdk/opensensemap-sdk/go=../opensensemap-s
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
@@ -38,70 +43,51 @@ package main
 import (
     "fmt"
     "os"
-
     sdk "github.com/voxgig-sdk/opensensemap-sdk/go"
-    "github.com/voxgig-sdk/opensensemap-sdk/go/core"
 )
 
 func main() {
     client := sdk.NewOpensensemapSDK(map[string]any{
         "apikey": os.Getenv("OPENSENSEMAP_APIKEY"),
     })
-```
 
-### 2. List boxs
-
-```go
-    result, err := client.Box(nil).List(nil, nil)
+    // List box records — the value is the array of records itself.
+    boxs, err := client.Box(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-
-    rm := core.ToMapAny(result)
-    if rm["ok"] == true {
-        for _, item := range rm["data"].([]any) {
-            p := core.ToMapAny(item)
-            fmt.Println(p["id"], p["name"])
-        }
+    for _, item := range boxs.([]any) {
+        fmt.Println(item)
     }
-```
 
-### 3. Load a box
-
-```go
-    result, err = client.Box(nil).Load(
-        map[string]any{"id": "example_id"}, nil,
-    )
+    // Load a single box — the value is the loaded record.
+    box, err := client.Box(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
+    fmt.Println(box)
 
-    rm = core.ToMapAny(result)
-    if rm["ok"] == true {
-        fmt.Println(rm["data"])
+    // Create a box.
+    created, err := client.Box(nil).Create(map[string]any{"name": "Example"}, nil)
+    if err != nil {
+        panic(err)
     }
+    fmt.Println(created)
+
+    // Update a box.
+    updated, err := client.Box(nil).Update(map[string]any{"id": "example_id", "name": "Renamed"}, nil)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(updated)
+
+    // Remove a box.
+    removed, err := client.Box(nil).Remove(map[string]any{"id": "example_id"}, nil)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(removed)
 }
-```
-
-### 4. Create, update, and remove
-
-```go
-// Create
-created, _ := client.Box(nil).Create(
-    map[string]any{"name": "Example"}, nil,
-)
-cm := core.ToMapAny(created)
-newID := core.ToMapAny(cm["data"])["id"]
-
-// Update
-client.Box(nil).Update(
-    map[string]any{"id": newID, "name": "Example-Renamed"}, nil,
-)
-
-// Remove
-client.Box(nil).Remove(
-    map[string]any{"id": newID}, nil,
-)
 ```
 
 
@@ -151,10 +137,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Box(nil).Load(
+box, err := client.Box(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(box) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -237,7 +226,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Measurement` | `(data map[string]any) OpensensemapEntity` | Create a Measurement entity instance. |
 | `Sensor` | `(data map[string]any) OpensensemapEntity` | Create a Sensor entity instance. |
 | `Statistic` | `(data map[string]any) OpensensemapEntity` | Create a Statistic entity instance. |
-| `User` | `(data map[string]any) OpensensemapEntity` | Create a User entity instance. |
+| `User` | `(data map[string]any) OpensensemapEntity` | Create an User entity instance. |
 
 ### Entity interface (OpensensemapEntity)
 
@@ -257,17 +246,24 @@ All entities implement the `OpensensemapEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    box, err := client.Box(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // box is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -386,13 +382,21 @@ Create an instance: `box := client.Box(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Box(nil).Load(map[string]any{"id": "box_id"}, nil)
+box, err := client.Box(nil).Load(map[string]any{"id": "box_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(box) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Box(nil).List(nil, nil)
+boxs, err := client.Box(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(boxs) // the array of records
 ```
 
 #### Example: Create
@@ -445,7 +449,11 @@ Create an instance: `sensor := client.Sensor(nil)`
 #### Example: List
 
 ```go
-results, err := client.Sensor(nil).List(nil, nil)
+sensors, err := client.Sensor(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(sensors) // the array of records
 ```
 
 
@@ -473,7 +481,11 @@ Create an instance: `statistic := client.Statistic(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Statistic(nil).Load(map[string]any{"id": "statistic_id"}, nil)
+statistic, err := client.Statistic(nil).Load(map[string]any{"id": "statistic_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(statistic) // the loaded record
 ```
 
 
@@ -505,7 +517,11 @@ Create an instance: `user := client.User(nil)`
 #### Example: List
 
 ```go
-results, err := client.User(nil).List(nil, nil)
+users, err := client.User(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(users) // the array of records
 ```
 
 #### Example: Create

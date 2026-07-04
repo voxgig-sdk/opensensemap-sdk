@@ -208,65 +208,35 @@ class OpensensemapSDK
   end
 
 
-  # Idiomatic facade: client.box.list / client.box.load({ "id" => ... })
-  def box
-    require_relative 'entity/box_entity'
-    @box ||= BoxEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.box instead.
+  # Canonical facade: client.Box.list / client.Box.load({ "id" => ... })
   def Box(data = nil)
     require_relative 'entity/box_entity'
     BoxEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.measurement.list / client.measurement.load({ "id" => ... })
-  def measurement
-    require_relative 'entity/measurement_entity'
-    @measurement ||= MeasurementEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.measurement instead.
+  # Canonical facade: client.Measurement.list / client.Measurement.load({ "id" => ... })
   def Measurement(data = nil)
     require_relative 'entity/measurement_entity'
     MeasurementEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.sensor.list / client.sensor.load({ "id" => ... })
-  def sensor
-    require_relative 'entity/sensor_entity'
-    @sensor ||= SensorEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.sensor instead.
+  # Canonical facade: client.Sensor.list / client.Sensor.load({ "id" => ... })
   def Sensor(data = nil)
     require_relative 'entity/sensor_entity'
     SensorEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.statistic.list / client.statistic.load({ "id" => ... })
-  def statistic
-    require_relative 'entity/statistic_entity'
-    @statistic ||= StatisticEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.statistic instead.
+  # Canonical facade: client.Statistic.list / client.Statistic.load({ "id" => ... })
   def Statistic(data = nil)
     require_relative 'entity/statistic_entity'
     StatisticEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.user.list / client.user.load({ "id" => ... })
-  def user
-    require_relative 'entity/user_entity'
-    @user ||= UserEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.user instead.
+  # Canonical facade: client.User.list / client.User.load({ "id" => ... })
   def User(data = nil)
     require_relative 'entity/user_entity'
     UserEntity.new(self, data)

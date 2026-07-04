@@ -33,39 +33,40 @@ local client = sdk.new({
 })
 ```
 
-### 2. List boxs
+### 2. List box records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:box():list()
+local boxs, err = client:Box():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(boxs) do
+  print(item["id"], item["name"])
 end
 ```
 
 ### 3. Load a box
 
 ```lua
-local result, err = client:box():load({ id = "example_id" })
+local box, err = client:Box():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(box)
 ```
 
 ### 4. Create, update, and remove
 
 ```lua
 -- Create
-local created, _ = client:box():create({ name = "Example" })
+local created, err = client:Box():create({ name = "Example" })
+if err then error(err) end
 
 -- Update
-client:box():update({ id = created["id"], name = "Example-Renamed" })
+client:Box():update({ id = created["id"], name = "Example-Renamed" })
 
 -- Remove
-client:box():remove({ id = created["id"] })
+client:Box():remove({ id = created["id"] })
 ```
 
 
@@ -111,8 +112,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:box():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Box():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -196,7 +197,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Measurement` | `(data) -> MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor` | `(data) -> SensorEntity` | Create a Sensor entity instance. |
 | `Statistic` | `(data) -> StatisticEntity` | Create a Statistic entity instance. |
-| `User` | `(data) -> UserEntity` | Create a User entity instance. |
+| `User` | `(data) -> UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -218,17 +219,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local box, err = client:Box():load({ id = "example_id" })
+    if err then error(err) end
+    -- box is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -316,7 +322,7 @@ API path: `/users/register`
 
 ### Box
 
-Create an instance: `const box = client.box`
+Create an instance: `local box = client:Box(nil)`
 
 #### Operations
 
@@ -346,27 +352,27 @@ Create an instance: `const box = client.box`
 
 #### Example: Load
 
-```ts
-const box = await client.box.load({ id: 'box_id' })
+```lua
+local box, err = client:Box():load({ id = "box_id" })
 ```
 
 #### Example: List
 
-```ts
-const boxs = await client.box.list()
+```lua
+local boxs, err = client:Box():list()
 ```
 
 #### Example: Create
 
-```ts
-const box = await client.box.create({
+```lua
+local box, err = client:Box():create({
 })
 ```
 
 
 ### Measurement
 
-Create an instance: `const measurement = client.measurement`
+Create an instance: `local measurement = client:Measurement(nil)`
 
 #### Operations
 
@@ -376,15 +382,15 @@ Create an instance: `const measurement = client.measurement`
 
 #### Example: Create
 
-```ts
-const measurement = await client.measurement.create({
+```lua
+local measurement, err = client:Measurement():create({
 })
 ```
 
 
 ### Sensor
 
-Create an instance: `const sensor = client.sensor`
+Create an instance: `local sensor = client:Sensor(nil)`
 
 #### Operations
 
@@ -405,14 +411,14 @@ Create an instance: `const sensor = client.sensor`
 
 #### Example: List
 
-```ts
-const sensors = await client.sensor.list()
+```lua
+local sensors, err = client:Sensor():list()
 ```
 
 
 ### Statistic
 
-Create an instance: `const statistic = client.statistic`
+Create an instance: `local statistic = client:Statistic(nil)`
 
 #### Operations
 
@@ -433,14 +439,14 @@ Create an instance: `const statistic = client.statistic`
 
 #### Example: Load
 
-```ts
-const statistic = await client.statistic.load({ id: 'statistic_id' })
+```lua
+local statistic, err = client:Statistic():load({ id = "statistic_id" })
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `local user = client:User(nil)`
 
 #### Operations
 
@@ -465,17 +471,17 @@ Create an instance: `const user = client.user`
 
 #### Example: List
 
-```ts
-const users = await client.user.list()
+```lua
+local users, err = client:User():list()
 ```
 
 #### Example: Create
 
-```ts
-const user = await client.user.create({
-  email: /* `$STRING` */,
-  name: /* `$STRING` */,
-  password: /* `$STRING` */,
+```lua
+local user, err = client:User():create({
+  email = nil, -- `$STRING`
+  name = nil, -- `$STRING`
+  password = nil, -- `$STRING`
 })
 ```
 
@@ -551,7 +557,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local box = client:box()
+local box = client:Box()
 box:load({ id = "example_id" })
 
 -- box:data_get() now returns the loaded box data

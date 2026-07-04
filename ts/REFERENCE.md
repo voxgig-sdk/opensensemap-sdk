@@ -158,7 +158,7 @@ Alias for `OpensensemapSDK.test()`.
 ## BoxEntity
 
 ```ts
-const box = client.box
+const box = client.Box()
 ```
 
 ### Fields
@@ -200,7 +200,7 @@ const box = client.box
 Create a new entity with the given data.
 
 ```ts
-const result = await client.box.create({
+const result = await client.Box().create({
 })
 ```
 
@@ -209,7 +209,7 @@ const result = await client.box.create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.box.list()
+const results = await client.Box().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -217,7 +217,7 @@ const results = await client.box.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.box.load({ id: 'box_id' })
+const result = await client.Box().load({ id: 'box_id' })
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -225,7 +225,7 @@ const result = await client.box.load({ id: 'box_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.box.remove({ id: 'box_id' })
+const result = await client.Box().remove({ id: 'box_id' })
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -233,7 +233,7 @@ const result = await client.box.remove({ id: 'box_id' })
 Update an existing entity. The data must include the entity `id`.
 
 ```ts
-const result = await client.box.update({
+const result = await client.Box().update({
   id: 'box_id',
   // Fields to update
 })
@@ -270,7 +270,7 @@ Return a copy of the entity options.
 ## MeasurementEntity
 
 ```ts
-const measurement = client.measurement
+const measurement = client.Measurement()
 ```
 
 ### Operations
@@ -280,7 +280,7 @@ const measurement = client.measurement
 Create a new entity with the given data.
 
 ```ts
-const result = await client.measurement.create({
+const result = await client.Measurement().create({
 })
 ```
 
@@ -315,7 +315,7 @@ Return a copy of the entity options.
 ## SensorEntity
 
 ```ts
-const sensor = client.sensor
+const sensor = client.Sensor()
 ```
 
 ### Fields
@@ -336,7 +336,7 @@ const sensor = client.sensor
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.sensor.list()
+const results = await client.Sensor().list()
 ```
 
 ### Common Methods
@@ -370,7 +370,7 @@ Return a copy of the entity options.
 ## StatisticEntity
 
 ```ts
-const statistic = client.statistic
+const statistic = client.Statistic()
 ```
 
 ### Fields
@@ -391,7 +391,7 @@ const statistic = client.statistic
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.statistic.load({ id: 'statistic_id' })
+const result = await client.Statistic().load({ id: 'statistic_id' })
 ```
 
 ### Common Methods
@@ -425,7 +425,7 @@ Return a copy of the entity options.
 ## UserEntity
 
 ```ts
-const user = client.user
+const user = client.User()
 ```
 
 ### Fields
@@ -463,7 +463,7 @@ const user = client.user
 Create a new entity with the given data.
 
 ```ts
-const result = await client.user.create({
+const result = await client.User().create({
   email: /* `$STRING` */,
   name: /* `$STRING` */,
   password: /* `$STRING` */,
@@ -475,7 +475,7 @@ const result = await client.user.create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.user.list()
+const results = await client.User().list()
 ```
 
 ### Common Methods

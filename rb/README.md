@@ -30,16 +30,14 @@ client = OpensensemapSDK.new({
 })
 ```
 
-### 2. List boxs
+### 2. List box records
 
 ```ruby
 begin
-  result = client.box.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Box records — iterate directly.
+  boxs = client.Box.list
+  boxs.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -50,8 +48,9 @@ end
 
 ```ruby
 begin
-  result = client.box.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Box record (raises on error).
+  box = client.Box.load({ "id" => "example_id" })
+  puts box
 rescue => err
   warn "load failed: #{err}"
 end
@@ -60,14 +59,14 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# Create
-created = client.box.create({ "name" => "Example" })
+# create returns the bare created Box record.
+created = client.Box.create({ "name" => "Example" })
 
-# Update
-client.box.update({ "id" => created["id"], "name" => "Example-Renamed" })
+# Update — index the bare record directly (created["id"]).
+client.Box.update({ "id" => created["id"], "name" => "Example-Renamed" })
 
 # Remove
-client.box.remove({ "id" => created["id"] })
+client.Box.remove({ "id" => created["id"] })
 ```
 
 
@@ -111,13 +110,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = OpensensemapSDK.test
+client = OpensensemapSDK.test({
+  "entity" => { "box" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.box.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+box = client.Box.load({ "id" => "test01" })
+puts box
 ```
 
 ### Use a custom fetch function
@@ -199,7 +202,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Measurement` | `(data) -> MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor` | `(data) -> SensorEntity` | Create a Sensor entity instance. |
 | `Statistic` | `(data) -> StatisticEntity` | Create a Statistic entity instance. |
-| `User` | `(data) -> UserEntity` | Create a User entity instance. |
+| `User` | `(data) -> UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -322,7 +325,7 @@ API path: `/users/register`
 
 ### Box
 
-Create an instance: `const box = client.box`
+Create an instance: `box = client.Box`
 
 #### Operations
 
@@ -352,27 +355,29 @@ Create an instance: `const box = client.box`
 
 #### Example: Load
 
-```ts
-const box = await client.box.load({ id: 'box_id' })
+```ruby
+# load returns the bare Box record (raises on error).
+box = client.Box.load({ "id" => "box_id" })
 ```
 
 #### Example: List
 
-```ts
-const boxs = await client.box.list()
+```ruby
+# list returns an Array of Box records (raises on error).
+boxs = client.Box.list
 ```
 
 #### Example: Create
 
-```ts
-const box = await client.box.create({
+```ruby
+box = client.Box.create({
 })
 ```
 
 
 ### Measurement
 
-Create an instance: `const measurement = client.measurement`
+Create an instance: `measurement = client.Measurement`
 
 #### Operations
 
@@ -382,15 +387,15 @@ Create an instance: `const measurement = client.measurement`
 
 #### Example: Create
 
-```ts
-const measurement = await client.measurement.create({
+```ruby
+measurement = client.Measurement.create({
 })
 ```
 
 
 ### Sensor
 
-Create an instance: `const sensor = client.sensor`
+Create an instance: `sensor = client.Sensor`
 
 #### Operations
 
@@ -411,14 +416,15 @@ Create an instance: `const sensor = client.sensor`
 
 #### Example: List
 
-```ts
-const sensors = await client.sensor.list()
+```ruby
+# list returns an Array of Sensor records (raises on error).
+sensors = client.Sensor.list
 ```
 
 
 ### Statistic
 
-Create an instance: `const statistic = client.statistic`
+Create an instance: `statistic = client.Statistic`
 
 #### Operations
 
@@ -439,14 +445,15 @@ Create an instance: `const statistic = client.statistic`
 
 #### Example: Load
 
-```ts
-const statistic = await client.statistic.load({ id: 'statistic_id' })
+```ruby
+# load returns the bare Statistic record (raises on error).
+statistic = client.Statistic.load({ "id" => "statistic_id" })
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `user = client.User`
 
 #### Operations
 
@@ -471,17 +478,18 @@ Create an instance: `const user = client.user`
 
 #### Example: List
 
-```ts
-const users = await client.user.list()
+```ruby
+# list returns an Array of User records (raises on error).
+users = client.User.list
 ```
 
 #### Example: Create
 
-```ts
-const user = await client.user.create({
-  email: /* `$STRING` */,
-  name: /* `$STRING` */,
-  password: /* `$STRING` */,
+```ruby
+user = client.User.create({
+  "email" => nil, # `$STRING`
+  "name" => nil, # `$STRING`
+  "password" => nil, # `$STRING`
 })
 ```
 
@@ -557,7 +565,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-box = client.box
+box = client.Box
 box.load({ "id" => "example_id" })
 
 # box.data_get now returns the loaded box data

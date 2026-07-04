@@ -34,24 +34,28 @@ client = OpensensemapSDK({
 })
 ```
 
-### 2. List boxs
+### 2. List box records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.box.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    boxs = client.Box().list({})
+    for box in boxs:
+        print(box)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a box
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.box.load({"id": "example_id"})
-    print(result)
+    box = client.Box().load({"id": "example_id"})
+    print(box)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -59,14 +63,14 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.box.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.Box().create({"name": "Example"})
 
-# Update
-client.box.update({"id": created["id"], "name": "Example-Renamed"})
+# Update — the created record's id is a plain dict key
+client.Box().update({"id": created["id"], "name": "Example-Renamed"})
 
 # Remove
-client.box.remove({"id": created["id"]})
+client.Box().remove({"id": created["id"]})
 ```
 
 
@@ -112,8 +116,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = OpensensemapSDK.test()
 
-result = client.box.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+box = client.Box().load({"id": "test01"})
+# box contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -195,7 +200,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `Measurement` | `(data) -> MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor` | `(data) -> SensorEntity` | Create a Sensor entity instance. |
 | `Statistic` | `(data) -> StatisticEntity` | Create a Statistic entity instance. |
-| `User` | `(data) -> UserEntity` | Create a User entity instance. |
+| `User` | `(data) -> UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -319,7 +324,7 @@ API path: `/users/register`
 
 ### Box
 
-Create an instance: `const box = client.box`
+Create an instance: `box = client.Box()`
 
 #### Operations
 
@@ -349,27 +354,27 @@ Create an instance: `const box = client.box`
 
 #### Example: Load
 
-```ts
-const box = await client.box.load({ id: 'box_id' })
+```python
+box = client.Box().load({"id": "box_id"})
 ```
 
 #### Example: List
 
-```ts
-const boxs = await client.box.list()
+```python
+boxs = client.Box().list({})
 ```
 
 #### Example: Create
 
-```ts
-const box = await client.box.create({
+```python
+box = client.Box().create({
 })
 ```
 
 
 ### Measurement
 
-Create an instance: `const measurement = client.measurement`
+Create an instance: `measurement = client.Measurement()`
 
 #### Operations
 
@@ -379,15 +384,15 @@ Create an instance: `const measurement = client.measurement`
 
 #### Example: Create
 
-```ts
-const measurement = await client.measurement.create({
+```python
+measurement = client.Measurement().create({
 })
 ```
 
 
 ### Sensor
 
-Create an instance: `const sensor = client.sensor`
+Create an instance: `sensor = client.Sensor()`
 
 #### Operations
 
@@ -408,14 +413,14 @@ Create an instance: `const sensor = client.sensor`
 
 #### Example: List
 
-```ts
-const sensors = await client.sensor.list()
+```python
+sensors = client.Sensor().list({})
 ```
 
 
 ### Statistic
 
-Create an instance: `const statistic = client.statistic`
+Create an instance: `statistic = client.Statistic()`
 
 #### Operations
 
@@ -436,14 +441,14 @@ Create an instance: `const statistic = client.statistic`
 
 #### Example: Load
 
-```ts
-const statistic = await client.statistic.load({ id: 'statistic_id' })
+```python
+statistic = client.Statistic().load({"id": "statistic_id"})
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `user = client.User()`
 
 #### Operations
 
@@ -468,17 +473,17 @@ Create an instance: `const user = client.user`
 
 #### Example: List
 
-```ts
-const users = await client.user.list()
+```python
+users = client.User().list({})
 ```
 
 #### Example: Create
 
-```ts
-const user = await client.user.create({
-  email: /* `$STRING` */,
-  name: /* `$STRING` */,
-  password: /* `$STRING` */,
+```python
+user = client.User().create({
+    "email": ...,  # `$STRING`
+    "name": ...,  # `$STRING`
+    "password": ...,  # `$STRING`
 })
 ```
 
@@ -553,7 +558,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-box = client.box
+box = client.Box()
 box.load({"id": "example_id"})
 
 # box.data_get() now returns the loaded box data

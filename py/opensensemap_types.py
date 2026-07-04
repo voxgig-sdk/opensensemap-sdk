@@ -4,144 +4,136 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Box:
-    created_at: Optional[str] = None
-    description: Optional[str] = None
-    exposure: Optional[str] = None
-    grouptag: Optional[str] = None
-    id: Optional[str] = None
-    location: Optional[dict] = None
-    model: Optional[str] = None
-    name: Optional[str] = None
-    sensor: Optional[list] = None
-    updated_at: Optional[str] = None
-    value: Optional[str] = None
+class Box(TypedDict, total=False):
+    created_at: str
+    description: str
+    exposure: str
+    grouptag: str
+    id: str
+    location: dict
+    model: str
+    name: str
+    sensor: list
+    updated_at: str
+    value: str
 
 
-@dataclass
-class BoxLoadMatch:
+class BoxLoadMatch(TypedDict):
     id: str
 
 
-@dataclass
-class BoxListMatch:
+class BoxListMatch(TypedDict):
     box_id: str
     sensor_id: str
 
 
-@dataclass
-class BoxCreateData:
-    created_at: Optional[str] = None
-    description: Optional[str] = None
-    exposure: Optional[str] = None
-    grouptag: Optional[str] = None
-    id: Optional[str] = None
-    location: Optional[dict] = None
-    model: Optional[str] = None
-    name: Optional[str] = None
-    sensor: Optional[list] = None
-    updated_at: Optional[str] = None
-    value: Optional[str] = None
+class BoxCreateData(TypedDict, total=False):
+    created_at: str
+    description: str
+    exposure: str
+    grouptag: str
+    id: str
+    location: dict
+    model: str
+    name: str
+    sensor: list
+    updated_at: str
+    value: str
 
 
-@dataclass
-class BoxUpdateData:
+class BoxUpdateData(TypedDict):
     id: str
 
 
-@dataclass
-class BoxRemoveMatch:
+class BoxRemoveMatch(TypedDict):
     id: str
 
 
-@dataclass
-class Measurement:
+class Measurement(TypedDict):
     pass
 
 
-@dataclass
-class MeasurementCreateData:
+class MeasurementCreateData(TypedDict):
     box_id: str
 
 
-@dataclass
-class Sensor:
-    icon: Optional[str] = None
-    id: Optional[str] = None
-    last_measurement: Optional[dict] = None
-    sensor_type: Optional[str] = None
-    title: Optional[str] = None
-    unit: Optional[str] = None
+class Sensor(TypedDict, total=False):
+    icon: str
+    id: str
+    last_measurement: dict
+    sensor_type: str
+    title: str
+    unit: str
 
 
-@dataclass
-class SensorListMatch:
+class SensorListMatch(TypedDict):
     box_id: str
 
 
-@dataclass
-class Statistic:
-    count: Optional[int] = None
-    max: Optional[float] = None
-    mean: Optional[float] = None
-    median: Optional[float] = None
-    min: Optional[float] = None
-    sum: Optional[float] = None
+class Statistic(TypedDict, total=False):
+    count: int
+    max: float
+    mean: float
+    median: float
+    min: float
+    sum: float
 
 
-@dataclass
-class StatisticLoadMatch:
-    count: Optional[int] = None
-    max: Optional[float] = None
-    mean: Optional[float] = None
-    median: Optional[float] = None
-    min: Optional[float] = None
-    sum: Optional[float] = None
+class StatisticLoadMatch(TypedDict, total=False):
+    count: int
+    max: float
+    mean: float
+    median: float
+    min: float
+    sum: float
 
 
-@dataclass
-class User:
+class UserRequired(TypedDict):
     email: str
     name: str
     password: str
-    box: Optional[list] = None
-    created_at: Optional[str] = None
-    id: Optional[str] = None
-    role: Optional[str] = None
-    token: Optional[str] = None
-    user: Optional[dict] = None
 
 
-@dataclass
-class UserListMatch:
-    box: Optional[list] = None
-    created_at: Optional[str] = None
-    email: Optional[str] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
-    password: Optional[str] = None
-    role: Optional[str] = None
-    token: Optional[str] = None
-    user: Optional[dict] = None
+class User(UserRequired, total=False):
+    box: list
+    created_at: str
+    id: str
+    role: str
+    token: str
+    user: dict
 
 
-@dataclass
-class UserCreateData:
-    box: Optional[list] = None
-    created_at: Optional[str] = None
-    email: Optional[str] = None
-    id: Optional[str] = None
-    name: Optional[str] = None
-    password: Optional[str] = None
-    role: Optional[str] = None
-    token: Optional[str] = None
-    user: Optional[dict] = None
+class UserListMatch(TypedDict, total=False):
+    box: list
+    created_at: str
+    email: str
+    id: str
+    name: str
+    password: str
+    role: str
+    token: str
+    user: dict
 
+
+class UserCreateData(TypedDict, total=False):
+    box: list
+    created_at: str
+    email: str
+    id: str
+    name: str
+    password: str
+    role: str
+    token: str
+    user: dict

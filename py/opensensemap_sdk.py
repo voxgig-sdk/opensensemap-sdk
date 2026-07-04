@@ -220,89 +220,39 @@ class OpensensemapSDK:
         }
 
 
-    @property
-    def box(self):
-        """Idiomatic facade: client.box.list() / client.box.load({"id": ...})."""
-        from entity.box_entity import BoxEntity
-        cached = getattr(self, "_box", None)
-        if cached is None:
-            cached = BoxEntity(self, None)
-            self._box = cached
-        return cached
-
-    def Box(self, data=None):
-        # Deprecated: use client.box instead.
+    def Box(self, data=None) -> "BoxEntity":
+        """Entity factory: client.Box().list({}) / client.Box().load({"id": ...})."""
         from entity.box_entity import BoxEntity
         return BoxEntity(self, data)
 
 
-    @property
-    def measurement(self):
-        """Idiomatic facade: client.measurement.list() / client.measurement.load({"id": ...})."""
-        from entity.measurement_entity import MeasurementEntity
-        cached = getattr(self, "_measurement", None)
-        if cached is None:
-            cached = MeasurementEntity(self, None)
-            self._measurement = cached
-        return cached
-
-    def Measurement(self, data=None):
-        # Deprecated: use client.measurement instead.
+    def Measurement(self, data=None) -> "MeasurementEntity":
+        """Entity factory: client.Measurement().list({}) / client.Measurement().load({"id": ...})."""
         from entity.measurement_entity import MeasurementEntity
         return MeasurementEntity(self, data)
 
 
-    @property
-    def sensor(self):
-        """Idiomatic facade: client.sensor.list() / client.sensor.load({"id": ...})."""
-        from entity.sensor_entity import SensorEntity
-        cached = getattr(self, "_sensor", None)
-        if cached is None:
-            cached = SensorEntity(self, None)
-            self._sensor = cached
-        return cached
-
-    def Sensor(self, data=None):
-        # Deprecated: use client.sensor instead.
+    def Sensor(self, data=None) -> "SensorEntity":
+        """Entity factory: client.Sensor().list({}) / client.Sensor().load({"id": ...})."""
         from entity.sensor_entity import SensorEntity
         return SensorEntity(self, data)
 
 
-    @property
-    def statistic(self):
-        """Idiomatic facade: client.statistic.list() / client.statistic.load({"id": ...})."""
-        from entity.statistic_entity import StatisticEntity
-        cached = getattr(self, "_statistic", None)
-        if cached is None:
-            cached = StatisticEntity(self, None)
-            self._statistic = cached
-        return cached
-
-    def Statistic(self, data=None):
-        # Deprecated: use client.statistic instead.
+    def Statistic(self, data=None) -> "StatisticEntity":
+        """Entity factory: client.Statistic().list({}) / client.Statistic().load({"id": ...})."""
         from entity.statistic_entity import StatisticEntity
         return StatisticEntity(self, data)
 
 
-    @property
-    def user(self):
-        """Idiomatic facade: client.user.list() / client.user.load({"id": ...})."""
-        from entity.user_entity import UserEntity
-        cached = getattr(self, "_user", None)
-        if cached is None:
-            cached = UserEntity(self, None)
-            self._user = cached
-        return cached
-
-    def User(self, data=None):
-        # Deprecated: use client.user instead.
+    def User(self, data=None) -> "UserEntity":
+        """Entity factory: client.User().list({}) / client.User().load({"id": ...})."""
         from entity.user_entity import UserEntity
         return UserEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "OpensensemapSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -322,3 +272,13 @@ class OpensensemapSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.box_entity import BoxEntity
+    from entity.measurement_entity import MeasurementEntity
+    from entity.sensor_entity import SensorEntity
+    from entity.statistic_entity import StatisticEntity
+    from entity.user_entity import UserEntity

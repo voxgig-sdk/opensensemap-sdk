@@ -31,18 +31,16 @@ $client = new OpensensemapSDK([
 ]);
 ```
 
-### 2. List boxs
+### 2. List box records
 
 ```php
 try {
-    $result = $client->box()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Box records — iterate directly.
+    $boxs = $client->Box()->list();
+    foreach ($boxs as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -51,9 +49,10 @@ try {
 
 ```php
 try {
-    $result = $client->box()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Box record (throws on error).
+    $box = $client->Box()->load(["id" => "example_id"]);
+    print_r($box);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -61,14 +60,14 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// Create
-$created = $client->box()->create(["name" => "Example"]);
+// create() returns the bare created Box record.
+$created = $client->Box()->create(["name" => "Example"]);
 
-// Update
-$client->box()->update(["id" => $created["id"], "name" => "Example-Renamed"]);
+// Update — index the bare record directly ($created["id"]).
+$client->Box()->update(["id" => $created["id"], "name" => "Example-Renamed"]);
 
 // Remove
-$client->box()->remove(["id" => $created["id"]]);
+$client->Box()->remove(["id" => $created["id"]]);
 ```
 
 
@@ -112,13 +111,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = OpensensemapSDK::test();
+$client = OpensensemapSDK::test([
+    "entity" => ["box" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->box()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$box = $client->Box()->load(["id" => "test01"]);
+print_r($box);
 ```
 
 ### Use a custom fetch function
@@ -203,7 +206,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `Measurement` | `($data): MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor` | `($data): SensorEntity` | Create a Sensor entity instance. |
 | `Statistic` | `($data): StatisticEntity` | Create a Statistic entity instance. |
-| `User` | `($data): UserEntity` | Create a User entity instance. |
+| `User` | `($data): UserEntity` | Create an User entity instance. |
 
 ### Entity interface
 
@@ -327,7 +330,7 @@ API path: `/users/register`
 
 ### Box
 
-Create an instance: `const box = client.box`
+Create an instance: `$box = $client->Box();`
 
 #### Operations
 
@@ -357,27 +360,29 @@ Create an instance: `const box = client.box`
 
 #### Example: Load
 
-```ts
-const box = await client.box.load({ id: 'box_id' })
+```php
+// load() returns the bare Box record (throws on error).
+$box = $client->Box()->load(["id" => "box_id"]);
 ```
 
 #### Example: List
 
-```ts
-const boxs = await client.box.list()
+```php
+// list() returns an array of Box records (throws on error).
+$boxs = $client->Box()->list();
 ```
 
 #### Example: Create
 
-```ts
-const box = await client.box.create({
-})
+```php
+$box = $client->Box()->create([
+]);
 ```
 
 
 ### Measurement
 
-Create an instance: `const measurement = client.measurement`
+Create an instance: `$measurement = $client->Measurement();`
 
 #### Operations
 
@@ -387,15 +392,15 @@ Create an instance: `const measurement = client.measurement`
 
 #### Example: Create
 
-```ts
-const measurement = await client.measurement.create({
-})
+```php
+$measurement = $client->Measurement()->create([
+]);
 ```
 
 
 ### Sensor
 
-Create an instance: `const sensor = client.sensor`
+Create an instance: `$sensor = $client->Sensor();`
 
 #### Operations
 
@@ -416,14 +421,15 @@ Create an instance: `const sensor = client.sensor`
 
 #### Example: List
 
-```ts
-const sensors = await client.sensor.list()
+```php
+// list() returns an array of Sensor records (throws on error).
+$sensors = $client->Sensor()->list();
 ```
 
 
 ### Statistic
 
-Create an instance: `const statistic = client.statistic`
+Create an instance: `$statistic = $client->Statistic();`
 
 #### Operations
 
@@ -444,14 +450,15 @@ Create an instance: `const statistic = client.statistic`
 
 #### Example: Load
 
-```ts
-const statistic = await client.statistic.load({ id: 'statistic_id' })
+```php
+// load() returns the bare Statistic record (throws on error).
+$statistic = $client->Statistic()->load(["id" => "statistic_id"]);
 ```
 
 
 ### User
 
-Create an instance: `const user = client.user`
+Create an instance: `$user = $client->User();`
 
 #### Operations
 
@@ -476,18 +483,19 @@ Create an instance: `const user = client.user`
 
 #### Example: List
 
-```ts
-const users = await client.user.list()
+```php
+// list() returns an array of User records (throws on error).
+$users = $client->User()->list();
 ```
 
 #### Example: Create
 
-```ts
-const user = await client.user.create({
-  email: /* `$STRING` */,
-  name: /* `$STRING` */,
-  password: /* `$STRING` */,
-})
+```php
+$user = $client->User()->create([
+    "email" => null, // `$STRING`
+    "name" => null, // `$STRING`
+    "password" => null, // `$STRING`
+]);
 ```
 
 
@@ -562,7 +570,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$box = $client->box();
+$box = $client->Box();
 $box->load(["id" => "example_id"]);
 
 // $box->dataGet() now returns the loaded box data

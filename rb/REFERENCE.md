@@ -103,7 +103,7 @@ same parameters as `direct()`. Raises on error.
 ## BoxEntity
 
 ```ruby
-box = client.box
+box = client.Box
 ```
 
 ### Fields
@@ -145,7 +145,7 @@ box = client.box
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.box.create({
+result = client.Box.create({
 })
 ```
 
@@ -154,7 +154,7 @@ result = client.box.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.box.list(nil)
+results = client.Box.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -162,7 +162,7 @@ results = client.box.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.box.load({ "id" => "box_id" })
+result = client.Box.load({ "id" => "box_id" })
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -170,7 +170,7 @@ result = client.box.load({ "id" => "box_id" })
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.box.remove({ "id" => "box_id" })
+result = client.Box.remove({ "id" => "box_id" })
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`
@@ -178,7 +178,7 @@ result = client.box.remove({ "id" => "box_id" })
 Update an existing entity. The data must include the entity `id`. Raises on error.
 
 ```ruby
-result = client.box.update({
+result = client.Box.update({
   "id" => "box_id",
   # Fields to update
 })
@@ -217,7 +217,7 @@ Return the entity name.
 ## MeasurementEntity
 
 ```ruby
-measurement = client.measurement
+measurement = client.Measurement
 ```
 
 ### Operations
@@ -227,7 +227,7 @@ measurement = client.measurement
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.measurement.create({
+result = client.Measurement.create({
 })
 ```
 
@@ -264,7 +264,7 @@ Return the entity name.
 ## SensorEntity
 
 ```ruby
-sensor = client.sensor
+sensor = client.Sensor
 ```
 
 ### Fields
@@ -285,7 +285,7 @@ sensor = client.sensor
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.sensor.list(nil)
+results = client.Sensor.list(nil)
 ```
 
 ### Common Methods
@@ -321,7 +321,7 @@ Return the entity name.
 ## StatisticEntity
 
 ```ruby
-statistic = client.statistic
+statistic = client.Statistic
 ```
 
 ### Fields
@@ -342,7 +342,7 @@ statistic = client.statistic
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.statistic.load({ "id" => "statistic_id" })
+result = client.Statistic.load({ "id" => "statistic_id" })
 ```
 
 ### Common Methods
@@ -378,7 +378,7 @@ Return the entity name.
 ## UserEntity
 
 ```ruby
-user = client.user
+user = client.User
 ```
 
 ### Fields
@@ -416,7 +416,7 @@ user = client.user
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.user.create({
+result = client.User.create({
   "email" => # `$STRING`,
   "name" => # `$STRING`,
   "password" => # `$STRING`,
@@ -428,7 +428,7 @@ result = client.user.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.user.list(nil)
+results = client.User.list(nil)
 ```
 
 ### Common Methods

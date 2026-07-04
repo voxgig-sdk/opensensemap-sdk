@@ -102,7 +102,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## BoxEntity
 
 ```php
-$box = $client->box();
+$box = $client->Box();
 ```
 
 ### Fields
@@ -144,7 +144,7 @@ $box = $client->box();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->box()->create([
+$result = $client->Box()->create([
 ]);
 ```
 
@@ -153,7 +153,7 @@ $result = $client->box()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->box()->list([]);
+$results = $client->Box()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -161,7 +161,7 @@ $results = $client->box()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->box()->load(["id" => "box_id"]);
+$result = $client->Box()->load(["id" => "box_id"]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -169,7 +169,7 @@ $result = $client->box()->load(["id" => "box_id"]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->box()->remove(["id" => "box_id"]);
+$result = $client->Box()->remove(["id" => "box_id"]);
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
@@ -177,7 +177,7 @@ $result = $client->box()->remove(["id" => "box_id"]);
 Update an existing entity. The data must include the entity `id`. Throws on error.
 
 ```php
-$result = $client->box()->update([
+$result = $client->Box()->update([
   "id" => "box_id",
   // Fields to update
 ]);
@@ -216,7 +216,7 @@ Return the entity name.
 ## MeasurementEntity
 
 ```php
-$measurement = $client->measurement();
+$measurement = $client->Measurement();
 ```
 
 ### Operations
@@ -226,7 +226,7 @@ $measurement = $client->measurement();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->measurement()->create([
+$result = $client->Measurement()->create([
 ]);
 ```
 
@@ -263,7 +263,7 @@ Return the entity name.
 ## SensorEntity
 
 ```php
-$sensor = $client->sensor();
+$sensor = $client->Sensor();
 ```
 
 ### Fields
@@ -284,7 +284,7 @@ $sensor = $client->sensor();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->sensor()->list([]);
+$results = $client->Sensor()->list([]);
 ```
 
 ### Common Methods
@@ -320,7 +320,7 @@ Return the entity name.
 ## StatisticEntity
 
 ```php
-$statistic = $client->statistic();
+$statistic = $client->Statistic();
 ```
 
 ### Fields
@@ -341,7 +341,7 @@ $statistic = $client->statistic();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->statistic()->load(["id" => "statistic_id"]);
+$result = $client->Statistic()->load(["id" => "statistic_id"]);
 ```
 
 ### Common Methods
@@ -377,7 +377,7 @@ Return the entity name.
 ## UserEntity
 
 ```php
-$user = $client->user();
+$user = $client->User();
 ```
 
 ### Fields
@@ -415,7 +415,7 @@ $user = $client->user();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->user()->create([
+$result = $client->User()->create([
   "email" => /* `$STRING` */,
   "name" => /* `$STRING` */,
   "password" => /* `$STRING` */,
@@ -427,7 +427,7 @@ $result = $client->user()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->user()->list([]);
+$results = $client->User()->list([]);
 ```
 
 ### Common Methods

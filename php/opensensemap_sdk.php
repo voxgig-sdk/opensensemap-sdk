@@ -233,10 +233,10 @@ class OpensensemapSDK
 
     private $_box = null;
 
-    // Idiomatic facade: $client->box()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Box() (PHP method
-    // names are case-insensitive).
-    public function box($data = null)
+    // Canonical facade: $client->Box()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->box()
+    // resolves here too.
+    public function Box($data = null)
     {
         require_once __DIR__ . '/entity/box_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class OpensensemapSDK
 
     private $_measurement = null;
 
-    // Idiomatic facade: $client->measurement()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Measurement() (PHP method
-    // names are case-insensitive).
-    public function measurement($data = null)
+    // Canonical facade: $client->Measurement()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->measurement()
+    // resolves here too.
+    public function Measurement($data = null)
     {
         require_once __DIR__ . '/entity/measurement_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class OpensensemapSDK
 
     private $_sensor = null;
 
-    // Idiomatic facade: $client->sensor()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Sensor() (PHP method
-    // names are case-insensitive).
-    public function sensor($data = null)
+    // Canonical facade: $client->Sensor()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->sensor()
+    // resolves here too.
+    public function Sensor($data = null)
     {
         require_once __DIR__ . '/entity/sensor_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class OpensensemapSDK
 
     private $_statistic = null;
 
-    // Idiomatic facade: $client->statistic()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Statistic() (PHP method
-    // names are case-insensitive).
-    public function statistic($data = null)
+    // Canonical facade: $client->Statistic()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->statistic()
+    // resolves here too.
+    public function Statistic($data = null)
     {
         require_once __DIR__ . '/entity/statistic_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class OpensensemapSDK
 
     private $_user = null;
 
-    // Idiomatic facade: $client->user()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias User() (PHP method
-    // names are case-insensitive).
-    public function user($data = null)
+    // Canonical facade: $client->User()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->user()
+    // resolves here too.
+    public function User($data = null)
     {
         require_once __DIR__ . '/entity/user_entity.php';
         if ($data === null) {

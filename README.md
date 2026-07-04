@@ -28,9 +28,11 @@ const client = new OpensensemapSDK({
   apikey: process.env.OPENSENSEMAP_APIKEY,
 })
 
-// List all boxs
-const boxs = await client.box.list()
-console.log(boxs.data)
+// List all boxs (returns Box[])
+const boxs = await client.Box().list()
+for (const box of boxs) {
+  console.log(box)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -92,12 +94,13 @@ client = OpensensemapSDK({
     "apikey": os.environ.get("OPENSENSEMAP_APIKEY"),
 })
 
-# List all boxs
-boxs = client.box.list()
-print(boxs)
+# List all boxs (returns a list, raises on error)
+boxs = client.Box().list({})
+for box in boxs:
+    print(box)
 
-# Load a specific box
-box = client.box.load({"id": "example_id"})
+# Load a specific box (returns the record, raises on error)
+box = client.Box().load({"id": "example_id"})
 print(box)
 ```
 
@@ -111,12 +114,12 @@ $client = new OpensensemapSDK([
     "apikey" => getenv("OPENSENSEMAP_APIKEY"),
 ]);
 
-// List all boxs (throws on error)
-$boxs = $client->box()->list();
+// List all boxs (returns an array; throws on error)
+$boxs = $client->Box()->list();
 print_r($boxs);
 
-// Load a specific box
-$box = $client->box()->load(["id" => "example_id"]);
+// Load a specific box (returns the bare record; throws on error)
+$box = $client->Box()->load(["id" => "example_id"]);
 print_r($box);
 ```
 
@@ -143,12 +146,12 @@ client = OpensensemapSDK.new({
   "apikey" => ENV["OPENSENSEMAP_APIKEY"],
 })
 
-# List all boxs
-boxs = client.box.list
+# List all boxs (returns an Array; raises on error)
+boxs = client.Box.list
 puts boxs
 
-# Load a specific box
-box = client.box.load({ "id" => "example_id" })
+# Load a specific box (returns the bare record; raises on error)
+box = client.Box.load({ "id" => "example_id" })
 puts box
 ```
 
@@ -162,11 +165,11 @@ local client = sdk.new({
 })
 
 -- List all boxs
-local boxs, err = client:box():list()
+local boxs, err = client:Box():list()
 print(boxs)
 
 -- Load a specific box
-local box, err = client:box():load({ id = "example_id" })
+local box, err = client:Box():load({ id = "example_id" })
 print(box)
 ```
 
@@ -179,22 +182,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = OpensensemapSDK.test()
-const result = await client.box.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const box = await client.Box().load({ id: 'test01' })
+// box is a bare Box populated with mock data
+console.log(box)
 ```
 
 ### Python
 
 ```python
 client = OpensensemapSDK.test()
-result = client.box.load({"id": "test01"})
+box = client.Box().load({"id": "test01"})
+print(box)
 ```
 
 ### PHP
 
 ```php
-$client = OpensensemapSDK::test();
-$result = $client->box()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = OpensensemapSDK::test([
+    "entity" => ["box" => ["test01" => ["id" => "test01"]]],
+]);
+$box = $client->Box()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -209,15 +217,18 @@ result, err := client.Box(nil).Load(
 ### Ruby
 
 ```ruby
-client = OpensensemapSDK.test
-result = client.box.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = OpensensemapSDK.test({
+  "entity" => { "box" => { "test01" => { "id" => "test01" } } },
+})
+box = client.Box.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:box():load({ id = "test01" })
+local result, err = client:Box():load({ id = "test01" })
 ```
 
 ## How it works
@@ -265,6 +276,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

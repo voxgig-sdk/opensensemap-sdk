@@ -104,17 +104,17 @@ box = client.Box()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `exposure` | ``$STRING`` | No |  |
-| `grouptag` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `location` | ``$OBJECT`` | No |  |
-| `model` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `sensor` | ``$ARRAY`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `created_at` | `str` | No |  |
+| `description` | `str` | No |  |
+| `exposure` | `str` | No |  |
+| `grouptag` | `str` | No |  |
+| `id` | `str` | No |  |
+| `location` | `dict` | No |  |
+| `model` | `str` | No |  |
+| `name` | `str` | No |  |
+| `sensor` | `list` | No |  |
+| `updated_at` | `str` | No |  |
+| `value` | `str` | No |  |
 
 ### Field Usage by Operation
 
@@ -143,12 +143,12 @@ result = client.Box().create({
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Box().list({})
+results = client.Box().list()
 for box in results:
     print(box)
 ```
@@ -265,21 +265,21 @@ sensor = client.Sensor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `last_measurement` | ``$OBJECT`` | No |  |
-| `sensor_type` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `unit` | ``$STRING`` | No |  |
+| `icon` | `str` | No |  |
+| `id` | `str` | No |  |
+| `last_measurement` | `dict` | No |  |
+| `sensor_type` | `str` | No |  |
+| `title` | `str` | No |  |
+| `unit` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Sensor().list({})
+results = client.Sensor().list()
 for sensor in results:
     print(sensor)
 ```
@@ -323,12 +323,12 @@ statistic = client.Statistic()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | ``$INTEGER`` | No |  |
-| `max` | ``$NUMBER`` | No |  |
-| `mean` | ``$NUMBER`` | No |  |
-| `median` | ``$NUMBER`` | No |  |
-| `min` | ``$NUMBER`` | No |  |
-| `sum` | ``$NUMBER`` | No |  |
+| `count` | `int` | No |  |
+| `max` | `float` | No |  |
+| `mean` | `float` | No |  |
+| `median` | `float` | No |  |
+| `min` | `float` | No |  |
+| `sum` | `float` | No |  |
 
 ### Operations
 
@@ -337,7 +337,7 @@ statistic = client.Statistic()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Statistic().load({"id": "statistic_id"})
+result = client.Statistic().load()
 ```
 
 ### Common Methods
@@ -379,29 +379,29 @@ user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | ``$ARRAY`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | Yes |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `password` | ``$STRING`` | Yes |  |
-| `role` | ``$STRING`` | No |  |
-| `token` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `box` | `list` | No |  |
+| `created_at` | `str` | No |  |
+| `email` | `str` | Yes |  |
+| `id` | `str` | No |  |
+| `name` | `str` | Yes |  |
+| `password` | `str` | Yes |  |
+| `role` | `str` | No |  |
+| `token` | `str` | No |  |
+| `user` | `dict` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `box` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `email` | - | Yes | - | - | - |
-| `id` | - | - | - | - | - |
-| `name` | - | Yes | - | - | - |
-| `password` | - | - | - | - | - |
-| `role` | - | - | - | - | - |
-| `token` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `box` | - | - |
+| `created_at` | - | - |
+| `email` | Yes | - |
+| `id` | - | - |
+| `name` | Yes | - |
+| `password` | - | - |
+| `role` | - | - |
+| `token` | - | - |
+| `user` | - | - |
 
 ### Operations
 
@@ -411,18 +411,18 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.User().create({
-    "email": ...,  # `$STRING`
-    "name": ...,  # `$STRING`
-    "password": ...,  # `$STRING`
+    "email": "example",  # str
+    "name": "example",  # str
+    "password": "example",  # str
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.User().list({})
+results = client.User().list()
 for user in results:
     print(user)
 ```

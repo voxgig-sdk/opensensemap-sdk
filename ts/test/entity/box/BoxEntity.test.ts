@@ -81,12 +81,12 @@ describe('BoxEntity', async () => {
     box_ref01_data_up0.id = box_ref01_data.id
 
     const box_ref01_markdef_up0 = { name: 'created_at', value: 'Mark01-box_ref01_' + setup.now }
-    box_ref01_data_up0 [box_ref01_markdef_up0.name] = box_ref01_markdef_up0.value
+    ;(box_ref01_data_up0 as any)[box_ref01_markdef_up0.name] = box_ref01_markdef_up0.value
 
     const box_ref01_resdata_up0 = await box_ref01_ent.update(box_ref01_data_up0)
     assert(box_ref01_resdata_up0.id === box_ref01_data_up0.id)
 
-    assert(box_ref01_resdata_up0[box_ref01_markdef_up0.name] === box_ref01_markdef_up0.value)
+    assert((box_ref01_resdata_up0 as any)[box_ref01_markdef_up0.name] === box_ref01_markdef_up0.value)
 
 
     // LOAD

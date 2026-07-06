@@ -4,6 +4,8 @@
 
 The PHP SDK for the Opensensemap API — an entity-oriented client using PHP conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `$client->Box()` — with named operations (`list`/`load`/`create`/`update`/`remove`) instead of raw URL paths and query strings. Working with resources and verbs keeps call sites self-describing and reduces cognitive load.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -38,7 +40,7 @@ try {
     // list() returns an array of Box records — iterate directly.
     $boxs = $client->Box()->list();
     foreach ($boxs as $item) {
-        echo $item["id"] . " " . $item["name"] . "\n";
+        echo $item["id"] . " " . $item["created_at"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -61,13 +63,44 @@ try {
 
 ```php
 // create() returns the bare created Box record.
-$created = $client->Box()->create(["name" => "Example"]);
+$created = $client->Box()->create(["created_at" => "example", "description" => "example"]);
 
 // Update — index the bare record directly ($created["id"]).
-$client->Box()->update(["id" => $created["id"], "name" => "Example-Renamed"]);
+$client->Box()->update(["id" => $created["id"]]);
 
 // Remove
 $client->Box()->remove(["id" => $created["id"]]);
+```
+
+
+## Error handling
+
+Entity operations throw a `\Throwable` on failure, so wrap them in
+`try` / `catch`:
+
+```php
+try {
+    $boxs = $client->Box()->list();
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
+`direct()` does **not** throw — it returns the result array. Branch on
+`ok`; on failure `status` holds the HTTP status (for error responses) and
+`err` holds a transport error, so read both defensively:
+
+```php
+$result = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example_id"],
+]);
+
+if (! $result["ok"]) {
+    $err = $result["err"] ?? null;
+    echo "request failed: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
+}
 ```
 
 
@@ -90,7 +123,10 @@ if ($result["ok"]) {
     echo $result["status"];  // 200
     print_r($result["data"]);  // response body
 } else {
-    echo "Error: " . $result["err"]->getMessage();
+    // On an HTTP error status there is no err (only a transport failure sets
+    // it), so fall back to the status code.
+    $err = $result["err"] ?? null;
+    echo "Error: " . ($err ? $err->getMessage() : "HTTP " . $result["status"]);
 }
 ```
 
@@ -119,8 +155,8 @@ $client = OpensensemapSDK::test([
     "entity" => ["box" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// load() returns the bare mock record (throws on error).
-$box = $client->Box()->load(["id" => "test01"]);
+// Entity ops return the bare mock record (throws on error).
+$box = $client->Box()->list();
 print_r($box);
 ```
 
@@ -215,7 +251,7 @@ All entities share the same interface.
 | Method | Signature | Description |
 | --- | --- | --- |
 | `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
-| `list` | `($reqmatch, $ctrl): array` | List entities matching the criteria. |
+| `list` | `(?array $reqmatch = null, $ctrl): array` | List entities matching the criteria (call with no argument to list all). |
 | `create` | `($reqdata, $ctrl): array` | Create a new entity. |
 | `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
 | `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
@@ -346,17 +382,17 @@ Create an instance: `$box = $client->Box();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `exposure` | ``$STRING`` |  |
-| `grouptag` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `location` | ``$OBJECT`` |  |
-| `model` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `sensor` | ``$ARRAY`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `value` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `exposure` | `string` |  |
+| `grouptag` | `string` |  |
+| `id` | `string` |  |
+| `location` | `array` |  |
+| `model` | `string` |  |
+| `name` | `string` |  |
+| `sensor` | `array` |  |
+| `updated_at` | `string` |  |
+| `value` | `string` |  |
 
 #### Example: Load
 
@@ -412,12 +448,12 @@ Create an instance: `$sensor = $client->Sensor();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `last_measurement` | ``$OBJECT`` |  |
-| `sensor_type` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `unit` | ``$STRING`` |  |
+| `icon` | `string` |  |
+| `id` | `string` |  |
+| `last_measurement` | `array` |  |
+| `sensor_type` | `string` |  |
+| `title` | `string` |  |
+| `unit` | `string` |  |
 
 #### Example: List
 
@@ -441,18 +477,18 @@ Create an instance: `$statistic = $client->Statistic();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | ``$INTEGER`` |  |
-| `max` | ``$NUMBER`` |  |
-| `mean` | ``$NUMBER`` |  |
-| `median` | ``$NUMBER`` |  |
-| `min` | ``$NUMBER`` |  |
-| `sum` | ``$NUMBER`` |  |
+| `count` | `int` |  |
+| `max` | `float` |  |
+| `mean` | `float` |  |
+| `median` | `float` |  |
+| `min` | `float` |  |
+| `sum` | `float` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the bare Statistic record (throws on error).
-$statistic = $client->Statistic()->load(["id" => "statistic_id"]);
+$statistic = $client->Statistic()->load();
 ```
 
 
@@ -471,15 +507,15 @@ Create an instance: `$user = $client->User();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | ``$ARRAY`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `password` | ``$STRING`` |  |
-| `role` | ``$STRING`` |  |
-| `token` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `box` | `array` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
+| `password` | `string` |  |
+| `role` | `string` |  |
+| `token` | `string` |  |
+| `user` | `array` |  |
 
 #### Example: List
 
@@ -492,19 +528,23 @@ $users = $client->User()->list();
 
 ```php
 $user = $client->User()->create([
-    "email" => null, // `$STRING`
-    "name" => null, // `$STRING`
-    "password" => null, // `$STRING`
+    "email" => null, // string
+    "name" => null, // string
+    "password" => null, // string
 ]);
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -521,8 +561,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return array.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -566,15 +607,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
 $box = $client->Box();
-$box->load(["id" => "example_id"]);
+$box->list();
 
-// $box->dataGet() now returns the loaded box data
-// $box->matchGet() returns the last match criteria
+// $box->data_get() now returns the box data from the last list
+// $box->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

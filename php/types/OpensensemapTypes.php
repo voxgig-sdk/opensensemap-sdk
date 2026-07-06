@@ -41,7 +41,7 @@ class BoxListMatch
     public string $sensor_id;
 }
 
-/** Match filter for Box#create (any subset of Box fields). */
+/** Request payload for Box#create. */
 class BoxCreateData
 {
     public ?string $created_at = null;
@@ -108,7 +108,7 @@ class Statistic
     public ?float $sum = null;
 }
 
-/** Match filter for Statistic#load (any subset of Statistic fields). */
+/** Request payload for Statistic#load. */
 class StatisticLoadMatch
 {
     public ?int $count = null;
@@ -133,7 +133,7 @@ class User
     public ?array $user = null;
 }
 
-/** Match filter for User#list (any subset of User fields). */
+/** Request payload for User#list. */
 class UserListMatch
 {
     public ?array $box = null;
@@ -147,15 +147,15 @@ class UserListMatch
     public ?array $user = null;
 }
 
-/** Match filter for User#create (any subset of User fields). */
+/** Request payload for User#create. */
 class UserCreateData
 {
     public ?array $box = null;
     public ?string $created_at = null;
-    public ?string $email = null;
+    public string $email;
     public ?string $id = null;
-    public ?string $name = null;
-    public ?string $password = null;
+    public string $name;
+    public string $password;
     public ?string $role = null;
     public ?string $token = null;
     public ?array $user = null;

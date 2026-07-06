@@ -28,7 +28,19 @@ export interface BoxListMatch {
   sensor_id: string
 }
 
-export type BoxCreateData = Partial<Box>
+export interface BoxCreateData {
+  created_at?: string
+  description?: string
+  exposure?: string
+  grouptag?: string
+  id?: string
+  location?: Record<string, any>
+  model?: string
+  name?: string
+  sensor?: any[]
+  updated_at?: string
+  value?: string
+}
 
 export interface BoxUpdateData {
   id: string
@@ -67,7 +79,14 @@ export interface Statistic {
   sum?: number
 }
 
-export type StatisticLoadMatch = Partial<Statistic>
+export interface StatisticLoadMatch {
+  count?: number
+  max?: number
+  mean?: number
+  median?: number
+  min?: number
+  sum?: number
+}
 
 export interface User {
   box?: any[]
@@ -81,7 +100,27 @@ export interface User {
   user?: Record<string, any>
 }
 
-export type UserListMatch = Partial<User>
+export interface UserListMatch {
+  box?: any[]
+  created_at?: string
+  email?: string
+  id?: string
+  name?: string
+  password?: string
+  role?: string
+  token?: string
+  user?: Record<string, any>
+}
 
-export type UserCreateData = Partial<User>
+export interface UserCreateData {
+  box?: any[]
+  created_at?: string
+  email: string
+  id?: string
+  name: string
+  password: string
+  role?: string
+  token?: string
+  user?: Record<string, any>
+}
 

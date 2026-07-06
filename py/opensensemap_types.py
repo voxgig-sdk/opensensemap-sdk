@@ -127,13 +127,16 @@ class UserListMatch(TypedDict, total=False):
     user: dict
 
 
-class UserCreateData(TypedDict, total=False):
-    box: list
-    created_at: str
+class UserCreateDataRequired(TypedDict):
     email: str
-    id: str
     name: str
     password: str
+
+
+class UserCreateData(UserCreateDataRequired, total=False):
+    box: list
+    created_at: str
+    id: str
     role: str
     token: str
     user: dict

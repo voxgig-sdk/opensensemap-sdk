@@ -4,6 +4,8 @@
 
 The Lua SDK for the Opensensemap API — an entity-oriented client using Lua conventions.
 
+It exposes the API as capitalised, semantic **Entities** — e.g. `client:Box()` — each with the same small set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL paths and query strings. You call meaning, not endpoints, which keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -43,7 +45,7 @@ local boxs, err = client:Box():list()
 if err then error(err) end
 
 for _, item in ipairs(boxs) do
-  print(item["id"], item["name"])
+  print(item["id"], item["created_at"])
 end
 ```
 
@@ -59,14 +61,36 @@ print(box)
 
 ```lua
 -- Create
-local created, err = client:Box():create({ name = "Example" })
+local created, err = client:Box():create({ created_at = "example", description = "example" })
 if err then error(err) end
 
 -- Update
-client:Box():update({ id = created["id"], name = "Example-Renamed" })
+client:Box():update({ id = created["id"] })
 
 -- Remove
 client:Box():remove({ id = created["id"] })
+```
+
+
+## Error handling
+
+Entity operations return `(value, err)`. Check `err` before using
+the value:
+
+```lua
+local boxs, err = client:Box():list()
+if err then error(err) end
+```
+
+`direct` follows the same `(value, err)` convention:
+
+```lua
+local result, err = client:direct({
+  path = "/api/resource/{id}",
+  method = "GET",
+  params = { id = "example_id" },
+})
+if err then error(err) end
 ```
 
 
@@ -112,8 +136,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Box():load({ id = "test01" })
--- result is the loaded data; err is set on failure
+local result, err = client:Box():list()
+-- result is the returned data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -338,17 +362,17 @@ Create an instance: `local box = client:Box(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `exposure` | ``$STRING`` |  |
-| `grouptag` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `location` | ``$OBJECT`` |  |
-| `model` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `sensor` | ``$ARRAY`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `value` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `exposure` | `string` |  |
+| `grouptag` | `string` |  |
+| `id` | `string` |  |
+| `location` | `table` |  |
+| `model` | `string` |  |
+| `name` | `string` |  |
+| `sensor` | `table` |  |
+| `updated_at` | `string` |  |
+| `value` | `string` |  |
 
 #### Example: Load
 
@@ -402,12 +426,12 @@ Create an instance: `local sensor = client:Sensor(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `last_measurement` | ``$OBJECT`` |  |
-| `sensor_type` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `unit` | ``$STRING`` |  |
+| `icon` | `string` |  |
+| `id` | `string` |  |
+| `last_measurement` | `table` |  |
+| `sensor_type` | `string` |  |
+| `title` | `string` |  |
+| `unit` | `string` |  |
 
 #### Example: List
 
@@ -430,17 +454,17 @@ Create an instance: `local statistic = client:Statistic(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | ``$INTEGER`` |  |
-| `max` | ``$NUMBER`` |  |
-| `mean` | ``$NUMBER`` |  |
-| `median` | ``$NUMBER`` |  |
-| `min` | ``$NUMBER`` |  |
-| `sum` | ``$NUMBER`` |  |
+| `count` | `number` |  |
+| `max` | `number` |  |
+| `mean` | `number` |  |
+| `median` | `number` |  |
+| `min` | `number` |  |
+| `sum` | `number` |  |
 
 #### Example: Load
 
 ```lua
-local statistic, err = client:Statistic():load({ id = "statistic_id" })
+local statistic, err = client:Statistic():load()
 ```
 
 
@@ -459,15 +483,15 @@ Create an instance: `local user = client:User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | ``$ARRAY`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `password` | ``$STRING`` |  |
-| `role` | ``$STRING`` |  |
-| `token` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `box` | `table` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
+| `password` | `string` |  |
+| `role` | `string` |  |
+| `token` | `string` |  |
+| `user` | `table` |  |
 
 #### Example: List
 
@@ -479,19 +503,23 @@ local users, err = client:User():list()
 
 ```lua
 local user, err = client:User():create({
-  email = nil, -- `$STRING`
-  name = nil, -- `$STRING`
-  password = nil, -- `$STRING`
+  email = nil, -- string
+  name = nil, -- string
+  password = nil, -- string
 })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -508,8 +536,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as a second return value.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -553,14 +582,14 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
 local box = client:Box()
-box:load({ id = "example_id" })
+box:list()
 
--- box:data_get() now returns the loaded box data
+-- box:data_get() now returns the box data from the last list
 -- box:match_get() returns the last match criteria
 ```
 

@@ -8,7 +8,7 @@ Complete API reference for the Opensensemap Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'opensensemap_sdk'
+require_relative 'Opensensemap_sdk'
 
 client = OpensensemapSDK.new(options)
 ```
@@ -110,17 +110,17 @@ box = client.Box
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `exposure` | ``$STRING`` | No |  |
-| `grouptag` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `location` | ``$OBJECT`` | No |  |
-| `model` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `sensor` | ``$ARRAY`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `created_at` | `String` | No |  |
+| `description` | `String` | No |  |
+| `exposure` | `String` | No |  |
+| `grouptag` | `String` | No |  |
+| `id` | `String` | No |  |
+| `location` | `Hash` | No |  |
+| `model` | `String` | No |  |
+| `name` | `String` | No |  |
+| `sensor` | `Array` | No |  |
+| `updated_at` | `String` | No |  |
+| `value` | `String` | No |  |
 
 ### Field Usage by Operation
 
@@ -149,12 +149,12 @@ result = client.Box.create({
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Box.list(nil)
+results = client.Box.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -271,21 +271,21 @@ sensor = client.Sensor
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `last_measurement` | ``$OBJECT`` | No |  |
-| `sensor_type` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `unit` | ``$STRING`` | No |  |
+| `icon` | `String` | No |  |
+| `id` | `String` | No |  |
+| `last_measurement` | `Hash` | No |  |
+| `sensor_type` | `String` | No |  |
+| `title` | `String` | No |  |
+| `unit` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Sensor.list(nil)
+results = client.Sensor.list
 ```
 
 ### Common Methods
@@ -328,12 +328,12 @@ statistic = client.Statistic
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | ``$INTEGER`` | No |  |
-| `max` | ``$NUMBER`` | No |  |
-| `mean` | ``$NUMBER`` | No |  |
-| `median` | ``$NUMBER`` | No |  |
-| `min` | ``$NUMBER`` | No |  |
-| `sum` | ``$NUMBER`` | No |  |
+| `count` | `Integer` | No |  |
+| `max` | `Float` | No |  |
+| `mean` | `Float` | No |  |
+| `median` | `Float` | No |  |
+| `min` | `Float` | No |  |
+| `sum` | `Float` | No |  |
 
 ### Operations
 
@@ -342,7 +342,7 @@ statistic = client.Statistic
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Statistic.load({ "id" => "statistic_id" })
+result = client.Statistic.load()
 ```
 
 ### Common Methods
@@ -385,29 +385,29 @@ user = client.User
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | ``$ARRAY`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | Yes |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `password` | ``$STRING`` | Yes |  |
-| `role` | ``$STRING`` | No |  |
-| `token` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `box` | `Array` | No |  |
+| `created_at` | `String` | No |  |
+| `email` | `String` | Yes |  |
+| `id` | `String` | No |  |
+| `name` | `String` | Yes |  |
+| `password` | `String` | Yes |  |
+| `role` | `String` | No |  |
+| `token` | `String` | No |  |
+| `user` | `Hash` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `box` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `email` | - | Yes | - | - | - |
-| `id` | - | - | - | - | - |
-| `name` | - | Yes | - | - | - |
-| `password` | - | - | - | - | - |
-| `role` | - | - | - | - | - |
-| `token` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `box` | - | - |
+| `created_at` | - | - |
+| `email` | Yes | - |
+| `id` | - | - |
+| `name` | Yes | - |
+| `password` | - | - |
+| `role` | - | - |
+| `token` | - | - |
+| `user` | - | - |
 
 ### Operations
 
@@ -417,18 +417,18 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.User.create({
-  "email" => # `$STRING`,
-  "name" => # `$STRING`,
-  "password" => # `$STRING`,
+  "email" => "example", # String
+  "name" => "example", # String
+  "password" => "example", # String
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.User.list(nil)
+results = client.User.list
 ```
 
 ### Common Methods

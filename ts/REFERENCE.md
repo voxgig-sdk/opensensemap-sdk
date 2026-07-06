@@ -165,17 +165,17 @@ const box = client.Box()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `exposure` | ``$STRING`` | No |  |
-| `grouptag` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `location` | ``$OBJECT`` | No |  |
-| `model` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `sensor` | ``$ARRAY`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `exposure` | `string` | No |  |
+| `grouptag` | `string` | No |  |
+| `id` | `string` | No |  |
+| `location` | `Record<string, any>` | No |  |
+| `model` | `string` | No |  |
+| `name` | `string` | No |  |
+| `sensor` | `any[]` | No |  |
+| `updated_at` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Field Usage by Operation
 
@@ -322,12 +322,12 @@ const sensor = client.Sensor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `last_measurement` | ``$OBJECT`` | No |  |
-| `sensor_type` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `unit` | ``$STRING`` | No |  |
+| `icon` | `string` | No |  |
+| `id` | `string` | No |  |
+| `last_measurement` | `Record<string, any>` | No |  |
+| `sensor_type` | `string` | No |  |
+| `title` | `string` | No |  |
+| `unit` | `string` | No |  |
 
 ### Operations
 
@@ -377,12 +377,12 @@ const statistic = client.Statistic()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | ``$INTEGER`` | No |  |
-| `max` | ``$NUMBER`` | No |  |
-| `mean` | ``$NUMBER`` | No |  |
-| `median` | ``$NUMBER`` | No |  |
-| `min` | ``$NUMBER`` | No |  |
-| `sum` | ``$NUMBER`` | No |  |
+| `count` | `number` | No |  |
+| `max` | `number` | No |  |
+| `mean` | `number` | No |  |
+| `median` | `number` | No |  |
+| `min` | `number` | No |  |
+| `sum` | `number` | No |  |
 
 ### Operations
 
@@ -391,7 +391,7 @@ const statistic = client.Statistic()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Statistic().load({ id: 'statistic_id' })
+const result = await client.Statistic().load()
 ```
 
 ### Common Methods
@@ -432,29 +432,29 @@ const user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | ``$ARRAY`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | Yes |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `password` | ``$STRING`` | Yes |  |
-| `role` | ``$STRING`` | No |  |
-| `token` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `box` | `any[]` | No |  |
+| `created_at` | `string` | No |  |
+| `email` | `string` | Yes |  |
+| `id` | `string` | No |  |
+| `name` | `string` | Yes |  |
+| `password` | `string` | Yes |  |
+| `role` | `string` | No |  |
+| `token` | `string` | No |  |
+| `user` | `Record<string, any>` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `box` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `email` | - | Yes | - | - | - |
-| `id` | - | - | - | - | - |
-| `name` | - | Yes | - | - | - |
-| `password` | - | - | - | - | - |
-| `role` | - | - | - | - | - |
-| `token` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `box` | - | - |
+| `created_at` | - | - |
+| `email` | Yes | - |
+| `id` | - | - |
+| `name` | Yes | - |
+| `password` | - | - |
+| `role` | - | - |
+| `token` | - | - |
+| `user` | - | - |
 
 ### Operations
 
@@ -464,9 +464,9 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.User().create({
-  email: /* `$STRING` */,
-  name: /* `$STRING` */,
-  password: /* `$STRING` */,
+  email: /* string */,
+  name: /* string */,
+  password: /* string */,
 })
 ```
 

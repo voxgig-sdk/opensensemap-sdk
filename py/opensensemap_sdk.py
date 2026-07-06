@@ -221,31 +221,31 @@ class OpensensemapSDK:
 
 
     def Box(self, data=None) -> "BoxEntity":
-        """Entity factory: client.Box().list({}) / client.Box().load({"id": ...})."""
+        """Entity factory: client.Box().list() / client.Box().load({"id": ...})."""
         from entity.box_entity import BoxEntity
         return BoxEntity(self, data)
 
 
     def Measurement(self, data=None) -> "MeasurementEntity":
-        """Entity factory: client.Measurement().list({}) / client.Measurement().load({"id": ...})."""
+        """Entity factory: client.Measurement().list() / client.Measurement().load({"id": ...})."""
         from entity.measurement_entity import MeasurementEntity
         return MeasurementEntity(self, data)
 
 
     def Sensor(self, data=None) -> "SensorEntity":
-        """Entity factory: client.Sensor().list({}) / client.Sensor().load({"id": ...})."""
+        """Entity factory: client.Sensor().list() / client.Sensor().load({"id": ...})."""
         from entity.sensor_entity import SensorEntity
         return SensorEntity(self, data)
 
 
     def Statistic(self, data=None) -> "StatisticEntity":
-        """Entity factory: client.Statistic().list({}) / client.Statistic().load({"id": ...})."""
+        """Entity factory: client.Statistic().list() / client.Statistic().load({"id": ...})."""
         from entity.statistic_entity import StatisticEntity
         return StatisticEntity(self, data)
 
 
     def User(self, data=None) -> "UserEntity":
-        """Entity factory: client.User().list({}) / client.User().load({"id": ...})."""
+        """Entity factory: client.User().list() / client.User().load({"id": ...})."""
         from entity.user_entity import UserEntity
         return UserEntity(self, data)
 

@@ -107,17 +107,17 @@ local box = client:Box(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `exposure` | ``$STRING`` | No |  |
-| `grouptag` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `location` | ``$OBJECT`` | No |  |
-| `model` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `sensor` | ``$ARRAY`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `exposure` | `string` | No |  |
+| `grouptag` | `string` | No |  |
+| `id` | `string` | No |  |
+| `location` | `table` | No |  |
+| `model` | `string` | No |  |
+| `name` | `string` | No |  |
+| `sensor` | `table` | No |  |
+| `updated_at` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Field Usage by Operation
 
@@ -268,12 +268,12 @@ local sensor = client:Sensor(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `last_measurement` | ``$OBJECT`` | No |  |
-| `sensor_type` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `unit` | ``$STRING`` | No |  |
+| `icon` | `string` | No |  |
+| `id` | `string` | No |  |
+| `last_measurement` | `table` | No |  |
+| `sensor_type` | `string` | No |  |
+| `title` | `string` | No |  |
+| `unit` | `string` | No |  |
 
 ### Operations
 
@@ -325,12 +325,12 @@ local statistic = client:Statistic(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | ``$INTEGER`` | No |  |
-| `max` | ``$NUMBER`` | No |  |
-| `mean` | ``$NUMBER`` | No |  |
-| `median` | ``$NUMBER`` | No |  |
-| `min` | ``$NUMBER`` | No |  |
-| `sum` | ``$NUMBER`` | No |  |
+| `count` | `number` | No |  |
+| `max` | `number` | No |  |
+| `mean` | `number` | No |  |
+| `median` | `number` | No |  |
+| `min` | `number` | No |  |
+| `sum` | `number` | No |  |
 
 ### Operations
 
@@ -339,7 +339,7 @@ local statistic = client:Statistic(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Statistic():load({ id = "statistic_id" })
+local result, err = client:Statistic():load()
 ```
 
 ### Common Methods
@@ -382,29 +382,29 @@ local user = client:User(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | ``$ARRAY`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | Yes |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `password` | ``$STRING`` | Yes |  |
-| `role` | ``$STRING`` | No |  |
-| `token` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `box` | `table` | No |  |
+| `created_at` | `string` | No |  |
+| `email` | `string` | Yes |  |
+| `id` | `string` | No |  |
+| `name` | `string` | Yes |  |
+| `password` | `string` | Yes |  |
+| `role` | `string` | No |  |
+| `token` | `string` | No |  |
+| `user` | `table` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `box` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `email` | - | Yes | - | - | - |
-| `id` | - | - | - | - | - |
-| `name` | - | Yes | - | - | - |
-| `password` | - | - | - | - | - |
-| `role` | - | - | - | - | - |
-| `token` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `box` | - | - |
+| `created_at` | - | - |
+| `email` | Yes | - |
+| `id` | - | - |
+| `name` | Yes | - |
+| `password` | - | - |
+| `role` | - | - |
+| `token` | - | - |
+| `user` | - | - |
 
 ### Operations
 
@@ -414,9 +414,9 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:User():create({
-  email = --[[ `$STRING` ]],
-  name = --[[ `$STRING` ]],
-  password = --[[ `$STRING` ]],
+  email = --[[ string ]],
+  name = --[[ string ]],
+  password = --[[ string ]],
 })
 ```
 

@@ -62,11 +62,11 @@ Create a new `StatisticEntity` instance. Pass `null` for no initial data.
 
 Create a new `UserEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): OpensensemapUtility`
 
 Return a copy of the SDK utility object.
 
@@ -109,17 +109,17 @@ $box = $client->Box();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `exposure` | ``$STRING`` | No |  |
-| `grouptag` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `location` | ``$OBJECT`` | No |  |
-| `model` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | No |  |
-| `sensor` | ``$ARRAY`` | No |  |
-| `updated_at` | ``$STRING`` | No |  |
-| `value` | ``$STRING`` | No |  |
+| `created_at` | `string` | No |  |
+| `description` | `string` | No |  |
+| `exposure` | `string` | No |  |
+| `grouptag` | `string` | No |  |
+| `id` | `string` | No |  |
+| `location` | `array` | No |  |
+| `model` | `string` | No |  |
+| `name` | `string` | No |  |
+| `sensor` | `array` | No |  |
+| `updated_at` | `string` | No |  |
+| `value` | `string` | No |  |
 
 ### Field Usage by Operation
 
@@ -148,12 +148,12 @@ $result = $client->Box()->create([
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Box()->list([]);
+$results = $client->Box()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -185,19 +185,19 @@ $result = $client->Box()->update([
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -206,7 +206,7 @@ Set the entity match criteria.
 Create a new `BoxEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -232,19 +232,19 @@ $result = $client->Measurement()->create([
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -253,7 +253,7 @@ Set the entity match criteria.
 Create a new `MeasurementEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -270,38 +270,38 @@ $sensor = $client->Sensor();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | ``$STRING`` | No |  |
-| `id` | ``$STRING`` | No |  |
-| `last_measurement` | ``$OBJECT`` | No |  |
-| `sensor_type` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | No |  |
-| `unit` | ``$STRING`` | No |  |
+| `icon` | `string` | No |  |
+| `id` | `string` | No |  |
+| `last_measurement` | `array` | No |  |
+| `sensor_type` | `string` | No |  |
+| `title` | `string` | No |  |
+| `unit` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Sensor()->list([]);
+$results = $client->Sensor()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -310,7 +310,7 @@ Set the entity match criteria.
 Create a new `SensorEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -327,12 +327,12 @@ $statistic = $client->Statistic();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | ``$INTEGER`` | No |  |
-| `max` | ``$NUMBER`` | No |  |
-| `mean` | ``$NUMBER`` | No |  |
-| `median` | ``$NUMBER`` | No |  |
-| `min` | ``$NUMBER`` | No |  |
-| `sum` | ``$NUMBER`` | No |  |
+| `count` | `int` | No |  |
+| `max` | `float` | No |  |
+| `mean` | `float` | No |  |
+| `median` | `float` | No |  |
+| `min` | `float` | No |  |
+| `sum` | `float` | No |  |
 
 ### Operations
 
@@ -341,24 +341,24 @@ $statistic = $client->Statistic();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Statistic()->load(["id" => "statistic_id"]);
+$result = $client->Statistic()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -367,7 +367,7 @@ Set the entity match criteria.
 Create a new `StatisticEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -384,29 +384,29 @@ $user = $client->User();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | ``$ARRAY`` | No |  |
-| `created_at` | ``$STRING`` | No |  |
-| `email` | ``$STRING`` | Yes |  |
-| `id` | ``$STRING`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `password` | ``$STRING`` | Yes |  |
-| `role` | ``$STRING`` | No |  |
-| `token` | ``$STRING`` | No |  |
-| `user` | ``$OBJECT`` | No |  |
+| `box` | `array` | No |  |
+| `created_at` | `string` | No |  |
+| `email` | `string` | Yes |  |
+| `id` | `string` | No |  |
+| `name` | `string` | Yes |  |
+| `password` | `string` | Yes |  |
+| `role` | `string` | No |  |
+| `token` | `string` | No |  |
+| `user` | `array` | No |  |
 
 ### Field Usage by Operation
 
-| Field | load | list | create | update | remove |
-| --- | --- | --- | --- | --- | --- |
-| `box` | - | - | - | - | - |
-| `created_at` | - | - | - | - | - |
-| `email` | - | Yes | - | - | - |
-| `id` | - | - | - | - | - |
-| `name` | - | Yes | - | - | - |
-| `password` | - | - | - | - | - |
-| `role` | - | - | - | - | - |
-| `token` | - | - | - | - | - |
-| `user` | - | - | - | - | - |
+| Field | list | create |
+| --- | --- | --- |
+| `box` | - | - |
+| `created_at` | - | - |
+| `email` | Yes | - |
+| `id` | - | - |
+| `name` | Yes | - |
+| `password` | - | - |
+| `role` | - | - |
+| `token` | - | - |
+| `user` | - | - |
 
 ### Operations
 
@@ -416,35 +416,35 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->User()->create([
-  "email" => /* `$STRING` */,
-  "name" => /* `$STRING` */,
-  "password" => /* `$STRING` */,
+  "email" => null, // string
+  "name" => null, // string
+  "password" => null, // string
 ]);
 ```
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->User()->list([]);
+$results = $client->User()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -453,7 +453,7 @@ Set the entity match criteria.
 Create a new `UserEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

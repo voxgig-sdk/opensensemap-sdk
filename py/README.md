@@ -4,6 +4,11 @@
 
 The Python SDK for the Opensensemap API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Box()` — each
+carrying a small, uniform set of operations (`list`, `load`, `create`, `update`, `remove`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -41,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    boxs = client.Box().list({})
+    boxs = client.Box().list()
     for box in boxs:
         print(box)
 except Exception as err:
@@ -64,13 +69,41 @@ except Exception as err:
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.Box().create({"name": "Example"})
+created = client.Box().create({"created_at": "example", "description": "example"})
 
 # Update — the created record's id is a plain dict key
-client.Box().update({"id": created["id"], "name": "Example-Renamed"})
+client.Box().update({"id": created["id"]})
 
 # Remove
 client.Box().remove({"id": created["id"]})
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    boxs = client.Box().list()
+    print(boxs)
+except Exception as err:
+    print(f"list failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -91,7 +124,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -117,7 +153,7 @@ Create a mock client for unit testing — no server required:
 client = OpensensemapSDK.test()
 
 # Entity ops return the bare record and raise on error.
-box = client.Box().load({"id": "test01"})
+box = client.Box().list()
 # box contains the mock response record
 ```
 
@@ -331,7 +367,7 @@ Create an instance: `box = client.Box()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 | `remove(match)` | Remove the matching entity. |
 | `update(data)` | Update an existing entity. |
@@ -340,17 +376,17 @@ Create an instance: `box = client.Box()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `exposure` | ``$STRING`` |  |
-| `grouptag` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `location` | ``$OBJECT`` |  |
-| `model` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `sensor` | ``$ARRAY`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `value` | ``$STRING`` |  |
+| `created_at` | `str` |  |
+| `description` | `str` |  |
+| `exposure` | `str` |  |
+| `grouptag` | `str` |  |
+| `id` | `str` |  |
+| `location` | `dict` |  |
+| `model` | `str` |  |
+| `name` | `str` |  |
+| `sensor` | `list` |  |
+| `updated_at` | `str` |  |
+| `value` | `str` |  |
 
 #### Example: Load
 
@@ -361,7 +397,7 @@ box = client.Box().load({"id": "box_id"})
 #### Example: List
 
 ```python
-boxs = client.Box().list({})
+boxs = client.Box().list()
 ```
 
 #### Example: Create
@@ -398,23 +434,23 @@ Create an instance: `sensor = client.Sensor()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `last_measurement` | ``$OBJECT`` |  |
-| `sensor_type` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `unit` | ``$STRING`` |  |
+| `icon` | `str` |  |
+| `id` | `str` |  |
+| `last_measurement` | `dict` |  |
+| `sensor_type` | `str` |  |
+| `title` | `str` |  |
+| `unit` | `str` |  |
 
 #### Example: List
 
 ```python
-sensors = client.Sensor().list({})
+sensors = client.Sensor().list()
 ```
 
 
@@ -432,17 +468,17 @@ Create an instance: `statistic = client.Statistic()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | ``$INTEGER`` |  |
-| `max` | ``$NUMBER`` |  |
-| `mean` | ``$NUMBER`` |  |
-| `median` | ``$NUMBER`` |  |
-| `min` | ``$NUMBER`` |  |
-| `sum` | ``$NUMBER`` |  |
+| `count` | `int` |  |
+| `max` | `float` |  |
+| `mean` | `float` |  |
+| `median` | `float` |  |
+| `min` | `float` |  |
+| `sum` | `float` |  |
 
 #### Example: Load
 
 ```python
-statistic = client.Statistic().load({"id": "statistic_id"})
+statistic = client.Statistic().load()
 ```
 
 
@@ -455,45 +491,49 @@ Create an instance: `user = client.User()`
 | Method | Description |
 | --- | --- |
 | `create(data)` | Create a new entity with the given data. |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | ``$ARRAY`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `password` | ``$STRING`` |  |
-| `role` | ``$STRING`` |  |
-| `token` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `box` | `list` |  |
+| `created_at` | `str` |  |
+| `email` | `str` |  |
+| `id` | `str` |  |
+| `name` | `str` |  |
+| `password` | `str` |  |
+| `role` | `str` |  |
+| `token` | `str` |  |
+| `user` | `dict` |  |
 
 #### Example: List
 
 ```python
-users = client.User().list({})
+users = client.User().list()
 ```
 
 #### Example: Create
 
 ```python
 user = client.User().create({
-    "email": ...,  # `$STRING`
-    "name": ...,  # `$STRING`
-    "password": ...,  # `$STRING`
+    "email": "example",  # str
+    "name": "example",  # str
+    "password": "example",  # str
 })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -510,8 +550,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -554,14 +595,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 box = client.Box()
-box.load({"id": "example_id"})
+box.list()
 
-# box.data_get() now returns the loaded box data
+# box.data_get() now returns the box data from the last list
 # box.match_get() returns the last match criteria
 ```
 

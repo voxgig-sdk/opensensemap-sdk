@@ -79,7 +79,7 @@ BoxListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Box#create (any subset of Box fields).
+# Request payload for Box#create.
 #
 # @!attribute [rw] created_at
 #   @return [String, nil]
@@ -226,7 +226,7 @@ Statistic = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Statistic#load (any subset of Statistic fields).
+# Request payload for Statistic#load.
 #
 # @!attribute [rw] count
 #   @return [Integer, nil]
@@ -296,7 +296,7 @@ User = Struct.new(
   keyword_init: true
 )
 
-# Match filter for User#list (any subset of User fields).
+# Request payload for User#list.
 #
 # @!attribute [rw] box
 #   @return [Array, nil]
@@ -337,7 +337,7 @@ UserListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for User#create (any subset of User fields).
+# Request payload for User#create.
 #
 # @!attribute [rw] box
 #   @return [Array, nil]
@@ -346,16 +346,16 @@ UserListMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] email
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] id
 #   @return [String, nil]
 #
 # @!attribute [rw] name
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] password
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] role
 #   @return [String, nil]

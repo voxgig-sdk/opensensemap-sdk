@@ -19,6 +19,7 @@ go build -o opensensemap-cli ./...
 ./opensensemap-cli list box
 ./opensensemap-cli load 1 box
 ./opensensemap-cli load '{id:1}' box
+./opensensemap-cli update '{id:1}' box
 
 # REPL
 ./opensensemap-cli

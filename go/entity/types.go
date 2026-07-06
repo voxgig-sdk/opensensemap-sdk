@@ -34,8 +34,7 @@ type BoxListMatch struct {
 	SensorId string `json:"sensor_id"`
 }
 
-// BoxCreateData mirrors the box fields as an all-optional match
-// filter (Go analog of Partial<Box>).
+// BoxCreateData is the typed request payload for Box.CreateTyped.
 type BoxCreateData struct {
 	CreatedAt *string `json:"created_at,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -94,8 +93,7 @@ type Statistic struct {
 	Sum *float64 `json:"sum,omitempty"`
 }
 
-// StatisticLoadMatch mirrors the statistic fields as an all-optional match
-// filter (Go analog of Partial<Statistic>).
+// StatisticLoadMatch is the typed request payload for Statistic.LoadTyped.
 type StatisticLoadMatch struct {
 	Count *int `json:"count,omitempty"`
 	Max *float64 `json:"max,omitempty"`
@@ -118,8 +116,7 @@ type User struct {
 	User *map[string]any `json:"user,omitempty"`
 }
 
-// UserListMatch mirrors the user fields as an all-optional match
-// filter (Go analog of Partial<User>).
+// UserListMatch is the typed request payload for User.ListTyped.
 type UserListMatch struct {
 	Box *[]any `json:"box,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
@@ -132,15 +129,14 @@ type UserListMatch struct {
 	User *map[string]any `json:"user,omitempty"`
 }
 
-// UserCreateData mirrors the user fields as an all-optional match
-// filter (Go analog of Partial<User>).
+// UserCreateData is the typed request payload for User.CreateTyped.
 type UserCreateData struct {
 	Box *[]any `json:"box,omitempty"`
 	CreatedAt *string `json:"created_at,omitempty"`
-	Email *string `json:"email,omitempty"`
+	Email string `json:"email"`
 	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Password *string `json:"password,omitempty"`
+	Name string `json:"name"`
+	Password string `json:"password"`
 	Role *string `json:"role,omitempty"`
 	Token *string `json:"token,omitempty"`
 	User *map[string]any `json:"user,omitempty"`

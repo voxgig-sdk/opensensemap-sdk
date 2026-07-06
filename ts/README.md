@@ -4,6 +4,11 @@
 
 The TypeScript SDK for the Opensensemap API — a type-safe, entity-oriented client with full async/await support.
 
+The API is exposed as capitalised, semantic **Entities** — e.g.
+`client.Box()` — each with a small set of operations (`list`, `load`, `create`, `update`, `remove`)
+instead of raw URL paths and query parameters. This keeps the surface
+predictable and low-friction for both humans and AI agents.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -60,19 +65,48 @@ try {
 ```ts
 // Create — returns the created Box
 const created = await client.Box().create({
-  name: 'Example',
+  created_at: 'example_created_at',
+  description: 'example_description',
 })
 
 // Update — the id comes straight off the returned entity
 const updated = await client.Box().update({
-  id: created.id,
-  name: 'Example-Renamed',
+  id: created.id!,
 })
 
 // Remove
 await client.Box().remove({
-  id: created.id,
+  id: created.id!,
 })
+```
+
+
+## Error handling
+
+Entity operations reject on failure, so wrap them in `try` / `catch`:
+
+```ts
+try {
+  const boxs = await client.Box().list()
+  console.log(boxs)
+} catch (err) {
+  console.error('list failed:', err)
+}
+```
+
+The low-level `direct()` method does **not** throw — it returns the
+value or an `Error`, so check the result before using it:
+
+```ts
+const result = await client.direct({
+  path: '/api/resource/{id}',
+  method: 'GET',
+  params: { id: 'example_id' },
+})
+
+if (result instanceof Error) {
+  throw result
+}
 ```
 
 
@@ -120,7 +154,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = OpensensemapSDK.test()
 
-const box = await client.Box().load({ id: 'test01' })
+const box = await client.Box().list()
 // box is a bare entity populated with mock response data
 console.log(box)
 ```
@@ -139,12 +173,12 @@ Entity instances remember their last match and data:
 ```ts
 const entity = client.Box()
 
-// First call sets internal match
-await entity.load({ id: 'example' })
+// First call runs the operation and stores its result
+await entity.list()
 
-// Subsequent calls reuse the stored match
+// Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id) // 'example'
+console.log(data.id)
 ```
 
 ### Add custom middleware
@@ -245,8 +279,8 @@ All entities share the same interface.
 | `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
 | `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
 | `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
-| `data` | `data(data?): any` | Get or set entity data. |
-| `match` | `match(match?): any` | Get or set entity match criteria. |
+| `data` | `data(data?: Partial<Entity>): Entity` | Get or set entity data. |
+| `match` | `match(match?: Partial<Entity>): Partial<Entity>` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): OpensensemapSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
@@ -395,17 +429,17 @@ Create an instance: `const box = client.Box()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `exposure` | ``$STRING`` |  |
-| `grouptag` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `location` | ``$OBJECT`` |  |
-| `model` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `sensor` | ``$ARRAY`` |  |
-| `updated_at` | ``$STRING`` |  |
-| `value` | ``$STRING`` |  |
+| `created_at` | `string` |  |
+| `description` | `string` |  |
+| `exposure` | `string` |  |
+| `grouptag` | `string` |  |
+| `id` | `string` |  |
+| `location` | `Record<string, any>` |  |
+| `model` | `string` |  |
+| `name` | `string` |  |
+| `sensor` | `any[]` |  |
+| `updated_at` | `string` |  |
+| `value` | `string` |  |
 
 #### Example: Load
 
@@ -459,12 +493,12 @@ Create an instance: `const sensor = client.Sensor()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `last_measurement` | ``$OBJECT`` |  |
-| `sensor_type` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
-| `unit` | ``$STRING`` |  |
+| `icon` | `string` |  |
+| `id` | `string` |  |
+| `last_measurement` | `Record<string, any>` |  |
+| `sensor_type` | `string` |  |
+| `title` | `string` |  |
+| `unit` | `string` |  |
 
 #### Example: List
 
@@ -487,17 +521,17 @@ Create an instance: `const statistic = client.Statistic()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | ``$INTEGER`` |  |
-| `max` | ``$NUMBER`` |  |
-| `mean` | ``$NUMBER`` |  |
-| `median` | ``$NUMBER`` |  |
-| `min` | ``$NUMBER`` |  |
-| `sum` | ``$NUMBER`` |  |
+| `count` | `number` |  |
+| `max` | `number` |  |
+| `mean` | `number` |  |
+| `median` | `number` |  |
+| `min` | `number` |  |
+| `sum` | `number` |  |
 
 #### Example: Load
 
 ```ts
-const statistic = await client.Statistic().load({ id: 'statistic_id' })
+const statistic = await client.Statistic().load()
 ```
 
 
@@ -516,15 +550,15 @@ Create an instance: `const user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | ``$ARRAY`` |  |
-| `created_at` | ``$STRING`` |  |
-| `email` | ``$STRING`` |  |
-| `id` | ``$STRING`` |  |
-| `name` | ``$STRING`` |  |
-| `password` | ``$STRING`` |  |
-| `role` | ``$STRING`` |  |
-| `token` | ``$STRING`` |  |
-| `user` | ``$OBJECT`` |  |
+| `box` | `any[]` |  |
+| `created_at` | `string` |  |
+| `email` | `string` |  |
+| `id` | `string` |  |
+| `name` | `string` |  |
+| `password` | `string` |  |
+| `role` | `string` |  |
+| `token` | `string` |  |
+| `user` | `Record<string, any>` |  |
 
 #### Example: List
 
@@ -536,19 +570,23 @@ const users = await client.User().list()
 
 ```ts
 const user = await client.User().create({
-  email: /* `$STRING` */,
-  name: /* `$STRING` */,
-  password: /* `$STRING` */,
+  email: /* string */,
+  name: /* string */,
+  password: /* string */,
 })
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -565,11 +603,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller.
-
-An unexpected exception triggers the `PreUnexpected` hook before
-propagating.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -605,16 +641,16 @@ import { OpensensemapSDK } from '@voxgig-sdk/opensensemap'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
 const box = client.Box()
-await box.load({ id: "example_id" })
+await box.list()
 
-// box.data() now returns the loaded box data
-// box.match() returns { id: "example_id" }
+// box.data() now returns the box data from the last `list`
+// box.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -69,10 +69,10 @@ BoxLoadMatch = Struct.new(
 # Request payload for Box#list.
 #
 # @!attribute [rw] box_id
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] sensor_id
-#   @return [String]
+#   @return [String, nil]
 BoxListMatch = Struct.new(
   :box_id,
   :sensor_id,

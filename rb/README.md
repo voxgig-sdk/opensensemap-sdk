@@ -62,7 +62,7 @@ end
 
 ```ruby
 # create returns the bare created Box record.
-created = client.Box.create({ "created_at" => "example", "description" => "example" })
+created = client.Box.create({ "created_at" => "example_created_at", "description" => "example_description" })
 
 # Update — index the bare record directly (created["id"]).
 client.Box.update({ "id" => created["id"] })
@@ -420,6 +420,7 @@ Create an instance: `measurement = client.Measurement`
 
 ```ruby
 measurement = client.Measurement.create({
+  "box_id" => "example_box_id", # String
 })
 ```
 
@@ -518,9 +519,9 @@ users = client.User.list
 
 ```ruby
 user = client.User.create({
-  "email" => "example", # String
-  "name" => "example", # String
-  "password" => "example", # String
+  "email" => "example_email", # String
+  "name" => "example_name", # String
+  "password" => "example_password", # String
 })
 ```
 

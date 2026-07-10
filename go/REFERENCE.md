@@ -108,6 +108,7 @@ same parameters as `Direct()`.
 
 ```go
 box := client.Box(nil)
+fmt.Println(box.GetName()) // "box"
 ```
 
 ### Fields
@@ -144,21 +145,16 @@ box := client.Box(nil)
 
 ### Operations
 
-#### `Create(reqdata, ctrl map[string]any) (any, error)`
-
-Create a new entity with the given data.
-
-```go
-result, err := client.Box(nil).Create(map[string]any{
-}, nil)
-```
-
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
 List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Box(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -167,14 +163,23 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Box(nil).Load(map[string]any{"id": "box_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
-#### `Remove(reqmatch, ctrl map[string]any) (any, error)`
+#### `Create(reqdata, ctrl map[string]any) (any, error)`
 
-Remove the entity matching the given criteria.
+Create a new entity with the given data.
 
 ```go
-result, err := client.Box(nil).Remove(map[string]any{"id": "box_id"}, nil)
+result, err := client.Box(nil).Create(map[string]any{
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 #### `Update(reqdata, ctrl map[string]any) (any, error)`
@@ -186,6 +191,22 @@ result, err := client.Box(nil).Update(map[string]any{
     "id": "box_id",
     // Fields to update
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
+```
+
+#### `Remove(reqmatch, ctrl map[string]any) (any, error)`
+
+Remove the entity matching the given criteria.
+
+```go
+result, err := client.Box(nil).Remove(map[string]any{"id": "box_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -216,6 +237,7 @@ Return the entity name.
 
 ```go
 measurement := client.Measurement(nil)
+fmt.Println(measurement.GetName()) // "measurement"
 ```
 
 ### Operations
@@ -226,7 +248,12 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Measurement(nil).Create(map[string]any{
+    "box_id": "example_box_id",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -257,6 +284,7 @@ Return the entity name.
 
 ```go
 sensor := client.Sensor(nil)
+fmt.Println(sensor.GetName()) // "sensor"
 ```
 
 ### Fields
@@ -278,6 +306,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Sensor(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -308,6 +340,7 @@ Return the entity name.
 
 ```go
 statistic := client.Statistic(nil)
+fmt.Println(statistic.GetName()) // "statistic"
 ```
 
 ### Fields
@@ -329,6 +362,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Statistic(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -359,6 +396,7 @@ Return the entity name.
 
 ```go
 user := client.User(nil)
+fmt.Println(user.GetName()) // "user"
 ```
 
 ### Fields
@@ -391,24 +429,32 @@ user := client.User(nil)
 
 ### Operations
 
-#### `Create(reqdata, ctrl map[string]any) (any, error)`
-
-Create a new entity with the given data.
-
-```go
-result, err := client.User(nil).Create(map[string]any{
-    "email": /* string */,
-    "name": /* string */,
-    "password": /* string */,
-}, nil)
-```
-
 #### `List(reqmatch, ctrl map[string]any) (any, error)`
 
 List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.User(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
+
+#### `Create(reqdata, ctrl map[string]any) (any, error)`
+
+Create a new entity with the given data.
+
+```go
+result, err := client.User(nil).Create(map[string]any{
+    "email": "example_email",
+    "name": "example_name",
+    "password": "example_password",
+}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

@@ -228,6 +228,7 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Measurement.create({
+  "box_id" => "example_box_id", # String
 })
 ```
 
@@ -417,9 +418,9 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.User.create({
-  "email" => "example", # String
-  "name" => "example", # String
-  "password" => "example", # String
+  "email" => "example_email", # String
+  "name" => "example_name", # String
+  "password" => "example_password", # String
 })
 ```
 

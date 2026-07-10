@@ -30,8 +30,8 @@ type BoxLoadMatch struct {
 
 // BoxListMatch is the typed request payload for Box.ListTyped.
 type BoxListMatch struct {
-	BoxId string `json:"box_id"`
-	SensorId string `json:"sensor_id"`
+	BoxId *string `json:"box_id,omitempty"`
+	SensorId *string `json:"sensor_id,omitempty"`
 }
 
 // BoxCreateData is the typed request payload for Box.CreateTyped.

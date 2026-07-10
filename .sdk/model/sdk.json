@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -1189,14 +1186,24 @@
           "url": "https://docs.opensensemap.org/"
         },
         "description": "The openSenseMap API allows for managing users, senseBoxes (stations), and measurements, providing functionalities such as posting new data, retrieving sensor information, and managing senseBoxes. It also supports various operations with parameters for filtering and formatting responses, including JSON and CSV formats.",
+        "meta_source": "https://www.freepublicapis.com",
+        "security": {
+          "in": "header",
+          "name": "Authorization",
+          "prefix": "Bearer",
+          "scheme": "bearerAuth",
+          "type": "http"
+        },
         "servers": [
           {
             "description": "Production server",
             "url": "https://api.opensensemap.org"
           }
         ],
+        "summary": "The openSenseMap API allows for managing users, senseBoxes (stations), and measurements, providing functionalities such as posting new data, retrieving sensor information, and managing senseBoxes.",
         "title": "openSenseMap API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://opensensemap.org"
       },
       "option": {},
       "target": {
@@ -1249,6 +1256,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -1299,6 +1309,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

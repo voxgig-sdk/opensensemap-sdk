@@ -475,6 +475,7 @@ Create an instance: `const measurement = client.Measurement()`
 
 ```ts
 const measurement = await client.Measurement().create({
+  box_id: 'example_box_id',
 })
 ```
 
@@ -570,9 +571,9 @@ const users = await client.User().list()
 
 ```ts
 const user = await client.User().create({
-  email: /* string */,
-  name: /* string */,
-  password: /* string */,
+  email: 'example_email',
+  name: 'example_name',
+  password: 'example_password',
 })
 ```
 

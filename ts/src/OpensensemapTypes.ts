@@ -24,8 +24,8 @@ export interface BoxLoadMatch {
 }
 
 export interface BoxListMatch {
-  box_id: string
-  sensor_id: string
+  box_id?: string
+  sensor_id?: string
 }
 
 export interface BoxCreateData {

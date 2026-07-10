@@ -63,7 +63,7 @@ try {
 
 ```php
 // create() returns the bare created Box record.
-$created = $client->Box()->create(["created_at" => "example", "description" => "example"]);
+$created = $client->Box()->create(["created_at" => "example_created_at", "description" => "example_description"]);
 
 // Update — index the bare record directly ($created["id"]).
 $client->Box()->update(["id" => $created["id"]]);
@@ -430,6 +430,7 @@ Create an instance: `$measurement = $client->Measurement();`
 
 ```php
 $measurement = $client->Measurement()->create([
+    "box_id" => null, // string
 ]);
 ```
 

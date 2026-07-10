@@ -23,8 +23,8 @@
 ---@field id string
 
 ---@class BoxListMatch
----@field box_id string
----@field sensor_id string
+---@field box_id? string
+---@field sensor_id? string
 
 ---@class BoxCreateData
 ---@field created_at? string

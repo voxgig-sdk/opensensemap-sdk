@@ -223,6 +223,7 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Measurement().create({
+    "box_id": "example_box_id",  # str
 })
 ```
 
@@ -411,9 +412,9 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.User().create({
-    "email": "example",  # str
-    "name": "example",  # str
-    "password": "example",  # str
+    "email": "example_email",  # str
+    "name": "example_name",  # str
+    "password": "example_password",  # str
 })
 ```
 

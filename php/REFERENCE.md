@@ -227,6 +227,7 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->Measurement()->create([
+  "box_id" => null, // string
 ]);
 ```
 

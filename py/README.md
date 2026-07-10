@@ -69,7 +69,7 @@ except Exception as err:
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.Box().create({"created_at": "example", "description": "example"})
+created = client.Box().create({"created_at": "example_created_at", "description": "example_description"})
 
 # Update — the created record's id is a plain dict key
 client.Box().update({"id": created["id"]})
@@ -422,6 +422,7 @@ Create an instance: `measurement = client.Measurement()`
 
 ```python
 measurement = client.Measurement().create({
+    "box_id": "example_box_id",  # str
 })
 ```
 
@@ -517,9 +518,9 @@ users = client.User().list()
 
 ```python
 user = client.User().create({
-    "email": "example",  # str
-    "name": "example",  # str
-    "password": "example",  # str
+    "email": "example_email",  # str
+    "name": "example_name",  # str
+    "password": "example_password",  # str
 })
 ```
 

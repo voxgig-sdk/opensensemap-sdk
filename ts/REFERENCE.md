@@ -281,6 +281,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Measurement().create({
+  box_id: 'example_box_id',
 })
 ```
 
@@ -464,9 +465,9 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.User().create({
-  email: /* string */,
-  name: /* string */,
-  password: /* string */,
+  email: 'example_email',
+  name: 'example_name',
+  password: 'example_password',
 })
 ```
 

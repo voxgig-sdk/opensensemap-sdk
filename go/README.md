@@ -63,28 +63,28 @@ func main() {
     }
 
     // Load a single box — the value is the loaded record.
-    box, err := client.Box(nil).Load(map[string]any{"id": "example"}, nil)
+    box, err := client.Box(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(box)
 
     // Create a box.
-    created, err := client.Box(nil).Create(map[string]any{"created_at": "example", "description": "example"}, nil)
+    created, err := client.Box(nil).Create(map[string]any{"created_at": "example_created_at", "description": "example_description"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(created)
 
     // Update a box.
-    updated, err := client.Box(nil).Update(map[string]any{"id": "example"}, nil)
+    updated, err := client.Box(nil).Update(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(updated)
 
     // Remove a box.
-    removed, err := client.Box(nil).Remove(map[string]any{"id": "example"}, nil)
+    removed, err := client.Box(nil).Remove(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
@@ -388,11 +388,11 @@ Create an instance: `box := client.Box(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
-| `Remove(match, ctrl)` | Remove the matching entity. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Update(data, ctrl)` | Update an existing entity. |
+| `Remove(match, ctrl)` | Remove the matching entity. |
 
 #### Fields
 
@@ -435,6 +435,10 @@ fmt.Println(boxs) // the array of records
 ```go
 result, err := client.Box(nil).Create(map[string]any{
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -452,7 +456,12 @@ Create an instance: `measurement := client.Measurement(nil)`
 
 ```go
 result, err := client.Measurement(nil).Create(map[string]any{
+    "box_id": "example_box_id",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 
@@ -528,8 +537,8 @@ Create an instance: `user := client.User(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 
 #### Fields
 
@@ -559,10 +568,14 @@ fmt.Println(users) // the array of records
 
 ```go
 result, err := client.User(nil).Create(map[string]any{
-    "email": /* string */,
-    "name": /* string */,
-    "password": /* string */,
+    "email": "example_email",
+    "name": "example_name",
+    "password": "example_password",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

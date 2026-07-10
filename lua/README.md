@@ -61,7 +61,7 @@ print(box)
 
 ```lua
 -- Create
-local created, err = client:Box():create({ created_at = "example", description = "example" })
+local created, err = client:Box():create({ created_at = "example_created_at", description = "example_description" })
 if err then error(err) end
 
 -- Update
@@ -408,6 +408,7 @@ Create an instance: `local measurement = client:Measurement(nil)`
 
 ```lua
 local measurement, err = client:Measurement():create({
+  box_id = "example_box_id", -- string
 })
 ```
 
@@ -503,9 +504,9 @@ local users, err = client:User():list()
 
 ```lua
 local user, err = client:User():create({
-  email = nil, -- string
-  name = nil, -- string
-  password = nil, -- string
+  email = "example_email", -- string
+  name = "example_name", -- string
+  password = "example_password", -- string
 })
 ```
 

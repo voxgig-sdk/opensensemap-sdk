@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Opensensemap SDK exists test
 
 local sdk = require("opensensemap_sdk")
 

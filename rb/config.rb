@@ -34,7 +34,7 @@ module OpensensemapConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "created_at",
+              "name" => "createdAt",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 0,
@@ -120,14 +120,14 @@ module OpensensemapConfig
             },
             {
               "active" => true,
-              "name" => "sensor",
+              "name" => "sensors",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 8,
             },
             {
               "active" => true,
-              "name" => "updated_at",
+              "name" => "updatedAt",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 9,
@@ -149,6 +149,7 @@ module OpensensemapConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/boxes",
                   "parts" => [
@@ -219,6 +220,7 @@ module OpensensemapConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/boxes/{boxId}/{sensorId}",
                   "parts" => [
@@ -286,6 +288,7 @@ module OpensensemapConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/boxes",
                   "parts" => [
@@ -338,6 +341,7 @@ module OpensensemapConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/boxes/{boxId}",
                   "parts" => [
@@ -383,6 +387,7 @@ module OpensensemapConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/boxes/{boxId}",
                   "parts" => [
@@ -427,6 +432,7 @@ module OpensensemapConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "PUT",
                   "orig" => "/boxes/{boxId}",
                   "parts" => [
@@ -484,6 +490,7 @@ module OpensensemapConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/boxes/{boxId}/data",
                   "parts" => [
@@ -537,14 +544,14 @@ module OpensensemapConfig
             },
             {
               "active" => true,
-              "name" => "last_measurement",
+              "name" => "lastMeasurement",
               "req" => false,
               "type" => "`$OBJECT`",
               "index$" => 2,
             },
             {
               "active" => true,
-              "name" => "sensor_type",
+              "name" => "sensorType",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 3,
@@ -585,6 +592,7 @@ module OpensensemapConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/boxes/{boxId}/sensors",
                   "parts" => [
@@ -709,6 +717,7 @@ module OpensensemapConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/statistics/descriptive",
                   "parts" => [
@@ -742,14 +751,14 @@ module OpensensemapConfig
           "fields" => [
             {
               "active" => true,
-              "name" => "box",
+              "name" => "boxes",
               "req" => false,
               "type" => "`$ARRAY`",
               "index$" => 0,
             },
             {
               "active" => true,
-              "name" => "created_at",
+              "name" => "createdAt",
               "req" => false,
               "type" => "`$STRING`",
               "index$" => 1,
@@ -758,6 +767,10 @@ module OpensensemapConfig
               "active" => true,
               "name" => "email",
               "op" => {
+                "create" => {
+                  "req" => false,
+                  "type" => "`$STRING`",
+                },
                 "list" => {
                   "req" => false,
                   "type" => "`$STRING`",
@@ -778,6 +791,10 @@ module OpensensemapConfig
               "active" => true,
               "name" => "name",
               "op" => {
+                "create" => {
+                  "req" => false,
+                  "type" => "`$STRING`",
+                },
                 "list" => {
                   "req" => false,
                   "type" => "`$STRING`",
@@ -801,20 +818,6 @@ module OpensensemapConfig
               "type" => "`$STRING`",
               "index$" => 6,
             },
-            {
-              "active" => true,
-              "name" => "token",
-              "req" => false,
-              "type" => "`$STRING`",
-              "index$" => 7,
-            },
-            {
-              "active" => true,
-              "name" => "user",
-              "req" => false,
-              "type" => "`$OBJECT`",
-              "index$" => 8,
-            },
           ],
           "name" => "user",
           "op" => {
@@ -825,6 +828,7 @@ module OpensensemapConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/users/register",
                   "parts" => [
@@ -843,6 +847,7 @@ module OpensensemapConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "POST",
                   "orig" => "/users/sign-in",
                   "parts" => [
@@ -868,6 +873,7 @@ module OpensensemapConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/users/me",
                   "parts" => [
@@ -879,7 +885,7 @@ module OpensensemapConfig
                   },
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.boxes`",
                   },
                   "index$" => 0,
                 },

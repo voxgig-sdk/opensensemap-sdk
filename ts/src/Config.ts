@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'Opensensemap',
   }
 
 
@@ -72,7 +72,7 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "created_at",
+          "name": "createdAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 0
@@ -158,14 +158,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "sensor",
+          "name": "sensors",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 8
         },
         {
           "active": true,
-          "name": "updated_at",
+          "name": "updatedAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 9
@@ -187,6 +187,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/boxes",
               "parts": [
@@ -257,6 +258,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/boxes/{boxId}/{sensorId}",
               "parts": [
@@ -324,6 +326,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/boxes",
               "parts": [
@@ -376,6 +379,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/boxes/{boxId}",
               "parts": [
@@ -421,6 +425,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "DELETE",
               "orig": "/boxes/{boxId}",
               "parts": [
@@ -465,6 +470,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "PUT",
               "orig": "/boxes/{boxId}",
               "parts": [
@@ -522,6 +528,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "POST",
               "orig": "/boxes/{boxId}/data",
               "parts": [
@@ -575,14 +582,14 @@ class Config {
         },
         {
           "active": true,
-          "name": "last_measurement",
+          "name": "lastMeasurement",
           "req": false,
           "type": "`$OBJECT`",
           "index$": 2
         },
         {
           "active": true,
-          "name": "sensor_type",
+          "name": "sensorType",
           "req": false,
           "type": "`$STRING`",
           "index$": 3
@@ -623,6 +630,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/boxes/{boxId}/sensors",
               "parts": [
@@ -747,6 +755,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/statistics/descriptive",
               "parts": [
@@ -780,14 +789,14 @@ class Config {
       "fields": [
         {
           "active": true,
-          "name": "box",
+          "name": "boxes",
           "req": false,
           "type": "`$ARRAY`",
           "index$": 0
         },
         {
           "active": true,
-          "name": "created_at",
+          "name": "createdAt",
           "req": false,
           "type": "`$STRING`",
           "index$": 1
@@ -796,6 +805,10 @@ class Config {
           "active": true,
           "name": "email",
           "op": {
+            "create": {
+              "req": false,
+              "type": "`$STRING`"
+            },
             "list": {
               "req": false,
               "type": "`$STRING`"
@@ -816,6 +829,10 @@ class Config {
           "active": true,
           "name": "name",
           "op": {
+            "create": {
+              "req": false,
+              "type": "`$STRING`"
+            },
             "list": {
               "req": false,
               "type": "`$STRING`"
@@ -838,20 +855,6 @@ class Config {
           "req": false,
           "type": "`$STRING`",
           "index$": 6
-        },
-        {
-          "active": true,
-          "name": "token",
-          "req": false,
-          "type": "`$STRING`",
-          "index$": 7
-        },
-        {
-          "active": true,
-          "name": "user",
-          "req": false,
-          "type": "`$OBJECT`",
-          "index$": 8
         }
       ],
       "name": "user",
@@ -863,6 +866,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/users/register",
               "parts": [
@@ -881,6 +885,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "POST",
               "orig": "/users/sign-in",
               "parts": [
@@ -906,6 +911,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/users/me",
               "parts": [
@@ -917,7 +923,7 @@ class Config {
               },
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.boxes`"
               },
               "index$": 0
             }

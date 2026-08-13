@@ -115,7 +115,7 @@ fmt.Println(box.GetName()) // "box"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `description` | `string` | No |  |
 | `exposure` | `string` | No |  |
 | `grouptag` | `string` | No |  |
@@ -123,15 +123,15 @@ fmt.Println(box.GetName()) // "box"
 | `location` | `map[string]any` | No |  |
 | `model` | `string` | No |  |
 | `name` | `string` | No |  |
-| `sensor` | `[]any` | No |  |
-| `updated_at` | `string` | No |  |
+| `sensors` | `[]any` | No |  |
+| `updatedAt` | `string` | No |  |
 | `value` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `exposure` | - | - | Yes | Yes | - |
 | `grouptag` | - | - | - | - | - |
@@ -139,8 +139,8 @@ fmt.Println(box.GetName()) // "box"
 | `location` | - | - | Yes | Yes | - |
 | `model` | - | - | - | - | - |
 | `name` | - | - | Yes | Yes | - |
-| `sensor` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `sensors` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 | `value` | - | - | - | - | - |
 
 ### Operations
@@ -293,8 +293,8 @@ fmt.Println(sensor.GetName()) // "sensor"
 | --- | --- | --- | --- |
 | `icon` | `string` | No |  |
 | `id` | `string` | No |  |
-| `last_measurement` | `map[string]any` | No |  |
-| `sensor_type` | `string` | No |  |
+| `lastMeasurement` | `map[string]any` | No |  |
+| `sensorType` | `string` | No |  |
 | `title` | `string` | No |  |
 | `unit` | `string` | No |  |
 
@@ -403,29 +403,25 @@ fmt.Println(user.GetName()) // "user"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | `[]any` | No |  |
-| `created_at` | `string` | No |  |
+| `boxes` | `[]any` | No |  |
+| `createdAt` | `string` | No |  |
 | `email` | `string` | Yes |  |
 | `id` | `string` | No |  |
 | `name` | `string` | Yes |  |
 | `password` | `string` | Yes |  |
 | `role` | `string` | No |  |
-| `token` | `string` | No |  |
-| `user` | `map[string]any` | No |  |
 
 ### Field Usage by Operation
 
 | Field | list | create |
 | --- | --- | --- |
-| `box` | - | - |
-| `created_at` | - | - |
-| `email` | Yes | - |
+| `boxes` | - | - |
+| `createdAt` | - | - |
+| `email` | Yes | Yes |
 | `id` | - | - |
-| `name` | Yes | - |
+| `name` | Yes | Yes |
 | `password` | - | - |
 | `role` | - | - |
-| `token` | - | - |
-| `user` | - | - |
 
 ### Operations
 

@@ -33,7 +33,7 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "created_at",
+						"name": "createdAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 0,
@@ -119,14 +119,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "sensor",
+						"name": "sensors",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 8,
 					},
 					map[string]any{
 						"active": true,
-						"name": "updated_at",
+						"name": "updatedAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 9,
@@ -148,6 +148,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/boxes",
 								"parts": []any{
@@ -161,7 +162,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 					"list": map[string]any{
 						"input": "data",
@@ -218,6 +218,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/boxes/{boxId}/{sensorId}",
 								"parts": []any{
@@ -285,6 +286,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/boxes",
 								"parts": []any{
@@ -305,7 +307,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "list",
 					},
 					"load": map[string]any{
 						"input": "data",
@@ -337,6 +338,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/boxes/{boxId}",
 								"parts": []any{
@@ -361,7 +363,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 					"remove": map[string]any{
 						"input": "data",
@@ -382,6 +383,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "DELETE",
 								"orig": "/boxes/{boxId}",
 								"parts": []any{
@@ -405,7 +407,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "remove",
 					},
 					"update": map[string]any{
 						"input": "data",
@@ -426,6 +427,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "PUT",
 								"orig": "/boxes/{boxId}",
 								"parts": []any{
@@ -449,7 +451,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "update",
 					},
 				},
 				"relations": map[string]any{
@@ -483,6 +484,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/boxes/{boxId}/data",
 								"parts": []any{
@@ -507,7 +509,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "create",
 					},
 				},
 				"relations": map[string]any{
@@ -536,14 +537,14 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"active": true,
-						"name": "last_measurement",
+						"name": "lastMeasurement",
 						"req": false,
 						"type": "`$OBJECT`",
 						"index$": 2,
 					},
 					map[string]any{
 						"active": true,
-						"name": "sensor_type",
+						"name": "sensorType",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 3,
@@ -584,6 +585,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/boxes/{boxId}/sensors",
 								"parts": []any{
@@ -608,7 +610,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{
@@ -708,6 +709,7 @@ func MakeConfig() map[string]any {
 										},
 									},
 								},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/statistics/descriptive",
 								"parts": []any{
@@ -730,7 +732,6 @@ func MakeConfig() map[string]any {
 								"index$": 0,
 							},
 						},
-						"key$": "load",
 					},
 				},
 				"relations": map[string]any{
@@ -741,14 +742,14 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"active": true,
-						"name": "box",
+						"name": "boxes",
 						"req": false,
 						"type": "`$ARRAY`",
 						"index$": 0,
 					},
 					map[string]any{
 						"active": true,
-						"name": "created_at",
+						"name": "createdAt",
 						"req": false,
 						"type": "`$STRING`",
 						"index$": 1,
@@ -757,6 +758,10 @@ func MakeConfig() map[string]any {
 						"active": true,
 						"name": "email",
 						"op": map[string]any{
+							"create": map[string]any{
+								"req": false,
+								"type": "`$STRING`",
+							},
 							"list": map[string]any{
 								"req": false,
 								"type": "`$STRING`",
@@ -777,6 +782,10 @@ func MakeConfig() map[string]any {
 						"active": true,
 						"name": "name",
 						"op": map[string]any{
+							"create": map[string]any{
+								"req": false,
+								"type": "`$STRING`",
+							},
 							"list": map[string]any{
 								"req": false,
 								"type": "`$STRING`",
@@ -800,20 +809,6 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 						"index$": 6,
 					},
-					map[string]any{
-						"active": true,
-						"name": "token",
-						"req": false,
-						"type": "`$STRING`",
-						"index$": 7,
-					},
-					map[string]any{
-						"active": true,
-						"name": "user",
-						"req": false,
-						"type": "`$OBJECT`",
-						"index$": 8,
-					},
 				},
 				"name": "user",
 				"op": map[string]any{
@@ -824,6 +819,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/users/register",
 								"parts": []any{
@@ -842,6 +838,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "POST",
 								"orig": "/users/sign-in",
 								"parts": []any{
@@ -858,7 +855,6 @@ func MakeConfig() map[string]any {
 								"index$": 1,
 							},
 						},
-						"key$": "create",
 					},
 					"list": map[string]any{
 						"input": "data",
@@ -867,6 +863,7 @@ func MakeConfig() map[string]any {
 							map[string]any{
 								"active": true,
 								"args": map[string]any{},
+								"kind": "http",
 								"method": "GET",
 								"orig": "/users/me",
 								"parts": []any{
@@ -878,12 +875,11 @@ func MakeConfig() map[string]any {
 								},
 								"transform": map[string]any{
 									"req": "`reqdata`",
-									"res": "`body`",
+									"res": "`body.boxes`",
 								},
 								"index$": 0,
 							},
 						},
-						"key$": "list",
 					},
 				},
 				"relations": map[string]any{

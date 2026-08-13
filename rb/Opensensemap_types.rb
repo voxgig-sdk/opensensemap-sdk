@@ -10,7 +10,7 @@
 
 # Box entity data model.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] description
@@ -34,16 +34,16 @@
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] sensor
+# @!attribute [rw] sensors
 #   @return [Array, nil]
 #
-# @!attribute [rw] updated_at
+# @!attribute [rw] updatedAt
 #   @return [String, nil]
 #
 # @!attribute [rw] value
 #   @return [String, nil]
 Box = Struct.new(
-  :created_at,
+  :createdAt,
   :description,
   :exposure,
   :grouptag,
@@ -51,8 +51,8 @@ Box = Struct.new(
   :location,
   :model,
   :name,
-  :sensor,
-  :updated_at,
+  :sensors,
+  :updatedAt,
   :value,
   keyword_init: true
 )
@@ -81,7 +81,7 @@ BoxListMatch = Struct.new(
 
 # Request payload for Box#create.
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] description
@@ -105,16 +105,16 @@ BoxListMatch = Struct.new(
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] sensor
+# @!attribute [rw] sensors
 #   @return [Array, nil]
 #
-# @!attribute [rw] updated_at
+# @!attribute [rw] updatedAt
 #   @return [String, nil]
 #
 # @!attribute [rw] value
 #   @return [String, nil]
 BoxCreateData = Struct.new(
-  :created_at,
+  :createdAt,
   :description,
   :exposure,
   :grouptag,
@@ -122,8 +122,8 @@ BoxCreateData = Struct.new(
   :location,
   :model,
   :name,
-  :sensor,
-  :updated_at,
+  :sensors,
+  :updatedAt,
   :value,
   keyword_init: true
 )
@@ -132,8 +132,48 @@ BoxCreateData = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] createdAt
+#   @return [String, nil]
+#
+# @!attribute [rw] description
+#   @return [String, nil]
+#
+# @!attribute [rw] exposure
+#   @return [String, nil]
+#
+# @!attribute [rw] grouptag
+#   @return [String, nil]
+#
+# @!attribute [rw] location
+#   @return [Hash, nil]
+#
+# @!attribute [rw] model
+#   @return [String, nil]
+#
+# @!attribute [rw] name
+#   @return [String, nil]
+#
+# @!attribute [rw] sensors
+#   @return [Array, nil]
+#
+# @!attribute [rw] updatedAt
+#   @return [String, nil]
+#
+# @!attribute [rw] value
+#   @return [String, nil]
 BoxUpdateData = Struct.new(
   :id,
+  :createdAt,
+  :description,
+  :exposure,
+  :grouptag,
+  :location,
+  :model,
+  :name,
+  :sensors,
+  :updatedAt,
+  :value,
   keyword_init: true
 )
 
@@ -167,10 +207,10 @@ MeasurementCreateData = Struct.new(
 # @!attribute [rw] id
 #   @return [String, nil]
 #
-# @!attribute [rw] last_measurement
+# @!attribute [rw] lastMeasurement
 #   @return [Hash, nil]
 #
-# @!attribute [rw] sensor_type
+# @!attribute [rw] sensorType
 #   @return [String, nil]
 #
 # @!attribute [rw] title
@@ -181,8 +221,8 @@ MeasurementCreateData = Struct.new(
 Sensor = Struct.new(
   :icon,
   :id,
-  :last_measurement,
-  :sensor_type,
+  :lastMeasurement,
+  :sensorType,
   :title,
   :unit,
   keyword_init: true
@@ -257,10 +297,10 @@ StatisticLoadMatch = Struct.new(
 
 # User entity data model.
 #
-# @!attribute [rw] box
+# @!attribute [rw] boxes
 #   @return [Array, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] email
@@ -277,31 +317,23 @@ StatisticLoadMatch = Struct.new(
 #
 # @!attribute [rw] role
 #   @return [String, nil]
-#
-# @!attribute [rw] token
-#   @return [String, nil]
-#
-# @!attribute [rw] user
-#   @return [Hash, nil]
 User = Struct.new(
-  :box,
-  :created_at,
+  :boxes,
+  :createdAt,
   :email,
   :id,
   :name,
   :password,
   :role,
-  :token,
-  :user,
   keyword_init: true
 )
 
 # Request payload for User#list.
 #
-# @!attribute [rw] box
+# @!attribute [rw] boxes
 #   @return [Array, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] email
@@ -318,31 +350,23 @@ User = Struct.new(
 #
 # @!attribute [rw] role
 #   @return [String, nil]
-#
-# @!attribute [rw] token
-#   @return [String, nil]
-#
-# @!attribute [rw] user
-#   @return [Hash, nil]
 UserListMatch = Struct.new(
-  :box,
-  :created_at,
+  :boxes,
+  :createdAt,
   :email,
   :id,
   :name,
   :password,
   :role,
-  :token,
-  :user,
   keyword_init: true
 )
 
 # Request payload for User#create.
 #
-# @!attribute [rw] box
+# @!attribute [rw] boxes
 #   @return [Array, nil]
 #
-# @!attribute [rw] created_at
+# @!attribute [rw] createdAt
 #   @return [String, nil]
 #
 # @!attribute [rw] email
@@ -359,22 +383,14 @@ UserListMatch = Struct.new(
 #
 # @!attribute [rw] role
 #   @return [String, nil]
-#
-# @!attribute [rw] token
-#   @return [String, nil]
-#
-# @!attribute [rw] user
-#   @return [Hash, nil]
 UserCreateData = Struct.new(
-  :box,
-  :created_at,
+  :boxes,
+  :createdAt,
   :email,
   :id,
   :name,
   :password,
   :role,
-  :token,
-  :user,
   keyword_init: true
 )
 

@@ -38,7 +38,7 @@ class MeasurementEntityTest < Minitest::Test
     measurement_ref01_data["box_id"] = setup[:idmap]["box01"]
 
     measurement_ref01_data_result = measurement_ref01_ent.create(measurement_ref01_data, nil)
-    measurement_ref01_data = Helpers.to_map(measurement_ref01_data_result)
+    measurement_ref01_data = Helpers.to_map(measurement_ref01_data_result.respond_to?(:data_get) ? measurement_ref01_data_result.data_get : measurement_ref01_data_result)
     assert !measurement_ref01_data.nil?
 
   end

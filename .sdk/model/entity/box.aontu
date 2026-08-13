@@ -6,7 +6,7 @@ main: kit: entity: box: {
 
   fields: [
     {
-      name: "created_at"
+      name: "createdAt"
       req: false
       type: "`$STRING`"
     }
@@ -76,12 +76,12 @@ main: kit: entity: box: {
       type: "`$STRING`"
     }
     {
-      name: "sensor"
+      name: "sensors"
       req: false
       type: "`$ARRAY`"
     }
     {
-      name: "updated_at"
+      name: "updatedAt"
       req: false
       type: "`$STRING`"
     }

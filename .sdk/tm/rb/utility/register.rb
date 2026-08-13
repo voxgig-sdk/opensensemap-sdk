@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ OpensensemapUtility.registrar = ->(u) {
   u.prepare_params = OpensensemapUtilities::PrepareParams
   u.prepare_path = OpensensemapUtilities::PreparePath
   u.prepare_query = OpensensemapUtilities::PrepareQuery
+  u.graphql_body = OpensensemapUtilities::GraphqlBody
+  u.graphql_errors = OpensensemapUtilities::GraphqlErrors
   u.result_basic = OpensensemapUtilities::ResultBasic
   u.result_body = OpensensemapUtilities::ResultBody
   u.result_headers = OpensensemapUtilities::ResultHeaders

@@ -16,12 +16,12 @@ main: kit: entity: sensor: {
       type: "`$STRING`"
     }
     {
-      name: "last_measurement"
+      name: "lastMeasurement"
       req: false
       type: "`$OBJECT`"
     }
     {
-      name: "sensor_type"
+      name: "sensorType"
       req: false
       type: "`$STRING`"
     }

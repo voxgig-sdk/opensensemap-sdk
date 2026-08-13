@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from opensensemap_sdk.utility.voxgig_struct import voxgig_struct as vs
 from opensensemap_sdk import OpensensemapSDK
-from core import helpers
+from opensensemap_sdk.core import helpers
 from test import runner
 
 

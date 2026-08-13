@@ -39,7 +39,7 @@ begin
   # list returns an Array of Box records — iterate directly.
   boxs = client.Box.list
   boxs.each do |item|
-    puts "#{item["id"]} #{item["created_at"]}"
+    puts "#{item["id"]} #{item["createdAt"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -50,7 +50,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare Box record (raises on error).
+  # load returns the ENTITY — call data_get for the Box record (raises on error).
   box = client.Box.load({ "id" => "example_id" })
   puts box
 rescue => err
@@ -61,14 +61,14 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created Box record.
-created = client.Box.create({ "created_at" => "example_created_at", "description" => "example_description" })
+# create returns the ENTITY — call data_get for the created Box record.
+created = client.Box.create({ "createdAt" => "example_createdAt", "description" => "example_description" })
 
-# Update — index the bare record directly (created["id"]).
-client.Box.update({ "id" => created["id"] })
+# Update — index the record via data_get (created.data_get["id"]).
+client.Box.update({ "id" => created.data_get["id"], "createdAt" => "example_createdAt", "description" => "example_description" })
 
 # Remove
-client.Box.remove({ "id" => created["id"] })
+client.Box.remove({ "id" => created.data_get["id"] })
 ```
 
 
@@ -78,7 +78,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  boxs = client.Box.list()
+  sensors = client.Sensor.list()
 rescue => err
   warn "list failed: #{err}"
 end
@@ -141,17 +141,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = OpensensemapSDK.test({
-  "entity" => { "box" => { "test01" => { "id" => "test01" } } },
-})
+client = OpensensemapSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-box = client.Box.list()
-puts box
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+sensor = client.Sensor.list()
+puts sensor
 ```
 
 ### Use a custom fetch function
@@ -276,7 +274,7 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `exposure` |  |
 | `grouptag` |  |
@@ -284,8 +282,8 @@ returns a result `Hash` with these keys:
 | `location` |  |
 | `model` |  |
 | `name` |  |
-| `sensor` |  |
-| `updated_at` |  |
+| `sensors` |  |
+| `updatedAt` |  |
 | `value` |  |
 
 Operations: Create, List, Load, Remove, Update.
@@ -307,8 +305,8 @@ API path: `/boxes/{boxId}/data`
 | --- | --- |
 | `icon` |  |
 | `id` |  |
-| `last_measurement` |  |
-| `sensor_type` |  |
+| `lastMeasurement` |  |
+| `sensorType` |  |
 | `title` |  |
 | `unit` |  |
 
@@ -335,15 +333,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `box` |  |
-| `created_at` |  |
+| `boxes` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
 | `password` |  |
 | `role` |  |
-| `token` |  |
-| `user` |  |
 
 Operations: Create, List.
 
@@ -372,7 +368,7 @@ Create an instance: `box = client.Box`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `String` |  |
+| `createdAt` | `String` |  |
 | `description` | `String` |  |
 | `exposure` | `String` |  |
 | `grouptag` | `String` |  |
@@ -380,14 +376,14 @@ Create an instance: `box = client.Box`
 | `location` | `Hash` |  |
 | `model` | `String` |  |
 | `name` | `String` |  |
-| `sensor` | `Array` |  |
-| `updated_at` | `String` |  |
+| `sensors` | `Array` |  |
+| `updatedAt` | `String` |  |
 | `value` | `String` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Box record (raises on error).
+# load returns the ENTITY — call data_get for the Box record (raises on error).
 box = client.Box.load({ "id" => "box_id" })
 ```
 
@@ -441,8 +437,8 @@ Create an instance: `sensor = client.Sensor`
 | --- | --- | --- |
 | `icon` | `String` |  |
 | `id` | `String` |  |
-| `last_measurement` | `Hash` |  |
-| `sensor_type` | `String` |  |
+| `lastMeasurement` | `Hash` |  |
+| `sensorType` | `String` |  |
 | `title` | `String` |  |
 | `unit` | `String` |  |
 
@@ -478,7 +474,7 @@ Create an instance: `statistic = client.Statistic`
 #### Example: Load
 
 ```ruby
-# load returns the bare Statistic record (raises on error).
+# load returns the ENTITY — call data_get for the Statistic record (raises on error).
 statistic = client.Statistic.load()
 ```
 
@@ -498,15 +494,13 @@ Create an instance: `user = client.User`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | `Array` |  |
-| `created_at` | `String` |  |
+| `boxes` | `Array` |  |
+| `createdAt` | `String` |  |
 | `email` | `String` |  |
 | `id` | `String` |  |
 | `name` | `String` |  |
 | `password` | `String` |  |
 | `role` | `String` |  |
-| `token` | `String` |  |
-| `user` | `Hash` |  |
 
 #### Example: List
 
@@ -602,11 +596,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-box = client.Box
-box.list()
+sensor = client.Sensor
+sensor.list()
 
-# box.data_get now returns the box data from the last list
-# box.match_get returns the last match criteria
+# sensor.data_get now returns the sensor data from the last list
+# sensor.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

@@ -75,7 +75,7 @@ class BoxEntityTest < Minitest::Test
     box_ref01_data["sensor_id"] = setup[:idmap]["sensor01"]
 
     box_ref01_data_result = box_ref01_ent.create(box_ref01_data, nil)
-    box_ref01_data = Helpers.to_map(box_ref01_data_result)
+    box_ref01_data = Helpers.to_map(box_ref01_data_result.respond_to?(:data_get) ? box_ref01_data_result.data_get : box_ref01_data_result)
     assert !box_ref01_data.nil?
     assert !box_ref01_data["id"].nil?
 
@@ -95,12 +95,12 @@ class BoxEntityTest < Minitest::Test
       "id" => box_ref01_data["id"],
     }
 
-    box_ref01_markdef_up0_name = "created_at"
+    box_ref01_markdef_up0_name = "createdAt"
     box_ref01_markdef_up0_value = "Mark01-box_ref01_#{setup[:now]}"
     box_ref01_data_up0_up[box_ref01_markdef_up0_name] = box_ref01_markdef_up0_value
 
     box_ref01_resdata_up0_result = box_ref01_ent.update(box_ref01_data_up0_up, nil)
-    box_ref01_resdata_up0 = Helpers.to_map(box_ref01_resdata_up0_result)
+    box_ref01_resdata_up0 = Helpers.to_map(box_ref01_resdata_up0_result.respond_to?(:data_get) ? box_ref01_resdata_up0_result.data_get : box_ref01_resdata_up0_result)
     assert !box_ref01_resdata_up0.nil?
     assert_equal box_ref01_resdata_up0["id"], box_ref01_data_up0_up["id"]
     assert_equal box_ref01_resdata_up0[box_ref01_markdef_up0_name], box_ref01_markdef_up0_value
@@ -110,7 +110,7 @@ class BoxEntityTest < Minitest::Test
       "id" => box_ref01_data["id"],
     }
     box_ref01_data_dt0_loaded = box_ref01_ent.load(box_ref01_match_dt0, nil)
-    box_ref01_data_dt0_load_result = Helpers.to_map(box_ref01_data_dt0_loaded)
+    box_ref01_data_dt0_load_result = Helpers.to_map(box_ref01_data_dt0_loaded.respond_to?(:data_get) ? box_ref01_data_dt0_loaded.data_get : box_ref01_data_dt0_loaded)
     assert !box_ref01_data_dt0_load_result.nil?
     assert_equal box_ref01_data_dt0_load_result["id"], box_ref01_data["id"]
 

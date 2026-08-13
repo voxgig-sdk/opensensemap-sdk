@@ -42,7 +42,7 @@ describe("MeasurementEntity", function()
 
     local measurement_ref01_data_result, err = measurement_ref01_ent:create(measurement_ref01_data, nil)
     assert.is_nil(err)
-    measurement_ref01_data = helpers.to_map(measurement_ref01_data_result)
+    measurement_ref01_data = helpers.to_map(type(measurement_ref01_data_result) == 'table' and measurement_ref01_data_result.data_get and measurement_ref01_data_result:data_get() or measurement_ref01_data_result)
     assert.is_not_nil(measurement_ref01_data)
 
   end)

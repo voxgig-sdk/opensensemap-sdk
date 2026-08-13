@@ -38,18 +38,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = OpensensemapSDK.test()
-const boxs = await client.Box().list()
-// boxs is an array of bare Box records populated with mock data
-console.log(boxs)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = OpensensemapSDK.test({
+  entity: {
+    sensor: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const sensors = await client.Sensor().list()
+// sensors is an array of Sensor entities, populated with mock data
+// — call sensors[0].data() for the record itself
+console.log(sensors)
 ```
 
 ### Python
 
 ```python
 client = OpensensemapSDK.test()
-boxs = client.Box().list()
-print(boxs)
+sensors = client.Sensor().list()
+print(sensors)
 ```
 
 ### PHP
@@ -57,16 +66,16 @@ print(boxs)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = OpensensemapSDK::test([
-    "entity" => ["box" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["sensor" => ["test01" => []]],
 ]);
-$boxs = $client->Box()->list();
+$sensors = $client->Sensor()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Box(nil).List(
+result, err := client.Sensor(nil).List(
     nil, nil,
 )
 ```
@@ -76,16 +85,16 @@ result, err := client.Box(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = OpensensemapSDK.test({
-  "entity" => { "box" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "sensor" => { "test01" => {} } },
 })
-boxs = client.Box.list()
+sensors = client.Sensor.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Box():list()
+local results, err = client:Sensor():list()
 ```
 
 ## Packages
@@ -112,7 +121,7 @@ const client = new OpensensemapSDK({
   apikey: process.env.OPENSENSEMAP_APIKEY,
 })
 
-// List all boxs (returns Box[])
+// List all boxs (returns BoxEntity[] — .data() for the record)
 const boxs = await client.Box().list()
 for (const box of boxs) {
   console.log(box)
@@ -157,11 +166,11 @@ The API exposes 5 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Box** | The Box entity (create, list, load, remove, update). | `/boxes` |
+| **Box** | The Box entity (create, list, load, remove, update). | `/boxes/{boxId}/{sensorId}` |
 | **Measurement** | The Measurement entity (create). | `/boxes/{boxId}/data` |
 | **Sensor** | The Sensor entity (list). | `/boxes/{boxId}/sensors` |
 | **Statistic** | The Statistic entity (load). | `/statistics/descriptive` |
-| **User** | The User entity (create, list). | `/users/register` |
+| **User** | The User entity (create, list). | `/users/me` |
 
 The operations available across these entities are **load**, **list**, **create**, **update**, **remove** — see each entity's
 own list above for exactly which it supports.
@@ -202,7 +211,7 @@ $client = new OpensensemapSDK([
 $boxs = $client->Box()->list();
 print_r($boxs);
 
-// Load a specific box (returns the bare record; throws on error)
+// Load a specific box (returns the ENTITY; call data_get() for the record; throws on error)
 $box = $client->Box()->load(["id" => "example_id"]);
 print_r($box);
 ```
@@ -237,7 +246,7 @@ client = OpensensemapSDK.new({
 boxs = client.Box.list
 puts boxs
 
-# Load a specific box (returns the bare record; raises on error)
+# Load a specific box (returns the ENTITY; call data_get for the record)
 box = client.Box.load({ "id" => "example_id" })
 puts box
 ```
@@ -376,6 +385,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://docs.opensensemap.org/](https://docs.opensensemap.org/)
 

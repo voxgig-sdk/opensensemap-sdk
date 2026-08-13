@@ -36,7 +36,7 @@ main: kit: flow: BasicBoxFlow:
         ref: "box_ref01",
         srcdatavar: "box_ref01_data",
         suffix: "_up0",
-        textfield: "created_at"
+        textfield: "createdAt"
       }
 
       op: "update",

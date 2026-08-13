@@ -48,6 +48,7 @@ guide: {
     path: "/users/me": {
       action: "me": {}
       op: list: method: *GET
+      op: list: transform: res: *("`body.boxes`")|top
     }
     path: "/users/register": {
       action: "register": {}

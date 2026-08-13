@@ -40,7 +40,7 @@ try {
     // list() returns an array of Box records — iterate directly.
     $boxs = $client->Box()->list();
     foreach ($boxs as $item) {
-        echo $item["id"] . " " . $item["created_at"] . "\n";
+        echo $item["id"] . " " . $item["createdAt"] . "\n";
     }
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
@@ -51,7 +51,7 @@ try {
 
 ```php
 try {
-    // load() returns the bare Box record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Box record (throws on error).
     $box = $client->Box()->load(["id" => "example_id"]);
     print_r($box);
 } catch (\Throwable $err) {
@@ -62,14 +62,14 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created Box record.
-$created = $client->Box()->create(["created_at" => "example_created_at", "description" => "example_description"]);
+// create() returns the ENTITY — call data_get() for the created Box record.
+$created = $client->Box()->create(["createdAt" => "example_createdAt", "description" => "example_description"]);
 
-// Update — index the bare record directly ($created["id"]).
-$client->Box()->update(["id" => $created["id"]]);
+// Update — index the record via data_get() ($created->data_get()["id"]).
+$client->Box()->update(["id" => $created->data_get()["id"], "createdAt" => "example_createdAt", "description" => "example_description"]);
 
 // Remove
-$client->Box()->remove(["id" => $created["id"]]);
+$client->Box()->remove(["id" => $created->data_get()["id"]]);
 ```
 
 
@@ -80,7 +80,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $boxs = $client->Box()->list();
+    $sensors = $client->Sensor()->list();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -147,17 +147,15 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = OpensensemapSDK::test([
-    "entity" => ["box" => ["test01" => ["id" => "test01"]]],
-]);
+$client = OpensensemapSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$box = $client->Box()->list();
-print_r($box);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$sensor = $client->Sensor()->list();
+print_r($sensor);
 ```
 
 ### Use a custom fetch function
@@ -264,7 +262,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -286,7 +284,7 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `exposure` |  |
 | `grouptag` |  |
@@ -294,8 +292,8 @@ On error, `ok` is `false` and `$err` contains the error value.
 | `location` |  |
 | `model` |  |
 | `name` |  |
-| `sensor` |  |
-| `updated_at` |  |
+| `sensors` |  |
+| `updatedAt` |  |
 | `value` |  |
 
 Operations: Create, List, Load, Remove, Update.
@@ -317,8 +315,8 @@ API path: `/boxes/{boxId}/data`
 | --- | --- |
 | `icon` |  |
 | `id` |  |
-| `last_measurement` |  |
-| `sensor_type` |  |
+| `lastMeasurement` |  |
+| `sensorType` |  |
 | `title` |  |
 | `unit` |  |
 
@@ -345,15 +343,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `box` |  |
-| `created_at` |  |
+| `boxes` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
 | `password` |  |
 | `role` |  |
-| `token` |  |
-| `user` |  |
 
 Operations: Create, List.
 
@@ -382,7 +378,7 @@ Create an instance: `$box = $client->Box();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `description` | `string` |  |
 | `exposure` | `string` |  |
 | `grouptag` | `string` |  |
@@ -390,14 +386,14 @@ Create an instance: `$box = $client->Box();`
 | `location` | `array` |  |
 | `model` | `string` |  |
 | `name` | `string` |  |
-| `sensor` | `array` |  |
-| `updated_at` | `string` |  |
+| `sensors` | `array` |  |
+| `updatedAt` | `string` |  |
 | `value` | `string` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Box record (throws on error).
+// load() returns the ENTITY — call data_get() for the Box record (throws on error).
 $box = $client->Box()->load(["id" => "box_id"]);
 ```
 
@@ -451,8 +447,8 @@ Create an instance: `$sensor = $client->Sensor();`
 | --- | --- | --- |
 | `icon` | `string` |  |
 | `id` | `string` |  |
-| `last_measurement` | `array` |  |
-| `sensor_type` | `string` |  |
+| `lastMeasurement` | `array` |  |
+| `sensorType` | `string` |  |
 | `title` | `string` |  |
 | `unit` | `string` |  |
 
@@ -488,7 +484,7 @@ Create an instance: `$statistic = $client->Statistic();`
 #### Example: Load
 
 ```php
-// load() returns the bare Statistic record (throws on error).
+// load() returns the ENTITY — call data_get() for the Statistic record (throws on error).
 $statistic = $client->Statistic()->load();
 ```
 
@@ -508,15 +504,13 @@ Create an instance: `$user = $client->User();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | `array` |  |
-| `created_at` | `string` |  |
+| `boxes` | `array` |  |
+| `createdAt` | `string` |  |
 | `email` | `string` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
 | `password` | `string` |  |
 | `role` | `string` |  |
-| `token` | `string` |  |
-| `user` | `array` |  |
 
 #### Example: List
 
@@ -612,11 +606,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$box = $client->Box();
-$box->list();
+$sensor = $client->Sensor();
+$sensor->list();
 
-// $box->data_get() now returns the box data from the last list
-// $box->match_get() returns the last match criteria
+// $sensor->data_get() now returns the sensor data from the last list
+// $sensor->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

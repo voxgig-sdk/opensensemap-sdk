@@ -107,7 +107,7 @@ local box = client:Box(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `description` | `string` | No |  |
 | `exposure` | `string` | No |  |
 | `grouptag` | `string` | No |  |
@@ -115,15 +115,15 @@ local box = client:Box(nil)
 | `location` | `table` | No |  |
 | `model` | `string` | No |  |
 | `name` | `string` | No |  |
-| `sensor` | `table` | No |  |
-| `updated_at` | `string` | No |  |
+| `sensors` | `table` | No |  |
+| `updatedAt` | `string` | No |  |
 | `value` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `exposure` | - | - | Yes | Yes | - |
 | `grouptag` | - | - | - | - | - |
@@ -131,8 +131,8 @@ local box = client:Box(nil)
 | `location` | - | - | Yes | Yes | - |
 | `model` | - | - | - | - | - |
 | `name` | - | - | Yes | Yes | - |
-| `sensor` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `sensors` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 | `value` | - | - | - | - | - |
 
 ### Operations
@@ -271,8 +271,8 @@ local sensor = client:Sensor(nil)
 | --- | --- | --- | --- |
 | `icon` | `string` | No |  |
 | `id` | `string` | No |  |
-| `last_measurement` | `table` | No |  |
-| `sensor_type` | `string` | No |  |
+| `lastMeasurement` | `table` | No |  |
+| `sensorType` | `string` | No |  |
 | `title` | `string` | No |  |
 | `unit` | `string` | No |  |
 
@@ -383,29 +383,25 @@ local user = client:User(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | `table` | No |  |
-| `created_at` | `string` | No |  |
+| `boxes` | `table` | No |  |
+| `createdAt` | `string` | No |  |
 | `email` | `string` | Yes |  |
 | `id` | `string` | No |  |
 | `name` | `string` | Yes |  |
 | `password` | `string` | Yes |  |
 | `role` | `string` | No |  |
-| `token` | `string` | No |  |
-| `user` | `table` | No |  |
 
 ### Field Usage by Operation
 
 | Field | list | create |
 | --- | --- | --- |
-| `box` | - | - |
-| `created_at` | - | - |
-| `email` | Yes | - |
+| `boxes` | - | - |
+| `createdAt` | - | - |
+| `email` | Yes | Yes |
 | `id` | - | - |
-| `name` | Yes | - |
+| `name` | Yes | Yes |
 | `password` | - | - |
 | `role` | - | - |
-| `token` | - | - |
-| `user` | - | - |
 
 ### Operations
 

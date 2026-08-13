@@ -6,7 +6,7 @@
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Box {
-  created_at?: string
+  createdAt?: string
   description?: string
   exposure?: string
   grouptag?: string
@@ -14,8 +14,8 @@ export interface Box {
   location?: Record<string, any>
   model?: string
   name?: string
-  sensor?: any[]
-  updated_at?: string
+  sensors?: any[]
+  updatedAt?: string
   value?: string
 }
 
@@ -29,7 +29,7 @@ export interface BoxListMatch {
 }
 
 export interface BoxCreateData {
-  created_at?: string
+  createdAt?: string
   description?: string
   exposure?: string
   grouptag?: string
@@ -37,13 +37,23 @@ export interface BoxCreateData {
   location?: Record<string, any>
   model?: string
   name?: string
-  sensor?: any[]
-  updated_at?: string
+  sensors?: any[]
+  updatedAt?: string
   value?: string
 }
 
 export interface BoxUpdateData {
   id: string
+  createdAt?: string
+  description?: string
+  exposure?: string
+  grouptag?: string
+  location?: Record<string, any>
+  model?: string
+  name?: string
+  sensors?: any[]
+  updatedAt?: string
+  value?: string
 }
 
 export interface BoxRemoveMatch {
@@ -60,8 +70,8 @@ export interface MeasurementCreateData {
 export interface Sensor {
   icon?: string
   id?: string
-  last_measurement?: Record<string, any>
-  sensor_type?: string
+  lastMeasurement?: Record<string, any>
+  sensorType?: string
   title?: string
   unit?: string
 }
@@ -86,41 +96,53 @@ export interface StatisticLoadMatch {
   median?: number
   min?: number
   sum?: number
+
+  // Selects a custom action instead of the plain load:
+  //   'descriptive'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 
 export interface User {
-  box?: any[]
-  created_at?: string
+  boxes?: any[]
+  createdAt?: string
   email: string
   id?: string
   name: string
   password: string
   role?: string
-  token?: string
-  user?: Record<string, any>
 }
 
 export interface UserListMatch {
-  box?: any[]
-  created_at?: string
+  boxes?: any[]
+  createdAt?: string
   email?: string
   id?: string
   name?: string
   password?: string
   role?: string
-  token?: string
-  user?: Record<string, any>
+
+  // Selects a custom action instead of the plain list:
+  //   'me'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 
 export interface UserCreateData {
-  box?: any[]
-  created_at?: string
+  boxes?: any[]
+  createdAt?: string
   email: string
   id?: string
   name: string
   password: string
   role?: string
-  token?: string
-  user?: Record<string, any>
+
+  // Selects a custom action instead of the plain create:
+  //   'register' | 'sign_in'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 

@@ -45,7 +45,7 @@ local boxs, err = client:Box():list()
 if err then error(err) end
 
 for _, item in ipairs(boxs) do
-  print(item["id"], item["created_at"])
+  print(item["id"], item["createdAt"])
 end
 ```
 
@@ -61,14 +61,14 @@ print(box)
 
 ```lua
 -- Create
-local created, err = client:Box():create({ created_at = "example_created_at", description = "example_description" })
+local created, err = client:Box():create({ createdAt = "example_createdAt", description = "example_description" })
 if err then error(err) end
 
 -- Update
-client:Box():update({ id = created["id"] })
+client:Box():update({ id = created:data_get()["id"], createdAt = "example_createdAt", description = "example_description" })
 
 -- Remove
-client:Box():remove({ id = created["id"] })
+client:Box():remove({ id = created:data_get()["id"] })
 ```
 
 
@@ -78,7 +78,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local boxs, err = client:Box():list()
+local sensors, err = client:Sensor():list()
 if err then error(err) end
 ```
 
@@ -136,7 +136,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Box():list()
+local result, err = client:Sensor():list()
 -- result is the returned data; err is set on failure
 ```
 
@@ -266,7 +266,7 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `exposure` |  |
 | `grouptag` |  |
@@ -274,8 +274,8 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `location` |  |
 | `model` |  |
 | `name` |  |
-| `sensor` |  |
-| `updated_at` |  |
+| `sensors` |  |
+| `updatedAt` |  |
 | `value` |  |
 
 Operations: Create, List, Load, Remove, Update.
@@ -297,8 +297,8 @@ API path: `/boxes/{boxId}/data`
 | --- | --- |
 | `icon` |  |
 | `id` |  |
-| `last_measurement` |  |
-| `sensor_type` |  |
+| `lastMeasurement` |  |
+| `sensorType` |  |
 | `title` |  |
 | `unit` |  |
 
@@ -325,15 +325,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `box` |  |
-| `created_at` |  |
+| `boxes` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
 | `password` |  |
 | `role` |  |
-| `token` |  |
-| `user` |  |
 
 Operations: Create, List.
 
@@ -362,7 +360,7 @@ Create an instance: `local box = client:Box(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `description` | `string` |  |
 | `exposure` | `string` |  |
 | `grouptag` | `string` |  |
@@ -370,8 +368,8 @@ Create an instance: `local box = client:Box(nil)`
 | `location` | `table` |  |
 | `model` | `string` |  |
 | `name` | `string` |  |
-| `sensor` | `table` |  |
-| `updated_at` | `string` |  |
+| `sensors` | `table` |  |
+| `updatedAt` | `string` |  |
 | `value` | `string` |  |
 
 #### Example: Load
@@ -429,8 +427,8 @@ Create an instance: `local sensor = client:Sensor(nil)`
 | --- | --- | --- |
 | `icon` | `string` |  |
 | `id` | `string` |  |
-| `last_measurement` | `table` |  |
-| `sensor_type` | `string` |  |
+| `lastMeasurement` | `table` |  |
+| `sensorType` | `string` |  |
 | `title` | `string` |  |
 | `unit` | `string` |  |
 
@@ -484,15 +482,13 @@ Create an instance: `local user = client:User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | `table` |  |
-| `created_at` | `string` |  |
+| `boxes` | `table` |  |
+| `createdAt` | `string` |  |
 | `email` | `string` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
 | `password` | `string` |  |
 | `role` | `string` |  |
-| `token` | `string` |  |
-| `user` | `table` |  |
 
 #### Example: List
 
@@ -587,11 +583,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local box = client:Box()
-box:list()
+local sensor = client:Sensor()
+sensor:list()
 
--- box:data_get() now returns the box data from the last list
--- box:match_get() returns the last match criteria
+-- sensor:data_get() now returns the sensor data from the last list
+-- sensor:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

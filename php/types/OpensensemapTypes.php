@@ -15,7 +15,7 @@ declare(strict_types=1);
 /** Box entity data model. */
 class Box
 {
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $description = null;
     public ?string $exposure = null;
     public ?string $grouptag = null;
@@ -23,8 +23,8 @@ class Box
     public ?array $location = null;
     public ?string $model = null;
     public ?string $name = null;
-    public ?array $sensor = null;
-    public ?string $updated_at = null;
+    public ?array $sensors = null;
+    public ?string $updatedAt = null;
     public ?string $value = null;
 }
 
@@ -44,7 +44,7 @@ class BoxListMatch
 /** Request payload for Box#create. */
 class BoxCreateData
 {
-    public ?string $created_at = null;
+    public ?string $createdAt = null;
     public ?string $description = null;
     public ?string $exposure = null;
     public ?string $grouptag = null;
@@ -52,8 +52,8 @@ class BoxCreateData
     public ?array $location = null;
     public ?string $model = null;
     public ?string $name = null;
-    public ?array $sensor = null;
-    public ?string $updated_at = null;
+    public ?array $sensors = null;
+    public ?string $updatedAt = null;
     public ?string $value = null;
 }
 
@@ -61,6 +61,16 @@ class BoxCreateData
 class BoxUpdateData
 {
     public string $id;
+    public ?string $createdAt = null;
+    public ?string $description = null;
+    public ?string $exposure = null;
+    public ?string $grouptag = null;
+    public ?array $location = null;
+    public ?string $model = null;
+    public ?string $name = null;
+    public ?array $sensors = null;
+    public ?string $updatedAt = null;
+    public ?string $value = null;
 }
 
 /** Request payload for Box#remove. */
@@ -85,8 +95,8 @@ class Sensor
 {
     public ?string $icon = null;
     public ?string $id = null;
-    public ?array $last_measurement = null;
-    public ?string $sensor_type = null;
+    public ?array $lastMeasurement = null;
+    public ?string $sensorType = null;
     public ?string $title = null;
     public ?string $unit = null;
 }
@@ -122,42 +132,36 @@ class StatisticLoadMatch
 /** User entity data model. */
 class User
 {
-    public ?array $box = null;
-    public ?string $created_at = null;
+    public ?array $boxes = null;
+    public ?string $createdAt = null;
     public string $email;
     public ?string $id = null;
     public string $name;
     public string $password;
     public ?string $role = null;
-    public ?string $token = null;
-    public ?array $user = null;
 }
 
 /** Request payload for User#list. */
 class UserListMatch
 {
-    public ?array $box = null;
-    public ?string $created_at = null;
+    public ?array $boxes = null;
+    public ?string $createdAt = null;
     public ?string $email = null;
     public ?string $id = null;
     public ?string $name = null;
     public ?string $password = null;
     public ?string $role = null;
-    public ?string $token = null;
-    public ?array $user = null;
 }
 
 /** Request payload for User#create. */
 class UserCreateData
 {
-    public ?array $box = null;
-    public ?string $created_at = null;
+    public ?array $boxes = null;
+    public ?string $createdAt = null;
     public string $email;
     public ?string $id = null;
     public string $name;
     public string $password;
     public ?string $role = null;
-    public ?string $token = null;
-    public ?array $user = null;
 }
 

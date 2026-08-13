@@ -55,7 +55,7 @@ except Exception as err:
 
 ### 3. Load a box
 
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -68,14 +68,14 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
-created = client.Box().create({"created_at": "example_created_at", "description": "example_description"})
+# Create — returns the ENTITY (call data_get() for the record)
+created = client.Box().create({"createdAt": "example_createdAt", "description": "example_description"})
 
 # Update — the created record's id is a plain dict key
-client.Box().update({"id": created["id"]})
+client.Box().update({"id": created.data_get()["id"], "createdAt": "example_createdAt", "description": "example_description"})
 
 # Remove
-client.Box().remove({"id": created["id"]})
+client.Box().remove({"id": created.data_get()["id"]})
 ```
 
 
@@ -85,8 +85,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    boxs = client.Box().list()
-    print(boxs)
+    sensors = client.Sensor().list()
+    print(sensors)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -152,9 +152,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = OpensensemapSDK.test()
 
-# Entity ops return the bare record and raise on error.
-box = client.Box().list()
-# box contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+sensor = client.Sensor().list()
+# sensor contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -258,7 +259,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -280,7 +281,7 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `exposure` |  |
 | `grouptag` |  |
@@ -288,8 +289,8 @@ On error, `ok` is `False` and `err` contains the error value.
 | `location` |  |
 | `model` |  |
 | `name` |  |
-| `sensor` |  |
-| `updated_at` |  |
+| `sensors` |  |
+| `updatedAt` |  |
 | `value` |  |
 
 Operations: Create, List, Load, Remove, Update.
@@ -311,8 +312,8 @@ API path: `/boxes/{boxId}/data`
 | --- | --- |
 | `icon` |  |
 | `id` |  |
-| `last_measurement` |  |
-| `sensor_type` |  |
+| `lastMeasurement` |  |
+| `sensorType` |  |
 | `title` |  |
 | `unit` |  |
 
@@ -339,15 +340,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `box` |  |
-| `created_at` |  |
+| `boxes` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
 | `password` |  |
 | `role` |  |
-| `token` |  |
-| `user` |  |
 
 Operations: Create, List.
 
@@ -376,7 +375,7 @@ Create an instance: `box = client.Box()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `str` |  |
+| `createdAt` | `str` |  |
 | `description` | `str` |  |
 | `exposure` | `str` |  |
 | `grouptag` | `str` |  |
@@ -384,8 +383,8 @@ Create an instance: `box = client.Box()`
 | `location` | `dict` |  |
 | `model` | `str` |  |
 | `name` | `str` |  |
-| `sensor` | `list` |  |
-| `updated_at` | `str` |  |
+| `sensors` | `list` |  |
+| `updatedAt` | `str` |  |
 | `value` | `str` |  |
 
 #### Example: Load
@@ -443,15 +442,15 @@ Create an instance: `sensor = client.Sensor()`
 | --- | --- | --- |
 | `icon` | `str` |  |
 | `id` | `str` |  |
-| `last_measurement` | `dict` |  |
-| `sensor_type` | `str` |  |
+| `lastMeasurement` | `dict` |  |
+| `sensorType` | `str` |  |
 | `title` | `str` |  |
 | `unit` | `str` |  |
 
 #### Example: List
 
 ```python
-sensors = client.Sensor().list()
+sensors = client.Sensor().list({"box_id": "example"})
 ```
 
 
@@ -498,15 +497,13 @@ Create an instance: `user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | `list` |  |
-| `created_at` | `str` |  |
+| `boxes` | `list` |  |
+| `createdAt` | `str` |  |
 | `email` | `str` |  |
 | `id` | `str` |  |
 | `name` | `str` |  |
 | `password` | `str` |  |
 | `role` | `str` |  |
-| `token` | `str` |  |
-| `user` | `dict` |  |
 
 #### Example: List
 
@@ -600,11 +597,11 @@ Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-box = client.Box()
-box.list()
+sensor = client.Sensor()
+sensor.list()
 
-# box.data_get() now returns the box data from the last list
-# box.match_get() returns the last match criteria
+# sensor.data_get() now returns the sensor data from the last list
+# sensor.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

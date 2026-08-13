@@ -37,7 +37,7 @@ class SensorEntity extends OpensensemapEntityBase<Sensor> {
 
 
 
-  async list(this: any, reqmatch?: SensorListMatch, ctrl?: Control): Promise<Sensor[]> {
+  async list(this: any, reqmatch?: SensorListMatch, ctrl?: Control): Promise<SensorEntity[]> {
 
     const utility = this._utility
 

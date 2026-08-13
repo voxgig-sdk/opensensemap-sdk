@@ -165,7 +165,7 @@ const box = client.Box()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `description` | `string` | No |  |
 | `exposure` | `string` | No |  |
 | `grouptag` | `string` | No |  |
@@ -173,15 +173,15 @@ const box = client.Box()
 | `location` | `Record<string, any>` | No |  |
 | `model` | `string` | No |  |
 | `name` | `string` | No |  |
-| `sensor` | `any[]` | No |  |
-| `updated_at` | `string` | No |  |
+| `sensors` | `any[]` | No |  |
+| `updatedAt` | `string` | No |  |
 | `value` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `exposure` | - | - | Yes | Yes | - |
 | `grouptag` | - | - | - | - | - |
@@ -189,8 +189,8 @@ const box = client.Box()
 | `location` | - | - | Yes | Yes | - |
 | `model` | - | - | - | - | - |
 | `name` | - | - | Yes | Yes | - |
-| `sensor` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `sensors` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 | `value` | - | - | - | - | - |
 
 ### Operations
@@ -325,8 +325,8 @@ const sensor = client.Sensor()
 | --- | --- | --- | --- |
 | `icon` | `string` | No |  |
 | `id` | `string` | No |  |
-| `last_measurement` | `Record<string, any>` | No |  |
-| `sensor_type` | `string` | No |  |
+| `lastMeasurement` | `Record<string, any>` | No |  |
+| `sensorType` | `string` | No |  |
 | `title` | `string` | No |  |
 | `unit` | `string` | No |  |
 
@@ -337,7 +337,7 @@ const sensor = client.Sensor()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Sensor().list()
+const results = await client.Sensor().list({ box_id: "example" })
 ```
 
 ### Common Methods
@@ -384,6 +384,26 @@ const statistic = client.Statistic()
 | `median` | `number` | No |  |
 | `min` | `number` | No |  |
 | `sum` | `number` | No |  |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `descriptive` | `/statistics/descriptive` | `client.Statistic().load({ $action: 'descriptive', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Statistic record — check the API definition for its shape.
+
+```ts
+const result = await client.Statistic().load({
+  $action: 'descriptive',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 
@@ -433,29 +453,47 @@ const user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | `any[]` | No |  |
-| `created_at` | `string` | No |  |
+| `boxes` | `any[]` | No |  |
+| `createdAt` | `string` | No |  |
 | `email` | `string` | Yes |  |
 | `id` | `string` | No |  |
 | `name` | `string` | Yes |  |
 | `password` | `string` | Yes |  |
 | `role` | `string` | No |  |
-| `token` | `string` | No |  |
-| `user` | `Record<string, any>` | No |  |
 
 ### Field Usage by Operation
 
 | Field | list | create |
 | --- | --- | --- |
-| `box` | - | - |
-| `created_at` | - | - |
-| `email` | Yes | - |
+| `boxes` | - | - |
+| `createdAt` | - | - |
+| `email` | Yes | Yes |
 | `id` | - | - |
-| `name` | Yes | - |
+| `name` | Yes | Yes |
 | `password` | - | - |
 | `role` | - | - |
-| `token` | - | - |
-| `user` | - | - |
+
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `register` | `/users/register` | `client.User().create({ $action: 'register', ... })` |
+| `sign_in` | `/users/sign-in` | `client.User().create({ $action: 'sign_in', ... })` |
+| `me` | `/users/me` | `client.User().list({ $action: 'me', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+User record — check the API definition for its shape.
+
+```ts
+const result = await client.User().create({
+  $action: 'register',
+  /* ...the action's own arguments */
+})
+```
 
 ### Operations
 

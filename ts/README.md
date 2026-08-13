@@ -37,7 +37,9 @@ const client = new OpensensemapSDK({
 
 ### 2. List box records
 
-`list()` resolves to an array of Box objects — iterate it directly:
+`list()` resolves to an array of Box ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const boxs = await client.Box().list()
@@ -63,20 +65,22 @@ try {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created Box
+// Create — returns the created Box ENTITY (.data() for the record)
 const created = await client.Box().create({
-  created_at: 'example_created_at',
+  createdAt: 'example_createdAt',
   description: 'example_description',
 })
 
-// Update — the id comes straight off the returned entity
+// Update — the id comes off the returned entity's data()
 const updated = await client.Box().update({
-  id: created.id!,
+  id: created.data().id!,
+  createdAt: 'example_createdAt',
+  description: 'example_description',
 })
 
 // Remove
 await client.Box().remove({
-  id: created.id!,
+  id: created.data().id!,
 })
 ```
 
@@ -87,8 +91,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const boxs = await client.Box().list()
-  console.log(boxs)
+  const sensors = await client.Sensor().list()
+  console.log(sensors)
 } catch (err) {
   console.error('list failed:', err)
 }
@@ -154,9 +158,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = OpensensemapSDK.test()
 
-const box = await client.Box().list()
-// box is a bare entity populated with mock response data
-console.log(box)
+const sensor = await client.Sensor().list()
+// sensor is the entity, populated with mock response data
+// — call sensor.data() for the record itself
+console.log(sensor)
 ```
 
 You can also use the instance method:
@@ -171,7 +176,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Box()
+const entity = client.Sensor()
 
 // First call runs the operation and stores its result
 await entity.list()
@@ -333,7 +338,7 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `created_at` |  |
+| `createdAt` |  |
 | `description` |  |
 | `exposure` |  |
 | `grouptag` |  |
@@ -341,8 +346,8 @@ The `prepare()` method returns:
 | `location` |  |
 | `model` |  |
 | `name` |  |
-| `sensor` |  |
-| `updated_at` |  |
+| `sensors` |  |
+| `updatedAt` |  |
 | `value` |  |
 
 Operations: create, list, load, remove, update.
@@ -364,8 +369,8 @@ API path: `/boxes/{boxId}/data`
 | --- | --- |
 | `icon` |  |
 | `id` |  |
-| `last_measurement` |  |
-| `sensor_type` |  |
+| `lastMeasurement` |  |
+| `sensorType` |  |
 | `title` |  |
 | `unit` |  |
 
@@ -392,15 +397,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `box` |  |
-| `created_at` |  |
+| `boxes` |  |
+| `createdAt` |  |
 | `email` |  |
 | `id` |  |
 | `name` |  |
 | `password` |  |
 | `role` |  |
-| `token` |  |
-| `user` |  |
 
 Operations: create, list.
 
@@ -429,7 +432,7 @@ Create an instance: `const box = client.Box()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `description` | `string` |  |
 | `exposure` | `string` |  |
 | `grouptag` | `string` |  |
@@ -437,8 +440,8 @@ Create an instance: `const box = client.Box()`
 | `location` | `Record<string, any>` |  |
 | `model` | `string` |  |
 | `name` | `string` |  |
-| `sensor` | `any[]` |  |
-| `updated_at` | `string` |  |
+| `sensors` | `any[]` |  |
+| `updatedAt` | `string` |  |
 | `value` | `string` |  |
 
 #### Example: Load
@@ -496,15 +499,15 @@ Create an instance: `const sensor = client.Sensor()`
 | --- | --- | --- |
 | `icon` | `string` |  |
 | `id` | `string` |  |
-| `last_measurement` | `Record<string, any>` |  |
-| `sensor_type` | `string` |  |
+| `lastMeasurement` | `Record<string, any>` |  |
+| `sensorType` | `string` |  |
 | `title` | `string` |  |
 | `unit` | `string` |  |
 
 #### Example: List
 
 ```ts
-const sensors = await client.Sensor().list()
+const sensors = await client.Sensor().list({ box_id: "example" })
 ```
 
 
@@ -551,15 +554,13 @@ Create an instance: `const user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | `any[]` |  |
-| `created_at` | `string` |  |
+| `boxes` | `any[]` |  |
+| `createdAt` | `string` |  |
 | `email` | `string` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
 | `password` | `string` |  |
 | `role` | `string` |  |
-| `token` | `string` |  |
-| `user` | `Record<string, any>` |  |
 
 #### Example: List
 
@@ -647,11 +648,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const box = client.Box()
-await box.list()
+const sensor = client.Sensor()
+await sensor.list()
 
-// box.data() now returns the box data from the last `list`
-// box.match() returns the last match criteria
+// sensor.data() now returns the sensor data from the last `list`
+// sensor.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

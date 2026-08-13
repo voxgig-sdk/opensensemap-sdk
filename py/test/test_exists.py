@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Opensensemap SDK exists test
 
 import pytest
 from opensensemap_sdk import OpensensemapSDK

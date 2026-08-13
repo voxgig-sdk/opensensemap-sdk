@@ -70,14 +70,14 @@ func main() {
     fmt.Println(box)
 
     // Create a box.
-    created, err := client.Box(nil).Create(map[string]any{"created_at": "example_created_at", "description": "example_description"}, nil)
+    created, err := client.Box(nil).Create(map[string]any{"createdAt": "example_createdAt", "description": "example_description"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(created)
 
     // Update a box.
-    updated, err := client.Box(nil).Update(map[string]any{"id": "example_id"}, nil)
+    updated, err := client.Box(nil).Update(map[string]any{"id": "example_id", "createdAt": "example_createdAt", "description": "example_description"}, nil)
     if err != nil {
         panic(err)
     }
@@ -99,12 +99,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-boxs, err := client.Box(nil).List(nil, nil)
+sensors, err := client.Sensor(nil).List(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = boxs
+_ = sensors
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -168,13 +168,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-box, err := client.Box(nil).List(
+sensor, err := client.Sensor(nil).List(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(box) // the returned mock data
+fmt.Println(sensor) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -302,7 +302,7 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"created_at"` |  |
+| `"createdAt"` |  |
 | `"description"` |  |
 | `"exposure"` |  |
 | `"grouptag"` |  |
@@ -310,8 +310,8 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"location"` |  |
 | `"model"` |  |
 | `"name"` |  |
-| `"sensor"` |  |
-| `"updated_at"` |  |
+| `"sensors"` |  |
+| `"updatedAt"` |  |
 | `"value"` |  |
 
 Operations: Create, List, Load, Remove, Update.
@@ -333,8 +333,8 @@ API path: `/boxes/{boxId}/data`
 | --- | --- |
 | `"icon"` |  |
 | `"id"` |  |
-| `"last_measurement"` |  |
-| `"sensor_type"` |  |
+| `"lastMeasurement"` |  |
+| `"sensorType"` |  |
 | `"title"` |  |
 | `"unit"` |  |
 
@@ -361,15 +361,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `"box"` |  |
-| `"created_at"` |  |
+| `"boxes"` |  |
+| `"createdAt"` |  |
 | `"email"` |  |
 | `"id"` |  |
 | `"name"` |  |
 | `"password"` |  |
 | `"role"` |  |
-| `"token"` |  |
-| `"user"` |  |
 
 Operations: Create, List.
 
@@ -398,7 +396,7 @@ Create an instance: `box := client.Box(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `created_at` | `string` |  |
+| `createdAt` | `string` |  |
 | `description` | `string` |  |
 | `exposure` | `string` |  |
 | `grouptag` | `string` |  |
@@ -406,8 +404,8 @@ Create an instance: `box := client.Box(nil)`
 | `location` | `map[string]any` |  |
 | `model` | `string` |  |
 | `name` | `string` |  |
-| `sensor` | `[]any` |  |
-| `updated_at` | `string` |  |
+| `sensors` | `[]any` |  |
+| `updatedAt` | `string` |  |
 | `value` | `string` |  |
 
 #### Example: Load
@@ -481,8 +479,8 @@ Create an instance: `sensor := client.Sensor(nil)`
 | --- | --- | --- |
 | `icon` | `string` |  |
 | `id` | `string` |  |
-| `last_measurement` | `map[string]any` |  |
-| `sensor_type` | `string` |  |
+| `lastMeasurement` | `map[string]any` |  |
+| `sensorType` | `string` |  |
 | `title` | `string` |  |
 | `unit` | `string` |  |
 
@@ -544,15 +542,13 @@ Create an instance: `user := client.User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `box` | `[]any` |  |
-| `created_at` | `string` |  |
+| `boxes` | `[]any` |  |
+| `createdAt` | `string` |  |
 | `email` | `string` |  |
 | `id` | `string` |  |
 | `name` | `string` |  |
 | `password` | `string` |  |
 | `role` | `string` |  |
-| `token` | `string` |  |
-| `user` | `map[string]any` |  |
 
 #### Example: List
 
@@ -652,11 +648,11 @@ Entity instances are stateful. After a successful `List`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-box := client.Box(nil)
-box.List(nil, nil)
+sensor := client.Sensor(nil)
+sensor.List(nil, nil)
 
-// box.Data() now returns the box data from the last list
-// box.Match() returns the last match criteria
+// sensor.Data() now returns the sensor data from the last list
+// sensor.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

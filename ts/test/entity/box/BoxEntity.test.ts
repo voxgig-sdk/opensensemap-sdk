@@ -64,14 +64,14 @@ describe('BoxEntity', async () => {
     box_ref01_data['box_id'] = setup.idmap['box01']
     box_ref01_data['sensor_id'] = setup.idmap['sensor01']
 
-    box_ref01_data = await box_ref01_ent.create(box_ref01_data)
+    box_ref01_data = (await box_ref01_ent.create(box_ref01_data)).data()
     assert(null != box_ref01_data.id)
 
 
     // LIST
     const box_ref01_match: any = {}
 
-    const box_ref01_list = await box_ref01_ent.list(box_ref01_match)
+    const box_ref01_list = (await box_ref01_ent.list(box_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(box_ref01_list, { id: box_ref01_data.id })))
 
@@ -80,10 +80,10 @@ describe('BoxEntity', async () => {
     const box_ref01_data_up0: any = {}
     box_ref01_data_up0.id = box_ref01_data.id
 
-    const box_ref01_markdef_up0 = { name: 'created_at', value: 'Mark01-box_ref01_' + setup.now }
+    const box_ref01_markdef_up0 = { name: 'createdAt', value: 'Mark01-box_ref01_' + setup.now }
     ;(box_ref01_data_up0 as any)[box_ref01_markdef_up0.name] = box_ref01_markdef_up0.value
 
-    const box_ref01_resdata_up0 = await box_ref01_ent.update(box_ref01_data_up0)
+    const box_ref01_resdata_up0 = (await box_ref01_ent.update(box_ref01_data_up0)).data()
     assert(box_ref01_resdata_up0.id === box_ref01_data_up0.id)
 
     assert((box_ref01_resdata_up0 as any)[box_ref01_markdef_up0.name] === box_ref01_markdef_up0.value)
@@ -92,7 +92,7 @@ describe('BoxEntity', async () => {
     // LOAD
     const box_ref01_match_dt0: any = {}
     box_ref01_match_dt0.id = box_ref01_data.id
-    const box_ref01_data_dt0 = await box_ref01_ent.load(box_ref01_match_dt0)
+    const box_ref01_data_dt0 = (await box_ref01_ent.load(box_ref01_match_dt0)).data()
     assert(box_ref01_data_dt0.id === box_ref01_data.id)
 
 
@@ -104,7 +104,7 @@ describe('BoxEntity', async () => {
     // LIST
     const box_ref01_match_rt0: any = {}
 
-    const box_ref01_list_rt0 = await box_ref01_ent.list(box_ref01_match_rt0)
+    const box_ref01_list_rt0 = (await box_ref01_ent.list(box_ref01_match_rt0)).map((e: any) => e.data())
 
     assert(isempty(select(box_ref01_list_rt0, { id: box_ref01_data.id })))
 

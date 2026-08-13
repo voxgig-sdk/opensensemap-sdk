@@ -109,7 +109,7 @@ func TestBoxEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		boxRef01Data = core.ToMapAny(boxRef01DataResult)
+		boxRef01Data = core.ToMapAny(entityData(boxRef01DataResult))
 		if boxRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -139,7 +139,7 @@ func TestBoxEntity(t *testing.T) {
 			"id": boxRef01Data["id"],
 		}
 
-		boxRef01MarkdefUp0Name := "created_at"
+		boxRef01MarkdefUp0Name := "createdAt"
 		boxRef01MarkdefUp0Value := fmt.Sprintf("Mark01-box_ref01_%d", setup.now)
 		boxRef01DataUp0Up[boxRef01MarkdefUp0Name] = boxRef01MarkdefUp0Value
 
@@ -147,7 +147,7 @@ func TestBoxEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("update failed: %v", err)
 		}
-		boxRef01ResdataUp0 := core.ToMapAny(boxRef01ResdataUp0Result)
+		boxRef01ResdataUp0 := core.ToMapAny(entityData(boxRef01ResdataUp0Result))
 		if boxRef01ResdataUp0 == nil {
 			t.Fatal("expected update result to be a map")
 		}
@@ -166,7 +166,7 @@ func TestBoxEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		boxRef01DataDt0LoadResult := core.ToMapAny(boxRef01DataDt0Loaded)
+		boxRef01DataDt0LoadResult := core.ToMapAny(entityData(boxRef01DataDt0Loaded))
 		if boxRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

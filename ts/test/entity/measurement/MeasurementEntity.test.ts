@@ -63,7 +63,7 @@ describe('MeasurementEntity', async () => {
     let measurement_ref01_data = setup.data.new.measurement['measurement_ref01']
     measurement_ref01_data['box_id'] = setup.idmap['box01']
 
-    measurement_ref01_data = await measurement_ref01_ent.create(measurement_ref01_data)
+    measurement_ref01_data = (await measurement_ref01_ent.create(measurement_ref01_data)).data()
     assert(null != measurement_ref01_data)
 
 

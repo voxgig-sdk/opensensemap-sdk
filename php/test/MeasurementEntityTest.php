@@ -45,7 +45,7 @@ class MeasurementEntityTest extends TestCase
         $measurement_ref01_data["box_id"] = $setup["idmap"]["box01"];
 
         $measurement_ref01_data_result = $measurement_ref01_ent->create($measurement_ref01_data, null);
-        $measurement_ref01_data = Helpers::to_map($measurement_ref01_data_result);
+        $measurement_ref01_data = Helpers::to_map(is_object($measurement_ref01_data_result) && method_exists($measurement_ref01_data_result, 'data_get') ? $measurement_ref01_data_result->data_get() : $measurement_ref01_data_result);
         $this->assertNotNull($measurement_ref01_data);
 
     }

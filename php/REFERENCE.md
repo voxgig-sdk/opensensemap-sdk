@@ -109,7 +109,7 @@ $box = $client->Box();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `string` | No |  |
+| `createdAt` | `string` | No |  |
 | `description` | `string` | No |  |
 | `exposure` | `string` | No |  |
 | `grouptag` | `string` | No |  |
@@ -117,15 +117,15 @@ $box = $client->Box();
 | `location` | `array` | No |  |
 | `model` | `string` | No |  |
 | `name` | `string` | No |  |
-| `sensor` | `array` | No |  |
-| `updated_at` | `string` | No |  |
+| `sensors` | `array` | No |  |
+| `updatedAt` | `string` | No |  |
 | `value` | `string` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `exposure` | - | - | Yes | Yes | - |
 | `grouptag` | - | - | - | - | - |
@@ -133,8 +133,8 @@ $box = $client->Box();
 | `location` | - | - | Yes | Yes | - |
 | `model` | - | - | - | - | - |
 | `name` | - | - | Yes | Yes | - |
-| `sensor` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `sensors` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 | `value` | - | - | - | - | - |
 
 ### Operations
@@ -273,8 +273,8 @@ $sensor = $client->Sensor();
 | --- | --- | --- | --- |
 | `icon` | `string` | No |  |
 | `id` | `string` | No |  |
-| `last_measurement` | `array` | No |  |
-| `sensor_type` | `string` | No |  |
+| `lastMeasurement` | `array` | No |  |
+| `sensorType` | `string` | No |  |
 | `title` | `string` | No |  |
 | `unit` | `string` | No |  |
 
@@ -385,29 +385,25 @@ $user = $client->User();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | `array` | No |  |
-| `created_at` | `string` | No |  |
+| `boxes` | `array` | No |  |
+| `createdAt` | `string` | No |  |
 | `email` | `string` | Yes |  |
 | `id` | `string` | No |  |
 | `name` | `string` | Yes |  |
 | `password` | `string` | Yes |  |
 | `role` | `string` | No |  |
-| `token` | `string` | No |  |
-| `user` | `array` | No |  |
 
 ### Field Usage by Operation
 
 | Field | list | create |
 | --- | --- | --- |
-| `box` | - | - |
-| `created_at` | - | - |
-| `email` | Yes | - |
+| `boxes` | - | - |
+| `createdAt` | - | - |
+| `email` | Yes | Yes |
 | `id` | - | - |
-| `name` | Yes | - |
+| `name` | Yes | Yes |
 | `password` | - | - |
 | `role` | - | - |
-| `token` | - | - |
-| `user` | - | - |
 
 ### Operations
 

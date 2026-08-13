@@ -106,7 +106,7 @@ func TestUserEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		userRef01Data = core.ToMapAny(userRef01DataResult)
+		userRef01Data = core.ToMapAny(entityData(userRef01DataResult))
 		if userRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}

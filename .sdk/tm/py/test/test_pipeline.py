@@ -16,11 +16,11 @@
 import pytest
 
 from projectname_sdk import OpensensemapSDK
-from core.error import OpensensemapError
-from core.result import OpensensemapResult
-from core.response import OpensensemapResponse
-from core.spec import OpensensemapSpec
-from feature.base_feature import OpensensemapBaseFeature
+from projectname_sdk.core.error import OpensensemapError
+from projectname_sdk.core.result import OpensensemapResult
+from projectname_sdk.core.response import OpensensemapResponse
+from projectname_sdk.core.spec import OpensensemapSpec
+from projectname_sdk.feature.base_feature import OpensensemapBaseFeature
 
 
 def _client():

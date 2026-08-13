@@ -64,7 +64,7 @@ describe('SensorEntity', async () => {
     const sensor_ref01_match: any = {}
     sensor_ref01_match['box_id'] = setup.idmap['box01']
 
-    const sensor_ref01_list = await sensor_ref01_ent.list(sensor_ref01_match)
+    const sensor_ref01_list = (await sensor_ref01_ent.list(sensor_ref01_match)).map((e: any) => e.data())
 
 
   })

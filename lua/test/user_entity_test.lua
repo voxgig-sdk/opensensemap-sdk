@@ -82,7 +82,7 @@ describe("UserEntity", function()
 
     local user_ref01_data_result, err = user_ref01_ent:create(user_ref01_data, nil)
     assert.is_nil(err)
-    user_ref01_data = helpers.to_map(user_ref01_data_result)
+    user_ref01_data = helpers.to_map(type(user_ref01_data_result) == 'table' and user_ref01_data_result.data_get and user_ref01_data_result:data_get() or user_ref01_data_result)
     assert.is_not_nil(user_ref01_data)
     assert.is_not_nil(user_ref01_data["id"])
 

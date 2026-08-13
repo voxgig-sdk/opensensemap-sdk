@@ -83,7 +83,7 @@ class UserEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.user"), "user_ref01"));
 
         $user_ref01_data_result = $user_ref01_ent->create($user_ref01_data, null);
-        $user_ref01_data = Helpers::to_map($user_ref01_data_result);
+        $user_ref01_data = Helpers::to_map(is_object($user_ref01_data_result) && method_exists($user_ref01_data_result, 'data_get') ? $user_ref01_data_result->data_get() : $user_ref01_data_result);
         $this->assertNotNull($user_ref01_data);
         $this->assertNotNull($user_ref01_data["id"]);
 

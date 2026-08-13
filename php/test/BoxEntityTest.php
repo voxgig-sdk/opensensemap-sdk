@@ -85,7 +85,7 @@ class BoxEntityTest extends TestCase
         $box_ref01_data["sensor_id"] = $setup["idmap"]["sensor01"];
 
         $box_ref01_data_result = $box_ref01_ent->create($box_ref01_data, null);
-        $box_ref01_data = Helpers::to_map($box_ref01_data_result);
+        $box_ref01_data = Helpers::to_map(is_object($box_ref01_data_result) && method_exists($box_ref01_data_result, 'data_get') ? $box_ref01_data_result->data_get() : $box_ref01_data_result);
         $this->assertNotNull($box_ref01_data);
         $this->assertNotNull($box_ref01_data["id"]);
 
@@ -105,12 +105,12 @@ class BoxEntityTest extends TestCase
             "id" => $box_ref01_data["id"],
         ];
 
-        $box_ref01_markdef_up0_name = "created_at";
+        $box_ref01_markdef_up0_name = "createdAt";
         $box_ref01_markdef_up0_value = "Mark01-box_ref01_" . $setup["now"];
         $box_ref01_data_up0_up[$box_ref01_markdef_up0_name] = $box_ref01_markdef_up0_value;
 
         $box_ref01_resdata_up0_result = $box_ref01_ent->update($box_ref01_data_up0_up, null);
-        $box_ref01_resdata_up0 = Helpers::to_map($box_ref01_resdata_up0_result);
+        $box_ref01_resdata_up0 = Helpers::to_map(is_object($box_ref01_resdata_up0_result) && method_exists($box_ref01_resdata_up0_result, 'data_get') ? $box_ref01_resdata_up0_result->data_get() : $box_ref01_resdata_up0_result);
         $this->assertNotNull($box_ref01_resdata_up0);
         $this->assertEquals($box_ref01_resdata_up0["id"], $box_ref01_data_up0_up["id"]);
         $this->assertEquals($box_ref01_resdata_up0[$box_ref01_markdef_up0_name], $box_ref01_markdef_up0_value);
@@ -120,7 +120,7 @@ class BoxEntityTest extends TestCase
             "id" => $box_ref01_data["id"],
         ];
         $box_ref01_data_dt0_loaded = $box_ref01_ent->load($box_ref01_match_dt0, null);
-        $box_ref01_data_dt0_load_result = Helpers::to_map($box_ref01_data_dt0_loaded);
+        $box_ref01_data_dt0_load_result = Helpers::to_map(is_object($box_ref01_data_dt0_loaded) && method_exists($box_ref01_data_dt0_loaded, 'data_get') ? $box_ref01_data_dt0_loaded->data_get() : $box_ref01_data_dt0_loaded);
         $this->assertNotNull($box_ref01_data_dt0_load_result);
         $this->assertEquals($box_ref01_data_dt0_load_result["id"], $box_ref01_data["id"]);
 

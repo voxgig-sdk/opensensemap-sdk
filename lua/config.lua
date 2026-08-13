@@ -33,7 +33,7 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "created_at",
+            ["name"] = "createdAt",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 0,
@@ -119,14 +119,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "sensor",
+            ["name"] = "sensors",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 8,
           },
           {
             ["active"] = true,
-            ["name"] = "updated_at",
+            ["name"] = "updatedAt",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 9,
@@ -148,6 +148,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/boxes",
                 ["parts"] = {
@@ -218,6 +219,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/boxes/{boxId}/{sensorId}",
                 ["parts"] = {
@@ -285,6 +287,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/boxes",
                 ["parts"] = {
@@ -337,6 +340,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/boxes/{boxId}",
                 ["parts"] = {
@@ -382,6 +386,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/boxes/{boxId}",
                 ["parts"] = {
@@ -426,6 +431,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "PUT",
                 ["orig"] = "/boxes/{boxId}",
                 ["parts"] = {
@@ -483,6 +489,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/boxes/{boxId}/data",
                 ["parts"] = {
@@ -536,14 +543,14 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "last_measurement",
+            ["name"] = "lastMeasurement",
             ["req"] = false,
             ["type"] = "`$OBJECT`",
             ["index$"] = 2,
           },
           {
             ["active"] = true,
-            ["name"] = "sensor_type",
+            ["name"] = "sensorType",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 3,
@@ -584,6 +591,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/boxes/{boxId}/sensors",
                 ["parts"] = {
@@ -708,6 +716,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/statistics/descriptive",
                 ["parts"] = {
@@ -741,14 +750,14 @@ local function make_config()
         ["fields"] = {
           {
             ["active"] = true,
-            ["name"] = "box",
+            ["name"] = "boxes",
             ["req"] = false,
             ["type"] = "`$ARRAY`",
             ["index$"] = 0,
           },
           {
             ["active"] = true,
-            ["name"] = "created_at",
+            ["name"] = "createdAt",
             ["req"] = false,
             ["type"] = "`$STRING`",
             ["index$"] = 1,
@@ -757,6 +766,10 @@ local function make_config()
             ["active"] = true,
             ["name"] = "email",
             ["op"] = {
+              ["create"] = {
+                ["req"] = false,
+                ["type"] = "`$STRING`",
+              },
               ["list"] = {
                 ["req"] = false,
                 ["type"] = "`$STRING`",
@@ -777,6 +790,10 @@ local function make_config()
             ["active"] = true,
             ["name"] = "name",
             ["op"] = {
+              ["create"] = {
+                ["req"] = false,
+                ["type"] = "`$STRING`",
+              },
               ["list"] = {
                 ["req"] = false,
                 ["type"] = "`$STRING`",
@@ -800,20 +817,6 @@ local function make_config()
             ["type"] = "`$STRING`",
             ["index$"] = 6,
           },
-          {
-            ["active"] = true,
-            ["name"] = "token",
-            ["req"] = false,
-            ["type"] = "`$STRING`",
-            ["index$"] = 7,
-          },
-          {
-            ["active"] = true,
-            ["name"] = "user",
-            ["req"] = false,
-            ["type"] = "`$OBJECT`",
-            ["index$"] = 8,
-          },
         },
         ["name"] = "user",
         ["op"] = {
@@ -824,6 +827,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/users/register",
                 ["parts"] = {
@@ -842,6 +846,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/users/sign-in",
                 ["parts"] = {
@@ -867,6 +872,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/users/me",
                 ["parts"] = {
@@ -878,7 +884,7 @@ local function make_config()
                 },
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.boxes`",
                 },
                 ["index$"] = 0,
               },

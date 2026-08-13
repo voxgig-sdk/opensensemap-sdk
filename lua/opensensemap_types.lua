@@ -7,7 +7,7 @@
 -- edit by hand.
 
 ---@class Box
----@field created_at? string
+---@field createdAt? string
 ---@field description? string
 ---@field exposure? string
 ---@field grouptag? string
@@ -15,8 +15,8 @@
 ---@field location? table
 ---@field model? string
 ---@field name? string
----@field sensor? table
----@field updated_at? string
+---@field sensors? table
+---@field updatedAt? string
 ---@field value? string
 
 ---@class BoxLoadMatch
@@ -27,7 +27,7 @@
 ---@field sensor_id? string
 
 ---@class BoxCreateData
----@field created_at? string
+---@field createdAt? string
 ---@field description? string
 ---@field exposure? string
 ---@field grouptag? string
@@ -35,12 +35,22 @@
 ---@field location? table
 ---@field model? string
 ---@field name? string
----@field sensor? table
----@field updated_at? string
+---@field sensors? table
+---@field updatedAt? string
 ---@field value? string
 
 ---@class BoxUpdateData
 ---@field id string
+---@field createdAt? string
+---@field description? string
+---@field exposure? string
+---@field grouptag? string
+---@field location? table
+---@field model? string
+---@field name? string
+---@field sensors? table
+---@field updatedAt? string
+---@field value? string
 
 ---@class BoxRemoveMatch
 ---@field id string
@@ -53,8 +63,8 @@
 ---@class Sensor
 ---@field icon? string
 ---@field id? string
----@field last_measurement? table
----@field sensor_type? string
+---@field lastMeasurement? table
+---@field sensorType? string
 ---@field title? string
 ---@field unit? string
 
@@ -78,37 +88,31 @@
 ---@field sum? number
 
 ---@class User
----@field box? table
----@field created_at? string
+---@field boxes? table
+---@field createdAt? string
 ---@field email string
 ---@field id? string
 ---@field name string
 ---@field password string
 ---@field role? string
----@field token? string
----@field user? table
 
 ---@class UserListMatch
----@field box? table
----@field created_at? string
+---@field boxes? table
+---@field createdAt? string
 ---@field email? string
 ---@field id? string
 ---@field name? string
 ---@field password? string
 ---@field role? string
----@field token? string
----@field user? table
 
 ---@class UserCreateData
----@field box? table
----@field created_at? string
+---@field boxes? table
+---@field createdAt? string
 ---@field email string
 ---@field id? string
 ---@field name string
 ---@field password string
 ---@field role? string
----@field token? string
----@field user? table
 
 local M = {}
 

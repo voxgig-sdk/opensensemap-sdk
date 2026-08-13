@@ -104,7 +104,7 @@ box = client.Box()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `created_at` | `str` | No |  |
+| `createdAt` | `str` | No |  |
 | `description` | `str` | No |  |
 | `exposure` | `str` | No |  |
 | `grouptag` | `str` | No |  |
@@ -112,15 +112,15 @@ box = client.Box()
 | `location` | `dict` | No |  |
 | `model` | `str` | No |  |
 | `name` | `str` | No |  |
-| `sensor` | `list` | No |  |
-| `updated_at` | `str` | No |  |
+| `sensors` | `list` | No |  |
+| `updatedAt` | `str` | No |  |
 | `value` | `str` | No |  |
 
 ### Field Usage by Operation
 
 | Field | load | list | create | update | remove |
 | --- | --- | --- | --- | --- | --- |
-| `created_at` | - | - | - | - | - |
+| `createdAt` | - | - | - | - | - |
 | `description` | - | - | - | - | - |
 | `exposure` | - | - | Yes | Yes | - |
 | `grouptag` | - | - | - | - | - |
@@ -128,8 +128,8 @@ box = client.Box()
 | `location` | - | - | Yes | Yes | - |
 | `model` | - | - | - | - | - |
 | `name` | - | - | Yes | Yes | - |
-| `sensor` | - | - | - | - | - |
-| `updated_at` | - | - | - | - | - |
+| `sensors` | - | - | - | - | - |
+| `updatedAt` | - | - | - | - | - |
 | `value` | - | - | - | - | - |
 
 ### Operations
@@ -268,8 +268,8 @@ sensor = client.Sensor()
 | --- | --- | --- | --- |
 | `icon` | `str` | No |  |
 | `id` | `str` | No |  |
-| `last_measurement` | `dict` | No |  |
-| `sensor_type` | `str` | No |  |
+| `lastMeasurement` | `dict` | No |  |
+| `sensorType` | `str` | No |  |
 | `title` | `str` | No |  |
 | `unit` | `str` | No |  |
 
@@ -280,7 +280,7 @@ sensor = client.Sensor()
 List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Sensor().list()
+results = client.Sensor().list({"box_id": "example"})
 for sensor in results:
     print(sensor)
 ```
@@ -380,29 +380,25 @@ user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `box` | `list` | No |  |
-| `created_at` | `str` | No |  |
+| `boxes` | `list` | No |  |
+| `createdAt` | `str` | No |  |
 | `email` | `str` | Yes |  |
 | `id` | `str` | No |  |
 | `name` | `str` | Yes |  |
 | `password` | `str` | Yes |  |
 | `role` | `str` | No |  |
-| `token` | `str` | No |  |
-| `user` | `dict` | No |  |
 
 ### Field Usage by Operation
 
 | Field | list | create |
 | --- | --- | --- |
-| `box` | - | - |
-| `created_at` | - | - |
-| `email` | Yes | - |
+| `boxes` | - | - |
+| `createdAt` | - | - |
+| `email` | Yes | Yes |
 | `id` | - | - |
-| `name` | Yes | - |
+| `name` | Yes | Yes |
 | `password` | - | - |
 | `role` | - | - |
-| `token` | - | - |
-| `user` | - | - |
 
 ### Operations
 

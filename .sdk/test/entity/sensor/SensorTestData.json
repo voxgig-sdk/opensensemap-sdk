@@ -4,8 +4,8 @@
       "SENSOR00": {
         "icon": "s3c",
         "id": "SENSOR00",
-        "last_measurement": {},
-        "sensor_type": "s3f",
+        "lastMeasurement": {},
+        "sensorType": "s3f",
         "title": "s40",
         "unit": "s41",
         "box_id": "BOX01"
@@ -13,8 +13,8 @@
       "SENSOR01": {
         "icon": "s78",
         "id": "SENSOR01",
-        "last_measurement": {},
-        "sensor_type": "s7b",
+        "lastMeasurement": {},
+        "sensorType": "s7b",
         "title": "s7c",
         "unit": "s7d",
         "box_id": "BOX01"
@@ -22,8 +22,8 @@
       "SENSOR02": {
         "icon": "sb4",
         "id": "SENSOR02",
-        "last_measurement": {},
-        "sensor_type": "sb7",
+        "lastMeasurement": {},
+        "sensorType": "sb7",
         "title": "sb8",
         "unit": "sb9",
         "box_id": "BOX01"
@@ -34,8 +34,8 @@
     "sensor": {
       "sensor_ref01": {
         "icon": "sf0",
-        "last_measurement": {},
-        "sensor_type": "sf3",
+        "lastMeasurement": {},
+        "sensorType": "sf3",
         "title": "sf4",
         "unit": "sf5"
       }

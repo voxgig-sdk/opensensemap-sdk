@@ -6,9 +6,9 @@ import time
 
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from opensensemap_sdk.utility.voxgig_struct import voxgig_struct as vs
 from opensensemap_sdk import OpensensemapSDK
-from core import helpers
+from opensensemap_sdk.core import helpers
 
 _TEST_DIR = os.path.dirname(os.path.abspath(__file__))
 from test import runner
@@ -45,7 +45,7 @@ class TestMeasurementEntity:
             vs.getpath(setup["data"], "new.measurement"), "measurement_ref01"))
         measurement_ref01_data["box_id"] = setup["idmap"]["box01"]
 
-        measurement_ref01_data = helpers.to_map(measurement_ref01_ent.create(measurement_ref01_data, None))
+        measurement_ref01_data = helpers.to_map(runner.entity_data(measurement_ref01_ent.create(measurement_ref01_data, None)))
         assert measurement_ref01_data is not None
 
 

@@ -23,7 +23,7 @@ support (`list`, `load`, `create`, `update`, `remove`):
 
 ```ts
 const client = new OpensensemapSDK()
-const items = await client.Box().list()
+const items = await client.Box().list({ box_id: "example", sensor_id: "example" })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -122,7 +122,7 @@ const client = new OpensensemapSDK({
 })
 
 // List all boxs (returns BoxEntity[] — .data() for the record)
-const boxs = await client.Box().list()
+const boxs = await client.Box().list({ box_id: "example", sensor_id: "example" })
 for (const box of boxs) {
   console.log(box)
 }
@@ -188,7 +188,7 @@ client = OpensensemapSDK({
 })
 
 # List all boxs (returns a list, raises on error)
-boxs = client.Box().list()
+boxs = client.Box().list({"box_id": "example", "sensor_id": "example"})
 for box in boxs:
     print(box)
 

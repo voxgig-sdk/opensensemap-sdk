@@ -40,7 +40,7 @@ class OpensensemapSDK
         $utility = new OpensensemapUtility();
         $this->_utility = $utility;
 
-        $config = OpensensemapConfig::make_config();
+        $config = OpensensemapConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

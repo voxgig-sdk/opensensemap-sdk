@@ -42,7 +42,7 @@ resolves to entities, not raw records. Iterate them directly, and call
 `.data()` on one for the record it holds:
 
 ```ts
-const boxs = await client.Box().list()
+const boxs = await client.Box().list({ box_id: "example", sensor_id: "example" })
 
 for (const box of boxs) {
   console.log(box)
@@ -453,7 +453,7 @@ const box = await client.Box().load({ id: 'box_id' })
 #### Example: List
 
 ```ts
-const boxs = await client.Box().list()
+const boxs = await client.Box().list({ box_id: "example", sensor_id: "example" })
 ```
 
 #### Example: Create

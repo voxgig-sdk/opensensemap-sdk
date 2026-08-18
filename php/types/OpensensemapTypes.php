@@ -37,8 +37,8 @@ class BoxLoadMatch
 /** Request payload for Box#list. */
 class BoxListMatch
 {
-    public ?string $box_id = null;
-    public ?string $sensor_id = null;
+    public string $box_id;
+    public string $sensor_id;
 }
 
 /** Request payload for Box#create. */

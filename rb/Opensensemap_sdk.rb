@@ -28,7 +28,7 @@ class OpensensemapSDK
     utility = OpensensemapUtility.new
     @_utility = utility
 
-    config = OpensensemapConfig.make_config
+    config = OpensensemapConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

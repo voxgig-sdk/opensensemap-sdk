@@ -23,8 +23,8 @@ class OpensensemapSDK:
         utility = OpensensemapUtility()
         self._utility = utility
 
-        from opensensemap_sdk.config import make_config
-        config = make_config()
+        from opensensemap_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,

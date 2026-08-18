@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class OpensensemapConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -38,21 +61,14 @@ class OpensensemapConfig
         'box' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'createdAt',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'description',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'exposure',
               'op' => [
                 'create' => [
@@ -64,26 +80,17 @@ class OpensensemapConfig
                   'type' => '`$STRING`',
                 ],
               ],
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'grouptag',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'id',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'location',
               'op' => [
                 'create' => [
@@ -95,19 +102,13 @@ class OpensensemapConfig
                   'type' => '`$OBJECT`',
                 ],
               ],
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 5,
             ],
             [
-              'active' => true,
               'name' => 'model',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 6,
             ],
             [
-              'active' => true,
               'name' => 'name',
               'op' => [
                 'create' => [
@@ -119,30 +120,19 @@ class OpensensemapConfig
                   'type' => '`$STRING`',
                 ],
               ],
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 7,
             ],
             [
-              'active' => true,
               'name' => 'sensors',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 8,
             ],
             [
-              'active' => true,
               'name' => 'updatedAt',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 9,
             ],
             [
-              'active' => true,
               'name' => 'value',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 10,
             ],
           ],
           'name' => 'box',
@@ -152,7 +142,6 @@ class OpensensemapConfig
               'name' => 'create',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'POST',
@@ -165,62 +154,49 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'create',
             ],
             'list' => [
               'input' => 'data',
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'box_id',
                         'orig' => 'box_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'sensor_id',
                         'orig' => 'sensor_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 1,
                       ],
                     ],
                     'query' => [
                       [
-                        'active' => true,
                         'example' => 'json',
                         'kind' => 'query',
                         'name' => 'format',
                         'orig' => 'format',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'from_date',
                         'orig' => 'from_date',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'to_date',
                         'orig' => 'to_date',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -252,43 +228,33 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'bbox',
                         'orig' => 'bbox',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'exposure',
                         'orig' => 'exposure',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'example' => 'json',
                         'kind' => 'query',
                         'name' => 'format',
                         'orig' => 'format',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'grouptag',
                         'orig' => 'grouptag',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -311,37 +277,30 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 1,
                 ],
               ],
-              'key$' => 'list',
             ],
             'load' => [
               'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'box_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                     'query' => [
                       [
-                        'active' => true,
                         'example' => 'json',
                         'kind' => 'query',
                         'name' => 'format',
                         'orig' => 'format',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -368,27 +327,22 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
             'remove' => [
               'input' => 'data',
               'name' => 'remove',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'box_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -413,27 +367,22 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'remove',
             ],
             'update' => [
               'input' => 'data',
               'name' => 'update',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'box_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -458,10 +407,8 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'update',
             ],
           ],
           'relations' => [
@@ -481,17 +428,14 @@ class OpensensemapConfig
               'name' => 'create',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'box_id',
                         'orig' => 'box_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -517,10 +461,8 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'create',
             ],
           ],
           'relations' => [
@@ -534,46 +476,28 @@ class OpensensemapConfig
         'sensor' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'icon',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'id',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'lastMeasurement',
-              'req' => false,
               'type' => '`$OBJECT`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'sensorType',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'title',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'unit',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 5,
             ],
           ],
           'name' => 'sensor',
@@ -583,17 +507,14 @@ class OpensensemapConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'kind' => 'param',
                         'name' => 'box_id',
                         'orig' => 'box_id',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -619,10 +540,8 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [
@@ -636,46 +555,28 @@ class OpensensemapConfig
         'statistic' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'count',
-              'req' => false,
               'type' => '`$INTEGER`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'max',
-              'req' => false,
               'type' => '`$NUMBER`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'mean',
-              'req' => false,
               'type' => '`$NUMBER`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'median',
-              'req' => false,
               'type' => '`$NUMBER`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'min',
-              'req' => false,
               'type' => '`$NUMBER`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'sum',
-              'req' => false,
               'type' => '`$NUMBER`',
-              'index$' => 5,
             ],
           ],
           'name' => 'statistic',
@@ -685,39 +586,30 @@ class OpensensemapConfig
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'query' => [
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'box_id',
                         'orig' => 'box_id',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'from_date',
                         'orig' => 'from_date',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'sensor_id',
                         'orig' => 'sensor_id',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                       [
-                        'active' => true,
                         'kind' => 'query',
                         'name' => 'to_date',
                         'orig' => 'to_date',
-                        'reqd' => false,
                         'type' => '`$STRING`',
                       ],
                     ],
@@ -742,10 +634,8 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [
@@ -755,73 +645,51 @@ class OpensensemapConfig
         'user' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'boxes',
-              'req' => false,
               'type' => '`$ARRAY`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'createdAt',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'email',
               'op' => [
                 'create' => [
-                  'req' => false,
                   'type' => '`$STRING`',
                 ],
                 'list' => [
-                  'req' => false,
                   'type' => '`$STRING`',
                 ],
               ],
               'req' => true,
               'type' => '`$STRING`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'id',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 3,
             ],
             [
-              'active' => true,
               'name' => 'name',
               'op' => [
                 'create' => [
-                  'req' => false,
                   'type' => '`$STRING`',
                 ],
                 'list' => [
-                  'req' => false,
                   'type' => '`$STRING`',
                 ],
               ],
               'req' => true,
               'type' => '`$STRING`',
-              'index$' => 4,
             ],
             [
-              'active' => true,
               'name' => 'password',
               'req' => true,
               'type' => '`$STRING`',
-              'index$' => 5,
             ],
             [
-              'active' => true,
               'name' => 'role',
-              'req' => false,
               'type' => '`$STRING`',
-              'index$' => 6,
             ],
           ],
           'name' => 'user',
@@ -831,7 +699,6 @@ class OpensensemapConfig
               'name' => 'create',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'POST',
@@ -847,10 +714,8 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'POST',
@@ -866,17 +731,14 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body.user`',
                   ],
-                  'index$' => 1,
                 ],
               ],
-              'key$' => 'create',
             ],
             'list' => [
               'input' => 'data',
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
@@ -892,10 +754,8 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body.boxes`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
           ],
           'relations' => [

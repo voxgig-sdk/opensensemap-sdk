@@ -46,7 +46,7 @@ error — iterate it directly.
 
 ```python
 try:
-    boxs = client.Box().list()
+    boxs = client.Box().list({"box_id": "example", "sensor_id": "example"})
     for box in boxs:
         print(box)
 except Exception as err:
@@ -396,7 +396,7 @@ box = client.Box().load({"id": "box_id"})
 #### Example: List
 
 ```python
-boxs = client.Box().list()
+boxs = client.Box().list({"box_id": "example", "sensor_id": "example"})
 ```
 
 #### Example: Create

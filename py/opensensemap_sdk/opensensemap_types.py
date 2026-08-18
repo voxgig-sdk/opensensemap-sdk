@@ -34,7 +34,7 @@ class BoxLoadMatch(TypedDict):
     id: str
 
 
-class BoxListMatch(TypedDict, total=False):
+class BoxListMatch(TypedDict):
     box_id: str
     sensor_id: str
 

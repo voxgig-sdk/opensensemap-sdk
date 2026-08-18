@@ -209,7 +209,7 @@ const result = await client.Box().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Box().list()
+const results = await client.Box().list({ box_id: "example", sensor_id: "example" })
 ```
 
 #### `load(match: object, ctrl?: object)`

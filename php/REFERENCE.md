@@ -109,17 +109,17 @@ $box = $client->Box();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `string` | No |  |
-| `description` | `string` | No |  |
-| `exposure` | `string` | No |  |
-| `grouptag` | `string` | No |  |
-| `id` | `string` | No |  |
+| `createdAt` | `string` | No | Creation timestamp |
+| `description` | `string` | No | Description of the senseBox |
+| `exposure` | `string` | No | Exposure type of the senseBox |
+| `grouptag` | `string` | No | Group tag for categorization |
+| `id` | `string` | No | Unique identifier for the senseBox |
 | `location` | `array` | No |  |
-| `model` | `string` | No |  |
-| `name` | `string` | No |  |
+| `model` | `string` | No | Model of the senseBox |
+| `name` | `string` | No | Name of the senseBox |
 | `sensors` | `array` | No |  |
-| `updatedAt` | `string` | No |  |
-| `value` | `string` | No |  |
+| `updatedAt` | `string` | No | Last update timestamp |
+| `value` | `string` | No | Measurement value |
 
 ### Field Usage by Operation
 
@@ -271,12 +271,12 @@ $sensor = $client->Sensor();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | `string` | No |  |
-| `id` | `string` | No |  |
+| `icon` | `string` | No | Icon identifier for the sensor |
+| `id` | `string` | No | Unique identifier for the sensor |
 | `lastMeasurement` | `array` | No |  |
-| `sensorType` | `string` | No |  |
-| `title` | `string` | No |  |
-| `unit` | `string` | No |  |
+| `sensorType` | `string` | No | Type of sensor |
+| `title` | `string` | No | Title of the sensor |
+| `unit` | `string` | No | Unit of measurement |
 
 ### Operations
 
@@ -328,12 +328,12 @@ $statistic = $client->Statistic();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | `int` | No |  |
-| `max` | `float` | No |  |
-| `mean` | `float` | No |  |
-| `median` | `float` | No |  |
-| `min` | `float` | No |  |
-| `sum` | `float` | No |  |
+| `count` | `int` | No | Number of measurements |
+| `max` | `float` | No | Maximum value |
+| `mean` | `float` | No | Mean value |
+| `median` | `float` | No | Median value |
+| `min` | `float` | No | Minimum value |
+| `sum` | `float` | No | Sum of all values |
 
 ### Operations
 
@@ -385,13 +385,13 @@ $user = $client->User();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boxes` | `array` | No |  |
-| `createdAt` | `string` | No |  |
-| `email` | `string` | Yes |  |
-| `id` | `string` | No |  |
-| `name` | `string` | Yes |  |
-| `password` | `string` | Yes |  |
-| `role` | `string` | No |  |
+| `boxes` | `array` | No | Array of senseBox IDs owned by the user |
+| `createdAt` | `string` | No | Account creation timestamp |
+| `email` | `string` | Yes | User's email address |
+| `id` | `string` | No | Unique identifier for the user |
+| `name` | `string` | Yes | User's name |
+| `password` | `string` | Yes | User's password |
+| `role` | `string` | No | User's role |
 
 ### Field Usage by Operation
 

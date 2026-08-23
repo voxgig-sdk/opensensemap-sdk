@@ -11,6 +11,9 @@ func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
 			"name": "Opensensemap",
+			"slug": "opensensemap",
+			"version": "0.0.1",
+			"target": "go",
 		},
 		"feature": map[string]any{
 			"test": map[string]any{
@@ -40,10 +43,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "createdAt",
+						"short": "Creation timestamp",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "description",
+						"short": "Description of the senseBox",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -58,14 +63,17 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "Exposure type of the senseBox",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "grouptag",
+						"short": "Group tag for categorization",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the senseBox",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -84,6 +92,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "model",
+						"short": "Model of the senseBox",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -98,6 +107,7 @@ func MakeConfig() map[string]any {
 								"type": "`$STRING`",
 							},
 						},
+						"short": "Name of the senseBox",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -106,10 +116,12 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "updatedAt",
+						"short": "Last update timestamp",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "value",
+						"short": "Measurement value",
 						"type": "`$STRING`",
 					},
 				},
@@ -455,10 +467,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "icon",
+						"short": "Icon identifier for the sensor",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the sensor",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -467,14 +481,17 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "sensorType",
+						"short": "Type of sensor",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "title",
+						"short": "Title of the sensor",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "unit",
+						"short": "Unit of measurement",
 						"type": "`$STRING`",
 					},
 				},
@@ -534,26 +551,32 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "count",
+						"short": "Number of measurements",
 						"type": "`$INTEGER`",
 					},
 					map[string]any{
 						"name": "max",
+						"short": "Maximum value",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "mean",
+						"short": "Mean value",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "median",
+						"short": "Median value",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "min",
+						"short": "Minimum value",
 						"type": "`$NUMBER`",
 					},
 					map[string]any{
 						"name": "sum",
+						"short": "Sum of all values",
 						"type": "`$NUMBER`",
 					},
 				},
@@ -624,10 +647,12 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "boxes",
+						"short": "Array of senseBox IDs owned by the user",
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
 						"name": "createdAt",
+						"short": "Account creation timestamp",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -641,10 +666,12 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"req": true,
+						"short": "User's email address",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "id",
+						"short": "Unique identifier for the user",
 						"type": "`$STRING`",
 					},
 					map[string]any{
@@ -658,15 +685,18 @@ func MakeConfig() map[string]any {
 							},
 						},
 						"req": true,
+						"short": "User's name",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "password",
 						"req": true,
+						"short": "User's password",
 						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "role",
+						"short": "User's role",
 						"type": "`$STRING`",
 					},
 				},

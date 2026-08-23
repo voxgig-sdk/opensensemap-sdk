@@ -19,6 +19,9 @@ module OpensensemapConfig
     {
       "main" => {
         "name" => "Opensensemap",
+        "slug" => "opensensemap",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
@@ -48,10 +51,12 @@ module OpensensemapConfig
           "fields" => [
             {
               "name" => "createdAt",
+              "short" => "Creation timestamp",
               "type" => "`$STRING`",
             },
             {
               "name" => "description",
+              "short" => "Description of the senseBox",
               "type" => "`$STRING`",
             },
             {
@@ -66,14 +71,17 @@ module OpensensemapConfig
                   "type" => "`$STRING`",
                 },
               },
+              "short" => "Exposure type of the senseBox",
               "type" => "`$STRING`",
             },
             {
               "name" => "grouptag",
+              "short" => "Group tag for categorization",
               "type" => "`$STRING`",
             },
             {
               "name" => "id",
+              "short" => "Unique identifier for the senseBox",
               "type" => "`$STRING`",
             },
             {
@@ -92,6 +100,7 @@ module OpensensemapConfig
             },
             {
               "name" => "model",
+              "short" => "Model of the senseBox",
               "type" => "`$STRING`",
             },
             {
@@ -106,6 +115,7 @@ module OpensensemapConfig
                   "type" => "`$STRING`",
                 },
               },
+              "short" => "Name of the senseBox",
               "type" => "`$STRING`",
             },
             {
@@ -114,10 +124,12 @@ module OpensensemapConfig
             },
             {
               "name" => "updatedAt",
+              "short" => "Last update timestamp",
               "type" => "`$STRING`",
             },
             {
               "name" => "value",
+              "short" => "Measurement value",
               "type" => "`$STRING`",
             },
           ],
@@ -463,10 +475,12 @@ module OpensensemapConfig
           "fields" => [
             {
               "name" => "icon",
+              "short" => "Icon identifier for the sensor",
               "type" => "`$STRING`",
             },
             {
               "name" => "id",
+              "short" => "Unique identifier for the sensor",
               "type" => "`$STRING`",
             },
             {
@@ -475,14 +489,17 @@ module OpensensemapConfig
             },
             {
               "name" => "sensorType",
+              "short" => "Type of sensor",
               "type" => "`$STRING`",
             },
             {
               "name" => "title",
+              "short" => "Title of the sensor",
               "type" => "`$STRING`",
             },
             {
               "name" => "unit",
+              "short" => "Unit of measurement",
               "type" => "`$STRING`",
             },
           ],
@@ -542,26 +559,32 @@ module OpensensemapConfig
           "fields" => [
             {
               "name" => "count",
+              "short" => "Number of measurements",
               "type" => "`$INTEGER`",
             },
             {
               "name" => "max",
+              "short" => "Maximum value",
               "type" => "`$NUMBER`",
             },
             {
               "name" => "mean",
+              "short" => "Mean value",
               "type" => "`$NUMBER`",
             },
             {
               "name" => "median",
+              "short" => "Median value",
               "type" => "`$NUMBER`",
             },
             {
               "name" => "min",
+              "short" => "Minimum value",
               "type" => "`$NUMBER`",
             },
             {
               "name" => "sum",
+              "short" => "Sum of all values",
               "type" => "`$NUMBER`",
             },
           ],
@@ -632,10 +655,12 @@ module OpensensemapConfig
           "fields" => [
             {
               "name" => "boxes",
+              "short" => "Array of senseBox IDs owned by the user",
               "type" => "`$ARRAY`",
             },
             {
               "name" => "createdAt",
+              "short" => "Account creation timestamp",
               "type" => "`$STRING`",
             },
             {
@@ -649,10 +674,12 @@ module OpensensemapConfig
                 },
               },
               "req" => true,
+              "short" => "User's email address",
               "type" => "`$STRING`",
             },
             {
               "name" => "id",
+              "short" => "Unique identifier for the user",
               "type" => "`$STRING`",
             },
             {
@@ -666,15 +693,18 @@ module OpensensemapConfig
                 },
               },
               "req" => true,
+              "short" => "User's name",
               "type" => "`$STRING`",
             },
             {
               "name" => "password",
               "req" => true,
+              "short" => "User's password",
               "type" => "`$STRING`",
             },
             {
               "name" => "role",
+              "short" => "User's role",
               "type" => "`$STRING`",
             },
           ],

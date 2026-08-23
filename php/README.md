@@ -284,17 +284,17 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `description` |  |
-| `exposure` |  |
-| `grouptag` |  |
-| `id` |  |
+| `createdAt` | Creation timestamp |
+| `description` | Description of the senseBox |
+| `exposure` | Exposure type of the senseBox |
+| `grouptag` | Group tag for categorization |
+| `id` | Unique identifier for the senseBox |
 | `location` |  |
-| `model` |  |
-| `name` |  |
+| `model` | Model of the senseBox |
+| `name` | Name of the senseBox |
 | `sensors` |  |
-| `updatedAt` |  |
-| `value` |  |
+| `updatedAt` | Last update timestamp |
+| `value` | Measurement value |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -313,12 +313,12 @@ API path: `/boxes/{boxId}/data`
 
 | Field | Description |
 | --- | --- |
-| `icon` |  |
-| `id` |  |
+| `icon` | Icon identifier for the sensor |
+| `id` | Unique identifier for the sensor |
 | `lastMeasurement` |  |
-| `sensorType` |  |
-| `title` |  |
-| `unit` |  |
+| `sensorType` | Type of sensor |
+| `title` | Title of the sensor |
+| `unit` | Unit of measurement |
 
 Operations: List.
 
@@ -328,12 +328,12 @@ API path: `/boxes/{boxId}/sensors`
 
 | Field | Description |
 | --- | --- |
-| `count` |  |
-| `max` |  |
-| `mean` |  |
-| `median` |  |
-| `min` |  |
-| `sum` |  |
+| `count` | Number of measurements |
+| `max` | Maximum value |
+| `mean` | Mean value |
+| `median` | Median value |
+| `min` | Minimum value |
+| `sum` | Sum of all values |
 
 Operations: Load.
 
@@ -343,13 +343,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `boxes` |  |
-| `createdAt` |  |
-| `email` |  |
-| `id` |  |
-| `name` |  |
-| `password` |  |
-| `role` |  |
+| `boxes` | Array of senseBox IDs owned by the user |
+| `createdAt` | Account creation timestamp |
+| `email` | User's email address |
+| `id` | Unique identifier for the user |
+| `name` | User's name |
+| `password` | User's password |
+| `role` | User's role |
 
 Operations: Create, List.
 
@@ -378,17 +378,17 @@ Create an instance: `$box = $client->Box();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `string` |  |
-| `description` | `string` |  |
-| `exposure` | `string` |  |
-| `grouptag` | `string` |  |
-| `id` | `string` |  |
+| `createdAt` | `string` | Creation timestamp |
+| `description` | `string` | Description of the senseBox |
+| `exposure` | `string` | Exposure type of the senseBox |
+| `grouptag` | `string` | Group tag for categorization |
+| `id` | `string` | Unique identifier for the senseBox |
 | `location` | `array` |  |
-| `model` | `string` |  |
-| `name` | `string` |  |
+| `model` | `string` | Model of the senseBox |
+| `name` | `string` | Name of the senseBox |
 | `sensors` | `array` |  |
-| `updatedAt` | `string` |  |
-| `value` | `string` |  |
+| `updatedAt` | `string` | Last update timestamp |
+| `value` | `string` | Measurement value |
 
 #### Example: Load
 
@@ -445,12 +445,12 @@ Create an instance: `$sensor = $client->Sensor();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | `string` |  |
-| `id` | `string` |  |
+| `icon` | `string` | Icon identifier for the sensor |
+| `id` | `string` | Unique identifier for the sensor |
 | `lastMeasurement` | `array` |  |
-| `sensorType` | `string` |  |
-| `title` | `string` |  |
-| `unit` | `string` |  |
+| `sensorType` | `string` | Type of sensor |
+| `title` | `string` | Title of the sensor |
+| `unit` | `string` | Unit of measurement |
 
 #### Example: List
 
@@ -474,12 +474,12 @@ Create an instance: `$statistic = $client->Statistic();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | `int` |  |
-| `max` | `float` |  |
-| `mean` | `float` |  |
-| `median` | `float` |  |
-| `min` | `float` |  |
-| `sum` | `float` |  |
+| `count` | `int` | Number of measurements |
+| `max` | `float` | Maximum value |
+| `mean` | `float` | Mean value |
+| `median` | `float` | Median value |
+| `min` | `float` | Minimum value |
+| `sum` | `float` | Sum of all values |
 
 #### Example: Load
 
@@ -504,13 +504,13 @@ Create an instance: `$user = $client->User();`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `boxes` | `array` |  |
-| `createdAt` | `string` |  |
-| `email` | `string` |  |
-| `id` | `string` |  |
-| `name` | `string` |  |
-| `password` | `string` |  |
-| `role` | `string` |  |
+| `boxes` | `array` | Array of senseBox IDs owned by the user |
+| `createdAt` | `string` | Account creation timestamp |
+| `email` | `string` | User's email address |
+| `id` | `string` | Unique identifier for the user |
+| `name` | `string` | User's name |
+| `password` | `string` | User's password |
+| `role` | `string` | User's role |
 
 #### Example: List
 

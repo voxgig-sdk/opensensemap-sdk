@@ -1,0 +1,103 @@
+# Entity: sensor
+
+main: kit: entity: sensor: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "icon"
+      req: false
+      short: "Icon identifier for the sensor"
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      short: "Unique identifier for the sensor"
+      type: "`$STRING`"
+    }
+    {
+      name: "lastMeasurement"
+      req: false
+      type: "`$OBJECT`"
+    }
+    {
+      name: "sensorType"
+      req: false
+      short: "Type of sensor"
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      req: false
+      short: "Title of the sensor"
+      type: "`$STRING`"
+    }
+    {
+      name: "unit"
+      req: false
+      short: "Unit of measurement"
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "sensor"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "box_id"
+                orig: "box_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/boxes/{boxId}/sensors"
+          parts: [
+            "boxes"
+            "{box_id}"
+            "sensors"
+          ]
+          rename: {
+            param: {
+              boxId: "box_id"
+            }
+          }
+          select: {
+            exist: [
+              "box_id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "box"
+      ]
+    ]
+  }
+
+
+
+}

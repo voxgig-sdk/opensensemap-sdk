@@ -36,12 +36,14 @@
               "active": true,
               "name": "createdAt",
               "req": false,
+              "short": "Creation timestamp",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "description",
               "req": false,
+              "short": "Description of the senseBox",
               "type": "`$STRING`"
             },
             {
@@ -58,18 +60,21 @@
                 }
               },
               "req": false,
+              "short": "Exposure type of the senseBox",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "grouptag",
               "req": false,
+              "short": "Group tag for categorization",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the senseBox",
               "type": "`$STRING`"
             },
             {
@@ -92,6 +97,7 @@
               "active": true,
               "name": "model",
               "req": false,
+              "short": "Model of the senseBox",
               "type": "`$STRING`"
             },
             {
@@ -108,6 +114,7 @@
                 }
               },
               "req": false,
+              "short": "Name of the senseBox",
               "type": "`$STRING`"
             },
             {
@@ -120,12 +127,14 @@
               "active": true,
               "name": "updatedAt",
               "req": false,
+              "short": "Last update timestamp",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "value",
               "req": false,
+              "short": "Measurement value",
               "type": "`$STRING`"
             }
           ],
@@ -514,12 +523,14 @@
               "active": true,
               "name": "icon",
               "req": false,
+              "short": "Icon identifier for the sensor",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the sensor",
               "type": "`$STRING`"
             },
             {
@@ -532,18 +543,21 @@
               "active": true,
               "name": "sensorType",
               "req": false,
+              "short": "Type of sensor",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "title",
               "req": false,
+              "short": "Title of the sensor",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "unit",
               "req": false,
+              "short": "Unit of measurement",
               "type": "`$STRING`"
             }
           ],
@@ -615,36 +629,42 @@
               "active": true,
               "name": "count",
               "req": false,
+              "short": "Number of measurements",
               "type": "`$INTEGER`"
             },
             {
               "active": true,
               "name": "max",
               "req": false,
+              "short": "Maximum value",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "mean",
               "req": false,
+              "short": "Mean value",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "median",
               "req": false,
+              "short": "Median value",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "min",
               "req": false,
+              "short": "Minimum value",
               "type": "`$NUMBER`"
             },
             {
               "active": true,
               "name": "sum",
               "req": false,
+              "short": "Sum of all values",
               "type": "`$NUMBER`"
             }
           ],
@@ -730,12 +750,14 @@
               "active": true,
               "name": "boxes",
               "req": false,
+              "short": "Array of senseBox IDs owned by the user",
               "type": "`$ARRAY`"
             },
             {
               "active": true,
               "name": "createdAt",
               "req": false,
+              "short": "Account creation timestamp",
               "type": "`$STRING`"
             },
             {
@@ -752,12 +774,14 @@
                 }
               },
               "req": true,
+              "short": "User's email address",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "id",
               "req": false,
+              "short": "Unique identifier for the user",
               "type": "`$STRING`"
             },
             {
@@ -774,18 +798,21 @@
                 }
               },
               "req": true,
+              "short": "User's name",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "password",
               "req": true,
+              "short": "User's password",
               "type": "`$STRING`"
             },
             {
               "active": true,
               "name": "role",
               "req": false,
+              "short": "User's role",
               "type": "`$STRING`"
             }
           ],

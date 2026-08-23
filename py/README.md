@@ -281,17 +281,17 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `description` |  |
-| `exposure` |  |
-| `grouptag` |  |
-| `id` |  |
+| `createdAt` | Creation timestamp |
+| `description` | Description of the senseBox |
+| `exposure` | Exposure type of the senseBox |
+| `grouptag` | Group tag for categorization |
+| `id` | Unique identifier for the senseBox |
 | `location` |  |
-| `model` |  |
-| `name` |  |
+| `model` | Model of the senseBox |
+| `name` | Name of the senseBox |
 | `sensors` |  |
-| `updatedAt` |  |
-| `value` |  |
+| `updatedAt` | Last update timestamp |
+| `value` | Measurement value |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -310,12 +310,12 @@ API path: `/boxes/{boxId}/data`
 
 | Field | Description |
 | --- | --- |
-| `icon` |  |
-| `id` |  |
+| `icon` | Icon identifier for the sensor |
+| `id` | Unique identifier for the sensor |
 | `lastMeasurement` |  |
-| `sensorType` |  |
-| `title` |  |
-| `unit` |  |
+| `sensorType` | Type of sensor |
+| `title` | Title of the sensor |
+| `unit` | Unit of measurement |
 
 Operations: List.
 
@@ -325,12 +325,12 @@ API path: `/boxes/{boxId}/sensors`
 
 | Field | Description |
 | --- | --- |
-| `count` |  |
-| `max` |  |
-| `mean` |  |
-| `median` |  |
-| `min` |  |
-| `sum` |  |
+| `count` | Number of measurements |
+| `max` | Maximum value |
+| `mean` | Mean value |
+| `median` | Median value |
+| `min` | Minimum value |
+| `sum` | Sum of all values |
 
 Operations: Load.
 
@@ -340,13 +340,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `boxes` |  |
-| `createdAt` |  |
-| `email` |  |
-| `id` |  |
-| `name` |  |
-| `password` |  |
-| `role` |  |
+| `boxes` | Array of senseBox IDs owned by the user |
+| `createdAt` | Account creation timestamp |
+| `email` | User's email address |
+| `id` | Unique identifier for the user |
+| `name` | User's name |
+| `password` | User's password |
+| `role` | User's role |
 
 Operations: Create, List.
 
@@ -375,17 +375,17 @@ Create an instance: `box = client.Box()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `str` |  |
-| `description` | `str` |  |
-| `exposure` | `str` |  |
-| `grouptag` | `str` |  |
-| `id` | `str` |  |
+| `createdAt` | `str` | Creation timestamp |
+| `description` | `str` | Description of the senseBox |
+| `exposure` | `str` | Exposure type of the senseBox |
+| `grouptag` | `str` | Group tag for categorization |
+| `id` | `str` | Unique identifier for the senseBox |
 | `location` | `dict` |  |
-| `model` | `str` |  |
-| `name` | `str` |  |
+| `model` | `str` | Model of the senseBox |
+| `name` | `str` | Name of the senseBox |
 | `sensors` | `list` |  |
-| `updatedAt` | `str` |  |
-| `value` | `str` |  |
+| `updatedAt` | `str` | Last update timestamp |
+| `value` | `str` | Measurement value |
 
 #### Example: Load
 
@@ -440,12 +440,12 @@ Create an instance: `sensor = client.Sensor()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | `str` |  |
-| `id` | `str` |  |
+| `icon` | `str` | Icon identifier for the sensor |
+| `id` | `str` | Unique identifier for the sensor |
 | `lastMeasurement` | `dict` |  |
-| `sensorType` | `str` |  |
-| `title` | `str` |  |
-| `unit` | `str` |  |
+| `sensorType` | `str` | Type of sensor |
+| `title` | `str` | Title of the sensor |
+| `unit` | `str` | Unit of measurement |
 
 #### Example: List
 
@@ -468,12 +468,12 @@ Create an instance: `statistic = client.Statistic()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | `int` |  |
-| `max` | `float` |  |
-| `mean` | `float` |  |
-| `median` | `float` |  |
-| `min` | `float` |  |
-| `sum` | `float` |  |
+| `count` | `int` | Number of measurements |
+| `max` | `float` | Maximum value |
+| `mean` | `float` | Mean value |
+| `median` | `float` | Median value |
+| `min` | `float` | Minimum value |
+| `sum` | `float` | Sum of all values |
 
 #### Example: Load
 
@@ -497,13 +497,13 @@ Create an instance: `user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `boxes` | `list` |  |
-| `createdAt` | `str` |  |
-| `email` | `str` |  |
-| `id` | `str` |  |
-| `name` | `str` |  |
-| `password` | `str` |  |
-| `role` | `str` |  |
+| `boxes` | `list` | Array of senseBox IDs owned by the user |
+| `createdAt` | `str` | Account creation timestamp |
+| `email` | `str` | User's email address |
+| `id` | `str` | Unique identifier for the user |
+| `name` | `str` | User's name |
+| `password` | `str` | User's password |
+| `role` | `str` | User's role |
 
 #### Example: List
 

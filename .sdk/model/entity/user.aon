@@ -1,0 +1,138 @@
+# Entity: user
+
+main: kit: entity: user: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "boxes"
+      req: false
+      short: "Array of senseBox IDs owned by the user"
+      type: "`$ARRAY`"
+    }
+    {
+      name: "createdAt"
+      req: false
+      short: "Account creation timestamp"
+      type: "`$STRING`"
+    }
+    {
+      name: "email"
+      op: {
+        create: {
+          req: false
+          type: "`$STRING`"
+        }
+        list: {
+          req: false
+          type: "`$STRING`"
+        }
+      }
+      req: true
+      short: "User's email address"
+      type: "`$STRING`"
+    }
+    {
+      name: "id"
+      req: false
+      short: "Unique identifier for the user"
+      type: "`$STRING`"
+    }
+    {
+      name: "name"
+      op: {
+        create: {
+          req: false
+          type: "`$STRING`"
+        }
+        list: {
+          req: false
+          type: "`$STRING`"
+        }
+      }
+      req: true
+      short: "User's name"
+      type: "`$STRING`"
+    }
+    {
+      name: "password"
+      req: true
+      short: "User's password"
+      type: "`$STRING`"
+    }
+    {
+      name: "role"
+      req: false
+      short: "User's role"
+      type: "`$STRING`"
+    }
+  ]
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "user"
+  op: {
+    create: {
+      name: "create"
+      points: [
+        {
+          method: "POST"
+          orig: "/users/register"
+          parts: [
+            "users"
+            "register"
+          ]
+          select: {
+            "$action": "register"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
+          method: "POST"
+          orig: "/users/sign-in"
+          parts: [
+            "users"
+            "sign-in"
+          ]
+          select: {
+            "$action": "sign_in"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.user`"
+          }
+        }
+      ]
+    }
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/users/me"
+          parts: [
+            "users"
+            "me"
+          ]
+          select: {
+            "$action": "me"
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body.boxes`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

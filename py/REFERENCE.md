@@ -104,17 +104,17 @@ box = client.Box()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `str` | No |  |
-| `description` | `str` | No |  |
-| `exposure` | `str` | No |  |
-| `grouptag` | `str` | No |  |
-| `id` | `str` | No |  |
+| `createdAt` | `str` | No | Creation timestamp |
+| `description` | `str` | No | Description of the senseBox |
+| `exposure` | `str` | No | Exposure type of the senseBox |
+| `grouptag` | `str` | No | Group tag for categorization |
+| `id` | `str` | No | Unique identifier for the senseBox |
 | `location` | `dict` | No |  |
-| `model` | `str` | No |  |
-| `name` | `str` | No |  |
+| `model` | `str` | No | Model of the senseBox |
+| `name` | `str` | No | Name of the senseBox |
 | `sensors` | `list` | No |  |
-| `updatedAt` | `str` | No |  |
-| `value` | `str` | No |  |
+| `updatedAt` | `str` | No | Last update timestamp |
+| `value` | `str` | No | Measurement value |
 
 ### Field Usage by Operation
 
@@ -266,12 +266,12 @@ sensor = client.Sensor()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | `str` | No |  |
-| `id` | `str` | No |  |
+| `icon` | `str` | No | Icon identifier for the sensor |
+| `id` | `str` | No | Unique identifier for the sensor |
 | `lastMeasurement` | `dict` | No |  |
-| `sensorType` | `str` | No |  |
-| `title` | `str` | No |  |
-| `unit` | `str` | No |  |
+| `sensorType` | `str` | No | Type of sensor |
+| `title` | `str` | No | Title of the sensor |
+| `unit` | `str` | No | Unit of measurement |
 
 ### Operations
 
@@ -324,12 +324,12 @@ statistic = client.Statistic()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | `int` | No |  |
-| `max` | `float` | No |  |
-| `mean` | `float` | No |  |
-| `median` | `float` | No |  |
-| `min` | `float` | No |  |
-| `sum` | `float` | No |  |
+| `count` | `int` | No | Number of measurements |
+| `max` | `float` | No | Maximum value |
+| `mean` | `float` | No | Mean value |
+| `median` | `float` | No | Median value |
+| `min` | `float` | No | Minimum value |
+| `sum` | `float` | No | Sum of all values |
 
 ### Operations
 
@@ -380,13 +380,13 @@ user = client.User()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boxes` | `list` | No |  |
-| `createdAt` | `str` | No |  |
-| `email` | `str` | Yes |  |
-| `id` | `str` | No |  |
-| `name` | `str` | Yes |  |
-| `password` | `str` | Yes |  |
-| `role` | `str` | No |  |
+| `boxes` | `list` | No | Array of senseBox IDs owned by the user |
+| `createdAt` | `str` | No | Account creation timestamp |
+| `email` | `str` | Yes | User's email address |
+| `id` | `str` | No | Unique identifier for the user |
+| `name` | `str` | Yes | User's name |
+| `password` | `str` | Yes | User's password |
+| `role` | `str` | No | User's role |
 
 ### Field Usage by Operation
 

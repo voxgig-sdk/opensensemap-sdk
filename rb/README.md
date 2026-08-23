@@ -274,17 +274,17 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `description` |  |
-| `exposure` |  |
-| `grouptag` |  |
-| `id` |  |
+| `createdAt` | Creation timestamp |
+| `description` | Description of the senseBox |
+| `exposure` | Exposure type of the senseBox |
+| `grouptag` | Group tag for categorization |
+| `id` | Unique identifier for the senseBox |
 | `location` |  |
-| `model` |  |
-| `name` |  |
+| `model` | Model of the senseBox |
+| `name` | Name of the senseBox |
 | `sensors` |  |
-| `updatedAt` |  |
-| `value` |  |
+| `updatedAt` | Last update timestamp |
+| `value` | Measurement value |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -303,12 +303,12 @@ API path: `/boxes/{boxId}/data`
 
 | Field | Description |
 | --- | --- |
-| `icon` |  |
-| `id` |  |
+| `icon` | Icon identifier for the sensor |
+| `id` | Unique identifier for the sensor |
 | `lastMeasurement` |  |
-| `sensorType` |  |
-| `title` |  |
-| `unit` |  |
+| `sensorType` | Type of sensor |
+| `title` | Title of the sensor |
+| `unit` | Unit of measurement |
 
 Operations: List.
 
@@ -318,12 +318,12 @@ API path: `/boxes/{boxId}/sensors`
 
 | Field | Description |
 | --- | --- |
-| `count` |  |
-| `max` |  |
-| `mean` |  |
-| `median` |  |
-| `min` |  |
-| `sum` |  |
+| `count` | Number of measurements |
+| `max` | Maximum value |
+| `mean` | Mean value |
+| `median` | Median value |
+| `min` | Minimum value |
+| `sum` | Sum of all values |
 
 Operations: Load.
 
@@ -333,13 +333,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `boxes` |  |
-| `createdAt` |  |
-| `email` |  |
-| `id` |  |
-| `name` |  |
-| `password` |  |
-| `role` |  |
+| `boxes` | Array of senseBox IDs owned by the user |
+| `createdAt` | Account creation timestamp |
+| `email` | User's email address |
+| `id` | Unique identifier for the user |
+| `name` | User's name |
+| `password` | User's password |
+| `role` | User's role |
 
 Operations: Create, List.
 
@@ -368,17 +368,17 @@ Create an instance: `box = client.Box`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `String` |  |
-| `description` | `String` |  |
-| `exposure` | `String` |  |
-| `grouptag` | `String` |  |
-| `id` | `String` |  |
+| `createdAt` | `String` | Creation timestamp |
+| `description` | `String` | Description of the senseBox |
+| `exposure` | `String` | Exposure type of the senseBox |
+| `grouptag` | `String` | Group tag for categorization |
+| `id` | `String` | Unique identifier for the senseBox |
 | `location` | `Hash` |  |
-| `model` | `String` |  |
-| `name` | `String` |  |
+| `model` | `String` | Model of the senseBox |
+| `name` | `String` | Name of the senseBox |
 | `sensors` | `Array` |  |
-| `updatedAt` | `String` |  |
-| `value` | `String` |  |
+| `updatedAt` | `String` | Last update timestamp |
+| `value` | `String` | Measurement value |
 
 #### Example: Load
 
@@ -435,12 +435,12 @@ Create an instance: `sensor = client.Sensor`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | `String` |  |
-| `id` | `String` |  |
+| `icon` | `String` | Icon identifier for the sensor |
+| `id` | `String` | Unique identifier for the sensor |
 | `lastMeasurement` | `Hash` |  |
-| `sensorType` | `String` |  |
-| `title` | `String` |  |
-| `unit` | `String` |  |
+| `sensorType` | `String` | Type of sensor |
+| `title` | `String` | Title of the sensor |
+| `unit` | `String` | Unit of measurement |
 
 #### Example: List
 
@@ -464,12 +464,12 @@ Create an instance: `statistic = client.Statistic`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | `Integer` |  |
-| `max` | `Float` |  |
-| `mean` | `Float` |  |
-| `median` | `Float` |  |
-| `min` | `Float` |  |
-| `sum` | `Float` |  |
+| `count` | `Integer` | Number of measurements |
+| `max` | `Float` | Maximum value |
+| `mean` | `Float` | Mean value |
+| `median` | `Float` | Median value |
+| `min` | `Float` | Minimum value |
+| `sum` | `Float` | Sum of all values |
 
 #### Example: Load
 
@@ -494,13 +494,13 @@ Create an instance: `user = client.User`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `boxes` | `Array` |  |
-| `createdAt` | `String` |  |
-| `email` | `String` |  |
-| `id` | `String` |  |
-| `name` | `String` |  |
-| `password` | `String` |  |
-| `role` | `String` |  |
+| `boxes` | `Array` | Array of senseBox IDs owned by the user |
+| `createdAt` | `String` | Account creation timestamp |
+| `email` | `String` | User's email address |
+| `id` | `String` | Unique identifier for the user |
+| `name` | `String` | User's name |
+| `password` | `String` | User's password |
+| `role` | `String` | User's role |
 
 #### Example: List
 

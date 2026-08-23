@@ -9,7 +9,7 @@ The API is exposed as capitalised, semantic **Entities** — e.g.
 instead of raw URL paths and query parameters. This keeps the surface
 predictable and low-friction for both humans and AI agents.
 
-> Other languages, the CLI, and MCP server live alongside this one — see
+> Also generated from this model: `go`, `go-cli`, `go-mcp`, `lua`, `php`, `py`, `rb` — see
 > the [top-level README](../README.md).
 
 
@@ -338,17 +338,17 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `description` |  |
-| `exposure` |  |
-| `grouptag` |  |
-| `id` |  |
+| `createdAt` | Creation timestamp |
+| `description` | Description of the senseBox |
+| `exposure` | Exposure type of the senseBox |
+| `grouptag` | Group tag for categorization |
+| `id` | Unique identifier for the senseBox |
 | `location` |  |
-| `model` |  |
-| `name` |  |
+| `model` | Model of the senseBox |
+| `name` | Name of the senseBox |
 | `sensors` |  |
-| `updatedAt` |  |
-| `value` |  |
+| `updatedAt` | Last update timestamp |
+| `value` | Measurement value |
 
 Operations: create, list, load, remove, update.
 
@@ -367,12 +367,12 @@ API path: `/boxes/{boxId}/data`
 
 | Field | Description |
 | --- | --- |
-| `icon` |  |
-| `id` |  |
+| `icon` | Icon identifier for the sensor |
+| `id` | Unique identifier for the sensor |
 | `lastMeasurement` |  |
-| `sensorType` |  |
-| `title` |  |
-| `unit` |  |
+| `sensorType` | Type of sensor |
+| `title` | Title of the sensor |
+| `unit` | Unit of measurement |
 
 Operations: list.
 
@@ -382,12 +382,12 @@ API path: `/boxes/{boxId}/sensors`
 
 | Field | Description |
 | --- | --- |
-| `count` |  |
-| `max` |  |
-| `mean` |  |
-| `median` |  |
-| `min` |  |
-| `sum` |  |
+| `count` | Number of measurements |
+| `max` | Maximum value |
+| `mean` | Mean value |
+| `median` | Median value |
+| `min` | Minimum value |
+| `sum` | Sum of all values |
 
 Operations: load.
 
@@ -397,13 +397,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `boxes` |  |
-| `createdAt` |  |
-| `email` |  |
-| `id` |  |
-| `name` |  |
-| `password` |  |
-| `role` |  |
+| `boxes` | Array of senseBox IDs owned by the user |
+| `createdAt` | Account creation timestamp |
+| `email` | User's email address |
+| `id` | Unique identifier for the user |
+| `name` | User's name |
+| `password` | User's password |
+| `role` | User's role |
 
 Operations: create, list.
 
@@ -432,17 +432,17 @@ Create an instance: `const box = client.Box()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `string` |  |
-| `description` | `string` |  |
-| `exposure` | `string` |  |
-| `grouptag` | `string` |  |
-| `id` | `string` |  |
+| `createdAt` | `string` | Creation timestamp |
+| `description` | `string` | Description of the senseBox |
+| `exposure` | `string` | Exposure type of the senseBox |
+| `grouptag` | `string` | Group tag for categorization |
+| `id` | `string` | Unique identifier for the senseBox |
 | `location` | `Record<string, any>` |  |
-| `model` | `string` |  |
-| `name` | `string` |  |
+| `model` | `string` | Model of the senseBox |
+| `name` | `string` | Name of the senseBox |
 | `sensors` | `any[]` |  |
-| `updatedAt` | `string` |  |
-| `value` | `string` |  |
+| `updatedAt` | `string` | Last update timestamp |
+| `value` | `string` | Measurement value |
 
 #### Example: Load
 
@@ -497,12 +497,12 @@ Create an instance: `const sensor = client.Sensor()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | `string` |  |
-| `id` | `string` |  |
+| `icon` | `string` | Icon identifier for the sensor |
+| `id` | `string` | Unique identifier for the sensor |
 | `lastMeasurement` | `Record<string, any>` |  |
-| `sensorType` | `string` |  |
-| `title` | `string` |  |
-| `unit` | `string` |  |
+| `sensorType` | `string` | Type of sensor |
+| `title` | `string` | Title of the sensor |
+| `unit` | `string` | Unit of measurement |
 
 #### Example: List
 
@@ -525,12 +525,12 @@ Create an instance: `const statistic = client.Statistic()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | `number` |  |
-| `max` | `number` |  |
-| `mean` | `number` |  |
-| `median` | `number` |  |
-| `min` | `number` |  |
-| `sum` | `number` |  |
+| `count` | `number` | Number of measurements |
+| `max` | `number` | Maximum value |
+| `mean` | `number` | Mean value |
+| `median` | `number` | Median value |
+| `min` | `number` | Minimum value |
+| `sum` | `number` | Sum of all values |
 
 #### Example: Load
 
@@ -554,13 +554,13 @@ Create an instance: `const user = client.User()`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `boxes` | `any[]` |  |
-| `createdAt` | `string` |  |
-| `email` | `string` |  |
-| `id` | `string` |  |
-| `name` | `string` |  |
-| `password` | `string` |  |
-| `role` | `string` |  |
+| `boxes` | `any[]` | Array of senseBox IDs owned by the user |
+| `createdAt` | `string` | Account creation timestamp |
+| `email` | `string` | User's email address |
+| `id` | `string` | Unique identifier for the user |
+| `name` | `string` | User's name |
+| `password` | `string` | User's password |
+| `role` | `string` | User's role |
 
 #### Example: List
 

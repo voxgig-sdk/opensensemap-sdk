@@ -107,17 +107,17 @@ local box = client:Box(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `string` | No |  |
-| `description` | `string` | No |  |
-| `exposure` | `string` | No |  |
-| `grouptag` | `string` | No |  |
-| `id` | `string` | No |  |
+| `createdAt` | `string` | No | Creation timestamp |
+| `description` | `string` | No | Description of the senseBox |
+| `exposure` | `string` | No | Exposure type of the senseBox |
+| `grouptag` | `string` | No | Group tag for categorization |
+| `id` | `string` | No | Unique identifier for the senseBox |
 | `location` | `table` | No |  |
-| `model` | `string` | No |  |
-| `name` | `string` | No |  |
+| `model` | `string` | No | Model of the senseBox |
+| `name` | `string` | No | Name of the senseBox |
 | `sensors` | `table` | No |  |
-| `updatedAt` | `string` | No |  |
-| `value` | `string` | No |  |
+| `updatedAt` | `string` | No | Last update timestamp |
+| `value` | `string` | No | Measurement value |
 
 ### Field Usage by Operation
 
@@ -269,12 +269,12 @@ local sensor = client:Sensor(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | `string` | No |  |
-| `id` | `string` | No |  |
+| `icon` | `string` | No | Icon identifier for the sensor |
+| `id` | `string` | No | Unique identifier for the sensor |
 | `lastMeasurement` | `table` | No |  |
-| `sensorType` | `string` | No |  |
-| `title` | `string` | No |  |
-| `unit` | `string` | No |  |
+| `sensorType` | `string` | No | Type of sensor |
+| `title` | `string` | No | Title of the sensor |
+| `unit` | `string` | No | Unit of measurement |
 
 ### Operations
 
@@ -326,12 +326,12 @@ local statistic = client:Statistic(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | `number` | No |  |
-| `max` | `number` | No |  |
-| `mean` | `number` | No |  |
-| `median` | `number` | No |  |
-| `min` | `number` | No |  |
-| `sum` | `number` | No |  |
+| `count` | `number` | No | Number of measurements |
+| `max` | `number` | No | Maximum value |
+| `mean` | `number` | No | Mean value |
+| `median` | `number` | No | Median value |
+| `min` | `number` | No | Minimum value |
+| `sum` | `number` | No | Sum of all values |
 
 ### Operations
 
@@ -383,13 +383,13 @@ local user = client:User(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boxes` | `table` | No |  |
-| `createdAt` | `string` | No |  |
-| `email` | `string` | Yes |  |
-| `id` | `string` | No |  |
-| `name` | `string` | Yes |  |
-| `password` | `string` | Yes |  |
-| `role` | `string` | No |  |
+| `boxes` | `table` | No | Array of senseBox IDs owned by the user |
+| `createdAt` | `string` | No | Account creation timestamp |
+| `email` | `string` | Yes | User's email address |
+| `id` | `string` | No | Unique identifier for the user |
+| `name` | `string` | Yes | User's name |
+| `password` | `string` | Yes | User's password |
+| `role` | `string` | No | User's role |
 
 ### Field Usage by Operation
 

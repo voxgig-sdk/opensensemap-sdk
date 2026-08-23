@@ -266,17 +266,17 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `createdAt` |  |
-| `description` |  |
-| `exposure` |  |
-| `grouptag` |  |
-| `id` |  |
+| `createdAt` | Creation timestamp |
+| `description` | Description of the senseBox |
+| `exposure` | Exposure type of the senseBox |
+| `grouptag` | Group tag for categorization |
+| `id` | Unique identifier for the senseBox |
 | `location` |  |
-| `model` |  |
-| `name` |  |
+| `model` | Model of the senseBox |
+| `name` | Name of the senseBox |
 | `sensors` |  |
-| `updatedAt` |  |
-| `value` |  |
+| `updatedAt` | Last update timestamp |
+| `value` | Measurement value |
 
 Operations: Create, List, Load, Remove, Update.
 
@@ -295,12 +295,12 @@ API path: `/boxes/{boxId}/data`
 
 | Field | Description |
 | --- | --- |
-| `icon` |  |
-| `id` |  |
+| `icon` | Icon identifier for the sensor |
+| `id` | Unique identifier for the sensor |
 | `lastMeasurement` |  |
-| `sensorType` |  |
-| `title` |  |
-| `unit` |  |
+| `sensorType` | Type of sensor |
+| `title` | Title of the sensor |
+| `unit` | Unit of measurement |
 
 Operations: List.
 
@@ -310,12 +310,12 @@ API path: `/boxes/{boxId}/sensors`
 
 | Field | Description |
 | --- | --- |
-| `count` |  |
-| `max` |  |
-| `mean` |  |
-| `median` |  |
-| `min` |  |
-| `sum` |  |
+| `count` | Number of measurements |
+| `max` | Maximum value |
+| `mean` | Mean value |
+| `median` | Median value |
+| `min` | Minimum value |
+| `sum` | Sum of all values |
 
 Operations: Load.
 
@@ -325,13 +325,13 @@ API path: `/statistics/descriptive`
 
 | Field | Description |
 | --- | --- |
-| `boxes` |  |
-| `createdAt` |  |
-| `email` |  |
-| `id` |  |
-| `name` |  |
-| `password` |  |
-| `role` |  |
+| `boxes` | Array of senseBox IDs owned by the user |
+| `createdAt` | Account creation timestamp |
+| `email` | User's email address |
+| `id` | Unique identifier for the user |
+| `name` | User's name |
+| `password` | User's password |
+| `role` | User's role |
 
 Operations: Create, List.
 
@@ -360,17 +360,17 @@ Create an instance: `local box = client:Box(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `createdAt` | `string` |  |
-| `description` | `string` |  |
-| `exposure` | `string` |  |
-| `grouptag` | `string` |  |
-| `id` | `string` |  |
+| `createdAt` | `string` | Creation timestamp |
+| `description` | `string` | Description of the senseBox |
+| `exposure` | `string` | Exposure type of the senseBox |
+| `grouptag` | `string` | Group tag for categorization |
+| `id` | `string` | Unique identifier for the senseBox |
 | `location` | `table` |  |
-| `model` | `string` |  |
-| `name` | `string` |  |
+| `model` | `string` | Model of the senseBox |
+| `name` | `string` | Name of the senseBox |
 | `sensors` | `table` |  |
-| `updatedAt` | `string` |  |
-| `value` | `string` |  |
+| `updatedAt` | `string` | Last update timestamp |
+| `value` | `string` | Measurement value |
 
 #### Example: Load
 
@@ -425,12 +425,12 @@ Create an instance: `local sensor = client:Sensor(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `icon` | `string` |  |
-| `id` | `string` |  |
+| `icon` | `string` | Icon identifier for the sensor |
+| `id` | `string` | Unique identifier for the sensor |
 | `lastMeasurement` | `table` |  |
-| `sensorType` | `string` |  |
-| `title` | `string` |  |
-| `unit` | `string` |  |
+| `sensorType` | `string` | Type of sensor |
+| `title` | `string` | Title of the sensor |
+| `unit` | `string` | Unit of measurement |
 
 #### Example: List
 
@@ -453,12 +453,12 @@ Create an instance: `local statistic = client:Statistic(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `count` | `number` |  |
-| `max` | `number` |  |
-| `mean` | `number` |  |
-| `median` | `number` |  |
-| `min` | `number` |  |
-| `sum` | `number` |  |
+| `count` | `number` | Number of measurements |
+| `max` | `number` | Maximum value |
+| `mean` | `number` | Mean value |
+| `median` | `number` | Median value |
+| `min` | `number` | Minimum value |
+| `sum` | `number` | Sum of all values |
 
 #### Example: Load
 
@@ -482,13 +482,13 @@ Create an instance: `local user = client:User(nil)`
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `boxes` | `table` |  |
-| `createdAt` | `string` |  |
-| `email` | `string` |  |
-| `id` | `string` |  |
-| `name` | `string` |  |
-| `password` | `string` |  |
-| `role` | `string` |  |
+| `boxes` | `table` | Array of senseBox IDs owned by the user |
+| `createdAt` | `string` | Account creation timestamp |
+| `email` | `string` | User's email address |
+| `id` | `string` | Unique identifier for the user |
+| `name` | `string` | User's name |
+| `password` | `string` | User's password |
+| `role` | `string` | User's role |
 
 #### Example: List
 

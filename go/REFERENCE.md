@@ -115,17 +115,17 @@ fmt.Println(box.GetName()) // "box"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `createdAt` | `string` | No |  |
-| `description` | `string` | No |  |
-| `exposure` | `string` | No |  |
-| `grouptag` | `string` | No |  |
-| `id` | `string` | No |  |
+| `createdAt` | `string` | No | Creation timestamp |
+| `description` | `string` | No | Description of the senseBox |
+| `exposure` | `string` | No | Exposure type of the senseBox |
+| `grouptag` | `string` | No | Group tag for categorization |
+| `id` | `string` | No | Unique identifier for the senseBox |
 | `location` | `map[string]any` | No |  |
-| `model` | `string` | No |  |
-| `name` | `string` | No |  |
+| `model` | `string` | No | Model of the senseBox |
+| `name` | `string` | No | Name of the senseBox |
 | `sensors` | `[]any` | No |  |
-| `updatedAt` | `string` | No |  |
-| `value` | `string` | No |  |
+| `updatedAt` | `string` | No | Last update timestamp |
+| `value` | `string` | No | Measurement value |
 
 ### Field Usage by Operation
 
@@ -291,12 +291,12 @@ fmt.Println(sensor.GetName()) // "sensor"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `icon` | `string` | No |  |
-| `id` | `string` | No |  |
+| `icon` | `string` | No | Icon identifier for the sensor |
+| `id` | `string` | No | Unique identifier for the sensor |
 | `lastMeasurement` | `map[string]any` | No |  |
-| `sensorType` | `string` | No |  |
-| `title` | `string` | No |  |
-| `unit` | `string` | No |  |
+| `sensorType` | `string` | No | Type of sensor |
+| `title` | `string` | No | Title of the sensor |
+| `unit` | `string` | No | Unit of measurement |
 
 ### Operations
 
@@ -347,12 +347,12 @@ fmt.Println(statistic.GetName()) // "statistic"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `count` | `int` | No |  |
-| `max` | `float64` | No |  |
-| `mean` | `float64` | No |  |
-| `median` | `float64` | No |  |
-| `min` | `float64` | No |  |
-| `sum` | `float64` | No |  |
+| `count` | `int` | No | Number of measurements |
+| `max` | `float64` | No | Maximum value |
+| `mean` | `float64` | No | Mean value |
+| `median` | `float64` | No | Median value |
+| `min` | `float64` | No | Minimum value |
+| `sum` | `float64` | No | Sum of all values |
 
 ### Operations
 
@@ -403,13 +403,13 @@ fmt.Println(user.GetName()) // "user"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `boxes` | `[]any` | No |  |
-| `createdAt` | `string` | No |  |
-| `email` | `string` | Yes |  |
-| `id` | `string` | No |  |
-| `name` | `string` | Yes |  |
-| `password` | `string` | Yes |  |
-| `role` | `string` | No |  |
+| `boxes` | `[]any` | No | Array of senseBox IDs owned by the user |
+| `createdAt` | `string` | No | Account creation timestamp |
+| `email` | `string` | Yes | User's email address |
+| `id` | `string` | No | Unique identifier for the user |
+| `name` | `string` | Yes | User's name |
+| `password` | `string` | Yes | User's password |
+| `role` | `string` | No | User's role |
 
 ### Field Usage by Operation
 

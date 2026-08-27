@@ -42,6 +42,7 @@ class OpensensemapConfig
           'options' => [
             'active' => false,
           ],
+          'transport' => 'base',
         ],
             ],
             "options" => [

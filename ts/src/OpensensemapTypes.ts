@@ -21,11 +21,15 @@ export interface Box {
 
 export interface BoxLoadMatch {
   id: string
+  format?: string
 }
 
 export interface BoxListMatch {
   box_id: string
   sensor_id: string
+  format?: string
+  from_date?: string
+  to_date?: string
 }
 
 export interface BoxCreateData {
@@ -90,12 +94,10 @@ export interface Statistic {
 }
 
 export interface StatisticLoadMatch {
-  count?: number
-  max?: number
-  mean?: number
-  median?: number
-  min?: number
-  sum?: number
+  box_id?: string
+  from_date?: string
+  sensor_id?: string
+  to_date?: string
 
   // Selects a custom action instead of the plain load:
   //   'descriptive'

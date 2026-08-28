@@ -61,8 +61,12 @@ Box = Struct.new(
 #
 # @!attribute [rw] id
 #   @return [String]
+#
+# @!attribute [rw] format
+#   @return [String, nil]
 BoxLoadMatch = Struct.new(
   :id,
+  :format,
   keyword_init: true
 )
 
@@ -73,9 +77,21 @@ BoxLoadMatch = Struct.new(
 #
 # @!attribute [rw] sensor_id
 #   @return [String]
+#
+# @!attribute [rw] format
+#   @return [String, nil]
+#
+# @!attribute [rw] from_date
+#   @return [String, nil]
+#
+# @!attribute [rw] to_date
+#   @return [String, nil]
 BoxListMatch = Struct.new(
   :box_id,
   :sensor_id,
+  :format,
+  :from_date,
+  :to_date,
   keyword_init: true
 )
 
@@ -268,30 +284,22 @@ Statistic = Struct.new(
 
 # Request payload for Statistic#load.
 #
-# @!attribute [rw] count
-#   @return [Integer, nil]
+# @!attribute [rw] box_id
+#   @return [String, nil]
 #
-# @!attribute [rw] max
-#   @return [Float, nil]
+# @!attribute [rw] from_date
+#   @return [String, nil]
 #
-# @!attribute [rw] mean
-#   @return [Float, nil]
+# @!attribute [rw] sensor_id
+#   @return [String, nil]
 #
-# @!attribute [rw] median
-#   @return [Float, nil]
-#
-# @!attribute [rw] min
-#   @return [Float, nil]
-#
-# @!attribute [rw] sum
-#   @return [Float, nil]
+# @!attribute [rw] to_date
+#   @return [String, nil]
 StatisticLoadMatch = Struct.new(
-  :count,
-  :max,
-  :mean,
-  :median,
-  :min,
-  :sum,
+  :box_id,
+  :from_date,
+  :sensor_id,
+  :to_date,
   keyword_init: true
 )
 

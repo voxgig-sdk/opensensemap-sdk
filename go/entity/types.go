@@ -30,12 +30,16 @@ type Box struct {
 // BoxLoadMatch is the typed request payload for Box.LoadTyped.
 type BoxLoadMatch struct {
 	Id string `json:"id"`
+	Format *string `json:"format,omitempty"`
 }
 
 // BoxListMatch is the typed request payload for Box.ListTyped.
 type BoxListMatch struct {
 	BoxId string `json:"box_id"`
 	SensorId string `json:"sensor_id"`
+	Format *string `json:"format,omitempty"`
+	FromDate *string `json:"from_date,omitempty"`
+	ToDate *string `json:"to_date,omitempty"`
 }
 
 // BoxCreateData is the typed request payload for Box.CreateTyped.
@@ -109,12 +113,10 @@ type Statistic struct {
 
 // StatisticLoadMatch is the typed request payload for Statistic.LoadTyped.
 type StatisticLoadMatch struct {
-	Count *int `json:"count,omitempty"`
-	Max *float64 `json:"max,omitempty"`
-	Mean *float64 `json:"mean,omitempty"`
-	Median *float64 `json:"median,omitempty"`
-	Min *float64 `json:"min,omitempty"`
-	Sum *float64 `json:"sum,omitempty"`
+	BoxId *string `json:"box_id,omitempty"`
+	FromDate *string `json:"from_date,omitempty"`
+	SensorId *string `json:"sensor_id,omitempty"`
+	ToDate *string `json:"to_date,omitempty"`
 }
 
 // User is the typed data model for the user entity.

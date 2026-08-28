@@ -32,6 +32,7 @@ class Box
 class BoxLoadMatch
 {
     public string $id;
+    public ?string $format = null;
 }
 
 /** Request payload for Box#list. */
@@ -39,6 +40,9 @@ class BoxListMatch
 {
     public string $box_id;
     public string $sensor_id;
+    public ?string $format = null;
+    public ?string $from_date = null;
+    public ?string $to_date = null;
 }
 
 /** Request payload for Box#create. */
@@ -121,12 +125,10 @@ class Statistic
 /** Request payload for Statistic#load. */
 class StatisticLoadMatch
 {
-    public ?int $count = null;
-    public ?float $max = null;
-    public ?float $mean = null;
-    public ?float $median = null;
-    public ?float $min = null;
-    public ?float $sum = null;
+    public ?string $box_id = null;
+    public ?string $from_date = null;
+    public ?string $sensor_id = null;
+    public ?string $to_date = null;
 }
 
 /** User entity data model. */

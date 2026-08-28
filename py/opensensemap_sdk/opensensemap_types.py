@@ -30,13 +30,23 @@ class Box(TypedDict, total=False):
     value: str
 
 
-class BoxLoadMatch(TypedDict):
+class BoxLoadMatchRequired(TypedDict):
     id: str
 
 
-class BoxListMatch(TypedDict):
+class BoxLoadMatch(BoxLoadMatchRequired, total=False):
+    format: str
+
+
+class BoxListMatchRequired(TypedDict):
     box_id: str
     sensor_id: str
+
+
+class BoxListMatch(BoxListMatchRequired, total=False):
+    format: str
+    from_date: str
+    to_date: str
 
 
 class BoxCreateData(TypedDict, total=False):
@@ -105,12 +115,10 @@ class Statistic(TypedDict, total=False):
 
 
 class StatisticLoadMatch(TypedDict, total=False):
-    count: int
-    max: float
-    mean: float
-    median: float
-    min: float
-    sum: float
+    box_id: str
+    from_date: str
+    sensor_id: str
+    to_date: str
 
 
 class UserRequired(TypedDict):

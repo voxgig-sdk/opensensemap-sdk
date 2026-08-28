@@ -21,10 +21,14 @@
 
 ---@class BoxLoadMatch
 ---@field id string
+---@field format? string
 
 ---@class BoxListMatch
 ---@field box_id string
 ---@field sensor_id string
+---@field format? string
+---@field from_date? string
+---@field to_date? string
 
 ---@class BoxCreateData
 ---@field createdAt? string
@@ -80,12 +84,10 @@
 ---@field sum? number
 
 ---@class StatisticLoadMatch
----@field count? number
----@field max? number
----@field mean? number
----@field median? number
----@field min? number
----@field sum? number
+---@field box_id? string
+---@field from_date? string
+---@field sensor_id? string
+---@field to_date? string
 
 ---@class User
 ---@field boxes? table

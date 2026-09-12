@@ -34,6 +34,7 @@
           "fields": [
             {
               "active": true,
+              "format": "date-time",
               "name": "createdAt",
               "req": false,
               "short": "Creation timestamp",
@@ -125,6 +126,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "updatedAt",
               "req": false,
               "short": "Last update timestamp",
@@ -150,12 +152,58 @@
               "points": [
                 {
                   "active": true,
+                  "args": {
+                    "params": [
+                      {
+                        "active": true,
+                        "kind": "param",
+                        "name": "id",
+                        "orig": "box_id",
+                        "reqd": true,
+                        "type": "`$STRING`"
+                      }
+                    ]
+                  },
+                  "kind": "http",
+                  "method": "POST",
+                  "orig": "/boxes/{boxId}/data",
+                  "rename": {
+                    "param": {
+                      "boxId": "id"
+                    }
+                  },
+                  "segments": [
+                    {
+                      "lit": "boxes"
+                    },
+                    {
+                      "var": "id"
+                    },
+                    {
+                      "lit": "data"
+                    }
+                  ],
+                  "select": {
+                    "$action": "data",
+                    "exist": [
+                      "id"
+                    ]
+                  },
+                  "transform": {
+                    "req": "`reqdata`",
+                    "res": "`body`"
+                  }
+                },
+                {
+                  "active": true,
                   "args": {},
                   "kind": "http",
                   "method": "POST",
                   "orig": "/boxes",
-                  "parts": [
-                    "boxes"
+                  "segments": [
+                    {
+                      "lit": "boxes"
+                    }
                   ],
                   "select": {},
                   "transform": {
@@ -221,17 +269,23 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/boxes/{boxId}/{sensorId}",
-                  "parts": [
-                    "boxes",
-                    "{box_id}",
-                    "{sensor_id}"
-                  ],
                   "rename": {
                     "param": {
                       "boxId": "box_id",
                       "sensorId": "sensor_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "boxes"
+                    },
+                    {
+                      "var": "box_id"
+                    },
+                    {
+                      "var": "sensor_id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "box_id",
@@ -288,8 +342,10 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/boxes",
-                  "parts": [
-                    "boxes"
+                  "segments": [
+                    {
+                      "lit": "boxes"
+                    }
                   ],
                   "select": {
                     "exist": [
@@ -338,15 +394,19 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/boxes/{boxId}",
-                  "parts": [
-                    "boxes",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "boxId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "boxes"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "format",
@@ -381,15 +441,19 @@
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/boxes/{boxId}",
-                  "parts": [
-                    "boxes",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "boxId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "boxes"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
@@ -423,78 +487,22 @@
                   "kind": "http",
                   "method": "PUT",
                   "orig": "/boxes/{boxId}",
-                  "parts": [
-                    "boxes",
-                    "{id}"
-                  ],
                   "rename": {
                     "param": {
                       "boxId": "id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "boxes"
+                    },
+                    {
+                      "var": "id"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "id"
-                    ]
-                  },
-                  "transform": {
-                    "req": "`reqdata`",
-                    "res": "`body`"
-                  }
-                }
-              ]
-            }
-          },
-          "relations": {
-            "ancestors": [
-              [
-                "box"
-              ]
-            ]
-          }
-        },
-        "measurement": {
-          "active": true,
-          "alias": {
-            "field": {}
-          },
-          "fields": [],
-          "name": "measurement",
-          "op": {
-            "create": {
-              "input": "data",
-              "name": "create",
-              "points": [
-                {
-                  "active": true,
-                  "args": {
-                    "params": [
-                      {
-                        "active": true,
-                        "kind": "param",
-                        "name": "box_id",
-                        "orig": "box_id",
-                        "reqd": true,
-                        "type": "`$STRING`"
-                      }
-                    ]
-                  },
-                  "kind": "http",
-                  "method": "POST",
-                  "orig": "/boxes/{boxId}/data",
-                  "parts": [
-                    "boxes",
-                    "{box_id}",
-                    "data"
-                  ],
-                  "rename": {
-                    "param": {
-                      "boxId": "box_id"
-                    }
-                  },
-                  "select": {
-                    "exist": [
-                      "box_id"
                     ]
                   },
                   "transform": {
@@ -588,16 +596,22 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/boxes/{boxId}/sensors",
-                  "parts": [
-                    "boxes",
-                    "{box_id}",
-                    "sensors"
-                  ],
                   "rename": {
                     "param": {
                       "boxId": "box_id"
                     }
                   },
+                  "segments": [
+                    {
+                      "lit": "boxes"
+                    },
+                    {
+                      "var": "box_id"
+                    },
+                    {
+                      "lit": "sensors"
+                    }
+                  ],
                   "select": {
                     "exist": [
                       "box_id"
@@ -715,9 +729,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/statistics/descriptive",
-                  "parts": [
-                    "statistics",
-                    "descriptive"
+                  "segments": [
+                    {
+                      "lit": "statistics"
+                    },
+                    {
+                      "lit": "descriptive"
+                    }
                   ],
                   "select": {
                     "$action": "descriptive",
@@ -755,6 +773,7 @@
             },
             {
               "active": true,
+              "format": "date-time",
               "name": "createdAt",
               "req": false,
               "short": "Account creation timestamp",
@@ -762,6 +781,7 @@
             },
             {
               "active": true,
+              "format": "email",
               "name": "email",
               "op": {
                 "create": {
@@ -803,6 +823,7 @@
             },
             {
               "active": true,
+              "format": "password",
               "name": "password",
               "req": true,
               "short": "User's password",
@@ -832,9 +853,13 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/users/register",
-                  "parts": [
-                    "users",
-                    "register"
+                  "segments": [
+                    {
+                      "lit": "users"
+                    },
+                    {
+                      "lit": "register"
+                    }
                   ],
                   "select": {
                     "$action": "register"
@@ -850,9 +875,13 @@
                   "kind": "http",
                   "method": "POST",
                   "orig": "/users/sign-in",
-                  "parts": [
-                    "users",
-                    "sign-in"
+                  "segments": [
+                    {
+                      "lit": "users"
+                    },
+                    {
+                      "lit": "sign-in"
+                    }
                   ],
                   "select": {
                     "$action": "sign_in"
@@ -874,9 +903,13 @@
                   "kind": "http",
                   "method": "GET",
                   "orig": "/users/me",
-                  "parts": [
-                    "users",
-                    "me"
+                  "segments": [
+                    {
+                      "lit": "users"
+                    },
+                    {
+                      "lit": "me"
+                    }
                   ],
                   "select": {
                     "$action": "me"
@@ -958,8 +991,11 @@
             }
           },
           "name": "test",
+          "needs": {},
           "origname": "",
           "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
           "target": {
             "go": {
               "deps": {}
@@ -1104,29 +1140,6 @@
                   }
                 }
               ]
-            }
-          ]
-        },
-        "BasicMeasurementFlow": {
-          "active": true,
-          "entity": "measurement",
-          "key$": "BasicMeasurementFlow",
-          "kind": "basic",
-          "name": "BasicMeasurementFlow",
-          "param": {},
-          "step": [
-            {
-              "active": true,
-              "data": {},
-              "input": {
-                "ref": "measurement_ref01"
-              },
-              "match": {
-                "box_id": "box01"
-              },
-              "op": "create",
-              "spec": [],
-              "valid": []
             }
           ]
         },
@@ -1291,6 +1304,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1316,6 +1332,10 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/runner_test.go",
+            "test/struct_runner_test.go"
+          ],
           "title": "Golang"
         },
         "go-cli": {
@@ -1367,6 +1387,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -1391,6 +1412,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go CLI"
         },
         "go-mcp": {
@@ -1442,6 +1464,7 @@
               "active": false
             }
           },
+          "provides": {},
           "publish": {
             "registry": {
               "active": false,
@@ -1466,6 +1489,7 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [],
           "title": "Go MCP server"
         },
         "lua": {
@@ -1506,6 +1530,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1531,6 +1558,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.lua"
+          ],
           "title": "Lua"
         },
         "php": {
@@ -1565,6 +1595,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1590,6 +1623,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/StructRunner.php"
+          ],
           "title": "PHP"
         },
         "py": {
@@ -1630,6 +1666,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1655,6 +1694,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.py"
+          ],
           "title": "Python"
         },
         "rb": {
@@ -1700,6 +1742,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1725,6 +1770,9 @@
             "version": "0.0.1"
           },
           "srcfeature": false,
+          "superseded": [
+            "test/struct_runner.rb"
+          ],
           "title": "Ruby"
         },
         "ts": {
@@ -1742,11 +1790,6 @@
               "active": true,
               "kind": "dev",
               "version": "^25.6.0"
-            },
-            "dotenv": {
-              "active": true,
-              "kind": "dev",
-              "version": "^17.4.2"
             },
             "typescript": {
               "active": true,
@@ -1775,6 +1818,9 @@
             "sdkrel": ""
           },
           "package": "@voxgig/sdkgen",
+          "provides": {
+            "sekreto": true
+          },
           "publish": {
             "registry": {
               "active": false,
@@ -1799,6 +1845,14 @@
             },
             "version": "0.0.1"
           },
+          "superseded": [
+            "test/runner.ts",
+            "test/vendor/omni/compat.ts",
+            "src/feature/secrets/sekreto/Providers.ts",
+            "src/feature/secrets/sekreto/Sigv4.ts",
+            "src/feature/secrets/sekreto/provider/Registry.ts",
+            "src/feature/secrets/sekreto/provider/http.ts"
+          ],
           "title": "TypeScript"
         }
       },

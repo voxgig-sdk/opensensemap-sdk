@@ -33,7 +33,6 @@ func MakeConfig() map[string]any {
 			},
 			"entity": map[string]any{
 				"box": map[string]any{},
-				"measurement": map[string]any{},
 				"sensor": map[string]any{},
 				"statistic": map[string]any{},
 				"user": map[string]any{},
@@ -43,6 +42,7 @@ func MakeConfig() map[string]any {
 			"box": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"format": "date-time",
 						"name": "createdAt",
 						"short": "Creation timestamp",
 						"type": "`$STRING`",
@@ -116,6 +116,7 @@ func MakeConfig() map[string]any {
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
+						"format": "date-time",
 						"name": "updatedAt",
 						"short": "Last update timestamp",
 						"type": "`$STRING`",
@@ -126,6 +127,10 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
+				},
 				"name": "box",
 				"op": map[string]any{
 					"create": map[string]any{
@@ -133,17 +138,69 @@ func MakeConfig() map[string]any {
 						"name": "create",
 						"points": []any{
 							map[string]any{
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"kind": "param",
+											"name": "id",
+											"orig": "box_id",
+											"reqd": true,
+											"type": "`$STRING`",
+										},
+									},
+								},
+								"kind": "http",
+								"method": "POST",
+								"orig": "/boxes/{boxId}/data",
+								"rename": map[string]any{
+									"param": map[string]any{
+										"boxId": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "boxes",
+									},
+									map[string]any{
+										"var": "id",
+									},
+									map[string]any{
+										"lit": "data",
+									},
+								},
+								"select": map[string]any{
+									"$action": "data",
+									"exist": []any{
+										"id",
+									},
+								},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"parts": []any{
+									"boxes",
+									"{id}",
+									"data",
+								},
+							},
+							map[string]any{
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/boxes",
-								"parts": []any{
-									"boxes",
+								"segments": []any{
+									map[string]any{
+										"lit": "boxes",
+									},
 								},
 								"select": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"boxes",
 								},
 							},
 						},
@@ -195,15 +252,21 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/boxes/{boxId}/{sensorId}",
-								"parts": []any{
-									"boxes",
-									"{box_id}",
-									"{sensor_id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"boxId": "box_id",
 										"sensorId": "sensor_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "boxes",
+									},
+									map[string]any{
+										"var": "box_id",
+									},
+									map[string]any{
+										"var": "sensor_id",
 									},
 								},
 								"select": map[string]any{
@@ -218,6 +281,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"boxes",
+									"{box_id}",
+									"{sensor_id}",
 								},
 							},
 							map[string]any{
@@ -253,8 +321,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/boxes",
-								"parts": []any{
-									"boxes",
+								"segments": []any{
+									map[string]any{
+										"lit": "boxes",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -267,6 +337,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"boxes",
 								},
 							},
 						},
@@ -299,13 +372,17 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/boxes/{boxId}",
-								"parts": []any{
-									"boxes",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"boxId": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "boxes",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -317,6 +394,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"boxes",
+									"{id}",
 								},
 							},
 						},
@@ -340,13 +421,17 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/boxes/{boxId}",
-								"parts": []any{
-									"boxes",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"boxId": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "boxes",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -357,6 +442,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"boxes",
+									"{id}",
 								},
 							},
 						},
@@ -380,13 +469,17 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "PUT",
 								"orig": "/boxes/{boxId}",
-								"parts": []any{
-									"boxes",
-									"{id}",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"boxId": "id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "boxes",
+									},
+									map[string]any{
+										"var": "id",
 									},
 								},
 								"select": map[string]any{
@@ -398,59 +491,9 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-							},
-						},
-					},
-				},
-				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"box",
-						},
-					},
-				},
-			},
-			"measurement": map[string]any{
-				"fields": []any{},
-				"name": "measurement",
-				"op": map[string]any{
-					"create": map[string]any{
-						"input": "data",
-						"name": "create",
-						"points": []any{
-							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"kind": "param",
-											"name": "box_id",
-											"orig": "box_id",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
-								"kind": "http",
-								"method": "POST",
-								"orig": "/boxes/{boxId}/data",
 								"parts": []any{
 									"boxes",
-									"{box_id}",
-									"data",
-								},
-								"rename": map[string]any{
-									"param": map[string]any{
-										"boxId": "box_id",
-									},
-								},
-								"select": map[string]any{
-									"exist": []any{
-										"box_id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
+									"{id}",
 								},
 							},
 						},
@@ -496,6 +539,10 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
+				},
 				"name": "sensor",
 				"op": map[string]any{
 					"list": map[string]any{
@@ -517,14 +564,20 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/boxes/{boxId}/sensors",
-								"parts": []any{
-									"boxes",
-									"{box_id}",
-									"sensors",
-								},
 								"rename": map[string]any{
 									"param": map[string]any{
 										"boxId": "box_id",
+									},
+								},
+								"segments": []any{
+									map[string]any{
+										"lit": "boxes",
+									},
+									map[string]any{
+										"var": "box_id",
+									},
+									map[string]any{
+										"lit": "sensors",
 									},
 								},
 								"select": map[string]any{
@@ -535,6 +588,11 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"boxes",
+									"{box_id}",
+									"sensors",
 								},
 							},
 						},
@@ -619,9 +677,13 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/statistics/descriptive",
-								"parts": []any{
-									"statistics",
-									"descriptive",
+								"segments": []any{
+									map[string]any{
+										"lit": "statistics",
+									},
+									map[string]any{
+										"lit": "descriptive",
+									},
 								},
 								"select": map[string]any{
 									"$action": "descriptive",
@@ -635,6 +697,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"statistics",
+									"descriptive",
 								},
 							},
 						},
@@ -652,11 +718,13 @@ func MakeConfig() map[string]any {
 						"type": "`$ARRAY`",
 					},
 					map[string]any{
+						"format": "date-time",
 						"name": "createdAt",
 						"short": "Account creation timestamp",
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "email",
 						"name": "email",
 						"op": map[string]any{
 							"create": map[string]any{
@@ -690,6 +758,7 @@ func MakeConfig() map[string]any {
 						"type": "`$STRING`",
 					},
 					map[string]any{
+						"format": "password",
 						"name": "password",
 						"req": true,
 						"short": "User's password",
@@ -700,6 +769,10 @@ func MakeConfig() map[string]any {
 						"short": "User's role",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "user",
 				"op": map[string]any{
@@ -712,9 +785,13 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/users/register",
-								"parts": []any{
-									"users",
-									"register",
+								"segments": []any{
+									map[string]any{
+										"lit": "users",
+									},
+									map[string]any{
+										"lit": "register",
+									},
 								},
 								"select": map[string]any{
 									"$action": "register",
@@ -723,15 +800,23 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
+								"parts": []any{
+									"users",
+									"register",
+								},
 							},
 							map[string]any{
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "POST",
 								"orig": "/users/sign-in",
-								"parts": []any{
-									"users",
-									"sign-in",
+								"segments": []any{
+									map[string]any{
+										"lit": "users",
+									},
+									map[string]any{
+										"lit": "sign-in",
+									},
 								},
 								"select": map[string]any{
 									"$action": "sign_in",
@@ -739,6 +824,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.user`",
+								},
+								"parts": []any{
+									"users",
+									"sign-in",
 								},
 							},
 						},
@@ -752,9 +841,13 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/users/me",
-								"parts": []any{
-									"users",
-									"me",
+								"segments": []any{
+									map[string]any{
+										"lit": "users",
+									},
+									map[string]any{
+										"lit": "me",
+									},
 								},
 								"select": map[string]any{
 									"$action": "me",
@@ -762,6 +855,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body.boxes`",
+								},
+								"parts": []any{
+									"users",
+									"me",
 								},
 							},
 						},
@@ -773,6 +870,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

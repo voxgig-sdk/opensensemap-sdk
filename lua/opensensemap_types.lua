@@ -59,11 +59,6 @@
 ---@class BoxRemoveMatch
 ---@field id string
 
----@class Measurement
-
----@class MeasurementCreateData
----@field box_id string
-
 ---@class Sensor
 ---@field icon? string
 ---@field id? string

@@ -52,10 +52,6 @@ client := sdk.TestSDK(testopts, sdkopts)
 
 Create a new `Box` entity instance. Pass `nil` for no initial data.
 
-#### `Measurement(data map[string]any) OpensensemapEntity`
-
-Create a new `Measurement` entity instance. Pass `nil` for no initial data.
-
 #### `Sensor(data map[string]any) OpensensemapEntity`
 
 Create a new `Sensor` entity instance. Pass `nil` for no initial data.
@@ -224,53 +220,6 @@ Get or set the entity match criteria. Works the same as `Data()`.
 #### `Make() Entity`
 
 Create a new `BoxEntity` instance with the same client and
-options.
-
-#### `GetName() string`
-
-Return the entity name.
-
-
----
-
-## MeasurementEntity
-
-```go
-measurement := client.Measurement(nil)
-fmt.Println(measurement.GetName()) // "measurement"
-```
-
-### Operations
-
-#### `Create(reqdata, ctrl map[string]any) (any, error)`
-
-Create a new entity with the given data.
-
-```go
-result, err := client.Measurement(nil).Create(map[string]any{
-    "box_id": "example_box_id",
-}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(result)
-```
-
-### Common Methods
-
-#### `Data(args ...any) any`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `Match(args ...any) any`
-
-Get or set the entity match criteria. Works the same as `Data()`.
-
-#### `Make() Entity`
-
-Create a new `MeasurementEntity` instance with the same client and
 options.
 
 #### `GetName() string`

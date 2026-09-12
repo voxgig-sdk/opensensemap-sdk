@@ -120,7 +120,7 @@ def sensor_basic_setup(extra)
     "OPENSENSEMAP_TEST_SENSOR_ENTID" => idmap,
     "OPENSENSEMAP_TEST_LIVE" => "FALSE",
     "OPENSENSEMAP_TEST_EXPLAIN" => "FALSE",
-    "OPENSENSEMAP_APIKEY" => "NONE",
+    "OPENSENSEMAP_APIKEY" => "",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -131,6 +131,9 @@ def sensor_basic_setup(extra)
 
   if env["OPENSENSEMAP_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
+      # FIRST, so the generated fields below win: sdk-test-control.json's
+      # test.client.options adds to the live client, it does not redirect it.
+      Runner.live_client_options,
       {
         "apikey" => env["OPENSENSEMAP_APIKEY"],
       },

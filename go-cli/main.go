@@ -20,7 +20,7 @@ import (
 const prompt = "opensensemap"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "box measurement sensor statistic user"
+const entitiesHelp = "box sensor statistic user"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

@@ -66,16 +66,22 @@ main: kit: entity: sensor: {
           }
           method: "GET"
           orig: "/boxes/{boxId}/sensors"
-          parts: [
-            "boxes"
-            "{box_id}"
-            "sensors"
-          ]
           rename: {
             param: {
               boxId: "box_id"
             }
           }
+          segments: [
+            {
+              lit: "boxes"
+            }
+            {
+              var: "box_id"
+            }
+            {
+              lit: "sensors"
+            }
+          ]
           select: {
             exist: [
               "box_id"

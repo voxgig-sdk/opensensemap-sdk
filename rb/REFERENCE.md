@@ -46,10 +46,6 @@ client = OpensensemapSDK.test
 
 Create a new `Box` entity instance. Pass `nil` for no initial data.
 
-#### `Measurement(data = nil)`
-
-Create a new `Measurement` entity instance. Pass `nil` for no initial data.
-
 #### `Sensor(data = nil)`
 
 Create a new `Sensor` entity instance. Pass `nil` for no initial data.
@@ -205,54 +201,6 @@ Set the entity match criteria.
 #### `make -> Entity`
 
 Create a new `BoxEntity` instance with the same client and
-options.
-
-#### `get_name -> String`
-
-Return the entity name.
-
-
----
-
-## MeasurementEntity
-
-```ruby
-measurement = client.Measurement
-```
-
-### Operations
-
-#### `create(reqdata, ctrl = nil) -> result`
-
-Create a new entity with the given data. Raises on error.
-
-```ruby
-result = client.Measurement.create({
-  "box_id" => "example_box_id", # String
-})
-```
-
-### Common Methods
-
-#### `data_get -> Hash`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get -> Hash`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make -> Entity`
-
-Create a new `MeasurementEntity` instance with the same client and
 options.
 
 #### `get_name -> String`

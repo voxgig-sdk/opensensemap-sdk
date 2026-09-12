@@ -44,6 +44,12 @@ export interface BoxCreateData {
   sensors?: any[]
   updatedAt?: string
   value?: string
+
+  // Selects a custom action instead of the plain create:
+  //   'data'
+  // The remaining keys are that action's own payload.
+  $action?: string
+  [action: string]: any
 }
 
 export interface BoxUpdateData {
@@ -62,13 +68,6 @@ export interface BoxUpdateData {
 
 export interface BoxRemoveMatch {
   id: string
-}
-
-export interface Measurement {
-}
-
-export interface MeasurementCreateData {
-  box_id: string
 }
 
 export interface Sensor {

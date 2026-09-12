@@ -296,13 +296,6 @@ class OpensensemapSDK
   end
 
 
-  # Canonical facade: client.Measurement.list / client.Measurement.load({ "id" => ... })
-  def Measurement(data = nil)
-    require_relative 'entity/measurement_entity'
-    MeasurementEntity.new(self, data)
-  end
-
-
   # Canonical facade: client.Sensor.list / client.Sensor.load({ "id" => ... })
   def Sensor(data = nil)
     require_relative 'entity/sensor_entity'

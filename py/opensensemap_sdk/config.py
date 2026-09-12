@@ -1,6 +1,14 @@
 # Opensensemap SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -50,7 +58,6 @@ def make_config():
       },
             "entity": {
                 "box": {},
-                "measurement": {},
                 "sensor": {},
                 "statistic": {},
                 "user": {},
@@ -60,6 +67,7 @@ def make_config():
       "box": {
         "fields": [
           {
+            "format": "date-time",
             "name": "createdAt",
             "short": "Creation timestamp",
             "type": "`$STRING`",
@@ -133,6 +141,7 @@ def make_config():
             "type": "`$ARRAY`",
           },
           {
+            "format": "date-time",
             "name": "updatedAt",
             "short": "Last update timestamp",
             "type": "`$STRING`",
@@ -143,6 +152,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "box",
         "op": {
           "create": {
@@ -150,18 +163,70 @@ def make_config():
             "name": "create",
             "points": [
               {
+                "args": {
+                  "params": [
+                    {
+                      "kind": "param",
+                      "name": "id",
+                      "orig": "box_id",
+                      "reqd": True,
+                      "type": "`$STRING`",
+                    },
+                  ],
+                },
+                "kind": "http",
+                "method": "POST",
+                "orig": "/boxes/{boxId}/data",
+                "rename": {
+                  "param": {
+                    "boxId": "id",
+                  },
+                },
+                "segments": [
+                  {
+                    "lit": "boxes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                  {
+                    "lit": "data",
+                  },
+                ],
+                "select": {
+                  "$action": "data",
+                  "exist": [
+                    "id",
+                  ],
+                },
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "parts": [
+                  "boxes",
+                  "{id}",
+                  "data",
+                ],
+              },
+              {
                 "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/boxes",
-                "parts": [
-                  "boxes",
+                "segments": [
+                  {
+                    "lit": "boxes",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "boxes",
+                ],
               },
             ],
           },
@@ -212,17 +277,23 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/boxes/{boxId}/{sensorId}",
-                "parts": [
-                  "boxes",
-                  "{box_id}",
-                  "{sensor_id}",
-                ],
                 "rename": {
                   "param": {
                     "boxId": "box_id",
                     "sensorId": "sensor_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "boxes",
+                  },
+                  {
+                    "var": "box_id",
+                  },
+                  {
+                    "var": "sensor_id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "box_id",
@@ -236,6 +307,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "boxes",
+                  "{box_id}",
+                  "{sensor_id}",
+                ],
               },
               {
                 "args": {
@@ -270,8 +346,10 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/boxes",
-                "parts": [
-                  "boxes",
+                "segments": [
+                  {
+                    "lit": "boxes",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -285,6 +363,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "boxes",
+                ],
               },
             ],
           },
@@ -316,15 +397,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/boxes/{boxId}",
-                "parts": [
-                  "boxes",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "boxId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "boxes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "format",
@@ -335,6 +420,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "boxes",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -357,15 +446,19 @@ def make_config():
                 "kind": "http",
                 "method": "DELETE",
                 "orig": "/boxes/{boxId}",
-                "parts": [
-                  "boxes",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "boxId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "boxes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -375,6 +468,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "boxes",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -397,15 +494,19 @@ def make_config():
                 "kind": "http",
                 "method": "PUT",
                 "orig": "/boxes/{boxId}",
-                "parts": [
-                  "boxes",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "boxId": "id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "boxes",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "id",
@@ -415,60 +516,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-              },
-            ],
-          },
-        },
-        "relations": {
-          "ancestors": [
-            [
-              "box",
-            ],
-          ],
-        },
-      },
-      "measurement": {
-        "fields": [],
-        "name": "measurement",
-        "op": {
-          "create": {
-            "input": "data",
-            "name": "create",
-            "points": [
-              {
-                "args": {
-                  "params": [
-                    {
-                      "kind": "param",
-                      "name": "box_id",
-                      "orig": "box_id",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
-                "kind": "http",
-                "method": "POST",
-                "orig": "/boxes/{boxId}/data",
                 "parts": [
                   "boxes",
-                  "{box_id}",
-                  "data",
+                  "{id}",
                 ],
-                "rename": {
-                  "param": {
-                    "boxId": "box_id",
-                  },
-                },
-                "select": {
-                  "exist": [
-                    "box_id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
               },
             ],
           },
@@ -513,6 +564,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "sensor",
         "op": {
           "list": {
@@ -534,16 +589,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/boxes/{boxId}/sensors",
-                "parts": [
-                  "boxes",
-                  "{box_id}",
-                  "sensors",
-                ],
                 "rename": {
                   "param": {
                     "boxId": "box_id",
                   },
                 },
+                "segments": [
+                  {
+                    "lit": "boxes",
+                  },
+                  {
+                    "var": "box_id",
+                  },
+                  {
+                    "lit": "sensors",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "box_id",
@@ -553,6 +614,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "boxes",
+                  "{box_id}",
+                  "sensors",
+                ],
               },
             ],
           },
@@ -636,9 +702,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/statistics/descriptive",
-                "parts": [
-                  "statistics",
-                  "descriptive",
+                "segments": [
+                  {
+                    "lit": "statistics",
+                  },
+                  {
+                    "lit": "descriptive",
+                  },
                 ],
                 "select": {
                   "$action": "descriptive",
@@ -653,6 +723,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "statistics",
+                  "descriptive",
+                ],
               },
             ],
           },
@@ -669,11 +743,13 @@ def make_config():
             "type": "`$ARRAY`",
           },
           {
+            "format": "date-time",
             "name": "createdAt",
             "short": "Account creation timestamp",
             "type": "`$STRING`",
           },
           {
+            "format": "email",
             "name": "email",
             "op": {
               "create": {
@@ -707,6 +783,7 @@ def make_config():
             "type": "`$STRING`",
           },
           {
+            "format": "password",
             "name": "password",
             "req": True,
             "short": "User's password",
@@ -718,6 +795,10 @@ def make_config():
             "type": "`$STRING`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "user",
         "op": {
           "create": {
@@ -729,9 +810,13 @@ def make_config():
                 "kind": "http",
                 "method": "POST",
                 "orig": "/users/register",
-                "parts": [
-                  "users",
-                  "register",
+                "segments": [
+                  {
+                    "lit": "users",
+                  },
+                  {
+                    "lit": "register",
+                  },
                 ],
                 "select": {
                   "$action": "register",
@@ -740,15 +825,23 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "users",
+                  "register",
+                ],
               },
               {
                 "args": {},
                 "kind": "http",
                 "method": "POST",
                 "orig": "/users/sign-in",
-                "parts": [
-                  "users",
-                  "sign-in",
+                "segments": [
+                  {
+                    "lit": "users",
+                  },
+                  {
+                    "lit": "sign-in",
+                  },
                 ],
                 "select": {
                   "$action": "sign_in",
@@ -757,6 +850,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.user`",
                 },
+                "parts": [
+                  "users",
+                  "sign-in",
+                ],
               },
             ],
           },
@@ -769,9 +866,13 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/users/me",
-                "parts": [
-                  "users",
-                  "me",
+                "segments": [
+                  {
+                    "lit": "users",
+                  },
+                  {
+                    "lit": "me",
+                  },
                 ],
                 "select": {
                   "$action": "me",
@@ -780,6 +881,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.boxes`",
                 },
+                "parts": [
+                  "users",
+                  "me",
+                ],
               },
             ],
           },

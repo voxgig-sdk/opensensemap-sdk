@@ -23,7 +23,7 @@ export OPENSENSEMAP_APIKEY=sk_live_xxx
 ./opensensemap-cli load 1 box            # {id:1} shorthand
 ./opensensemap-cli load '{id:1}' box       # explicit match map
 ./opensensemap-cli update '{name:"x"}' box
-./opensensemap-cli list measurement
+./opensensemap-cli list sensor
 
 # 5. Override the API base URL for a single call
 OPENSENSEMAP_BASE=https://api.example.com ./opensensemap-cli list box
@@ -128,7 +128,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 5 entities.
+below — this SDK exposes 4 entities.
 
 ## Reference
 
@@ -183,9 +183,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 5 entities this SDK exposes (any is valid as `<entity>`):
+The 4 entities this SDK exposes (any is valid as `<entity>`):
 
-box measurement sensor statistic user
+box sensor statistic user
 
 ## Explanation
 

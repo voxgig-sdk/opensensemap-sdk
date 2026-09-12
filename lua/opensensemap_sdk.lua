@@ -86,6 +86,16 @@ function OpensensemapSDK.new(options)
     end
   end
 
+  -- CONSUMED, not kept. `extend` holds feature INSTANCES, and every shipped
+  -- feature's init stores `self.client = ctx.client` - so leaving the list
+  -- in self.options makes the options map CYCLIC (client.options.extend[1]
+  -- .client == client), and options_map()'s vs.clone, which has no cycle
+  -- guard, blew the stack on the first prepare_auth of any client built with
+  -- an extend feature. The instances live on self.features from here on,
+  -- which is the only place anything reads them; the SAME table is
+  -- self._rootctx.options, so the root context loses the key too.
+  self.options["extend"] = nil
+
   -- Initialize features.
   for _, f in ipairs(self.features) do
     utility.feature_init(self._rootctx, f)
@@ -345,20 +355,6 @@ function OpensensemapSDK:Box(data)
       self._box = EntityMod.new(self, nil)
     end
     return self._box
-  end
-  return EntityMod.new(self, data)
-end
-
-
--- Idiomatic facade: client:Measurement():list() / client:Measurement():load({ id = ... })
--- Entity access is capitalised (PascalCase) for parity with the other SDKs.
-function OpensensemapSDK:Measurement(data)
-  local EntityMod = require("entity.measurement_entity")
-  if data == nil then
-    if self._measurement == nil then
-      self._measurement = EntityMod.new(self, nil)
-    end
-    return self._measurement
   end
   return EntityMod.new(self, data)
 end

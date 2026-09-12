@@ -12,12 +12,14 @@ main: kit: entity: user: {
       type: "`$ARRAY`"
     }
     {
+      format: "date-time"
       name: "createdAt"
       req: false
       short: "Account creation timestamp"
       type: "`$STRING`"
     }
     {
+      format: "email"
       name: "email"
       op: {
         create: {
@@ -56,6 +58,7 @@ main: kit: entity: user: {
       type: "`$STRING`"
     }
     {
+      format: "password"
       name: "password"
       req: true
       short: "User's password"
@@ -82,9 +85,13 @@ main: kit: entity: user: {
         {
           method: "POST"
           orig: "/users/register"
-          parts: [
-            "users"
-            "register"
+          segments: [
+            {
+              lit: "users"
+            }
+            {
+              lit: "register"
+            }
           ]
           select: {
             "$action": "register"
@@ -97,9 +104,13 @@ main: kit: entity: user: {
         {
           method: "POST"
           orig: "/users/sign-in"
-          parts: [
-            "users"
-            "sign-in"
+          segments: [
+            {
+              lit: "users"
+            }
+            {
+              lit: "sign-in"
+            }
           ]
           select: {
             "$action": "sign_in"
@@ -117,9 +128,13 @@ main: kit: entity: user: {
         {
           method: "GET"
           orig: "/users/me"
-          parts: [
-            "users"
-            "me"
+          segments: [
+            {
+              lit: "users"
+            }
+            {
+              lit: "me"
+            }
           ]
           select: {
             "$action": "me"

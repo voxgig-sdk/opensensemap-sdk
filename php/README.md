@@ -237,7 +237,6 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
 | `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
 | `Box` | `($data): BoxEntity` | Create a Box entity instance. |
-| `Measurement` | `($data): MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor` | `($data): SensorEntity` | Create a Sensor entity instance. |
 | `Statistic` | `($data): StatisticEntity` | Create a Statistic entity instance. |
 | `User` | `($data): UserEntity` | Create an User entity instance. |
@@ -297,15 +296,6 @@ On error, `ok` is `false` and `$err` contains the error value.
 | `value` | Measurement value |
 
 Operations: Create, List, Load, Remove, Update.
-
-API path: `/boxes`
-
-#### Measurement
-
-| Field | Description |
-| --- | --- |
-
-Operations: Create.
 
 API path: `/boxes/{boxId}/data`
 
@@ -408,25 +398,6 @@ $boxs = $client->Box()->list();
 
 ```php
 $box = $client->Box()->create([
-]);
-```
-
-
-### Measurement
-
-Create an instance: `$measurement = $client->Measurement();`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Example: Create
-
-```php
-$measurement = $client->Measurement()->create([
-    "box_id" => null, // string
 ]);
 ```
 

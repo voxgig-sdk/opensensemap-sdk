@@ -6,6 +6,7 @@ main: kit: entity: box: {
 
   fields: [
     {
+      format: "date-time"
       name: "createdAt"
       req: false
       short: "Creation timestamp"
@@ -88,6 +89,7 @@ main: kit: entity: box: {
       type: "`$ARRAY`"
     }
     {
+      format: "date-time"
       name: "updatedAt"
       req: false
       short: "Last update timestamp"
@@ -112,10 +114,53 @@ main: kit: entity: box: {
       name: "create"
       points: [
         {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "id"
+                orig: "box_id"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "POST"
+          orig: "/boxes/{boxId}/data"
+          rename: {
+            param: {
+              boxId: "id"
+            }
+          }
+          segments: [
+            {
+              lit: "boxes"
+            }
+            {
+              var: "id"
+            }
+            {
+              lit: "data"
+            }
+          ]
+          select: {
+            "$action": "data"
+            exist: [
+              "id"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+        {
           method: "POST"
           orig: "/boxes"
-          parts: [
-            "boxes"
+          segments: [
+            {
+              lit: "boxes"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -172,17 +217,23 @@ main: kit: entity: box: {
           }
           method: "GET"
           orig: "/boxes/{boxId}/{sensorId}"
-          parts: [
-            "boxes"
-            "{box_id}"
-            "{sensor_id}"
-          ]
           rename: {
             param: {
               boxId: "box_id"
               sensorId: "sensor_id"
             }
           }
+          segments: [
+            {
+              lit: "boxes"
+            }
+            {
+              var: "box_id"
+            }
+            {
+              var: "sensor_id"
+            }
+          ]
           select: {
             exist: [
               "box_id"
@@ -233,8 +284,10 @@ main: kit: entity: box: {
           }
           method: "GET"
           orig: "/boxes"
-          parts: [
-            "boxes"
+          segments: [
+            {
+              lit: "boxes"
+            }
           ]
           select: {
             exist: [
@@ -278,15 +331,19 @@ main: kit: entity: box: {
           }
           method: "GET"
           orig: "/boxes/{boxId}"
-          parts: [
-            "boxes"
-            "{id}"
-          ]
           rename: {
             param: {
               boxId: "id"
             }
           }
+          segments: [
+            {
+              lit: "boxes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "format"
@@ -317,15 +374,19 @@ main: kit: entity: box: {
           }
           method: "DELETE"
           orig: "/boxes/{boxId}"
-          parts: [
-            "boxes"
-            "{id}"
-          ]
           rename: {
             param: {
               boxId: "id"
             }
           }
+          segments: [
+            {
+              lit: "boxes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"
@@ -355,15 +416,19 @@ main: kit: entity: box: {
           }
           method: "PUT"
           orig: "/boxes/{boxId}"
-          parts: [
-            "boxes"
-            "{id}"
-          ]
           rename: {
             param: {
               boxId: "id"
             }
           }
+          segments: [
+            {
+              lit: "boxes"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "id"

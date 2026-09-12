@@ -98,7 +98,7 @@ func TestSensorEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		sensorRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.sensor", setup.data)))
+		sensorRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.sensor")))
 		var sensorRef01Data map[string]any
 		if len(sensorRef01DataRaw) > 0 {
 			sensorRef01Data = core.ToMapAny(sensorRef01DataRaw[0][1])
@@ -149,7 +149,7 @@ func sensorBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"sensor01", "sensor02", "sensor03", "box01", "box02", "box03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -169,7 +169,7 @@ func sensorBasicSetup(extra map[string]any) *entityTestSetup {
 		"OPENSENSEMAP_TEST_SENSOR_ENTID": idmap,
 		"OPENSENSEMAP_TEST_LIVE":      "FALSE",
 		"OPENSENSEMAP_TEST_EXPLAIN":   "FALSE",
-		"OPENSENSEMAP_APIKEY":         "NONE",
+		"OPENSENSEMAP_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["OPENSENSEMAP_TEST_SENSOR_ENTID"])
@@ -178,11 +178,23 @@ func sensorBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["OPENSENSEMAP_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["OPENSENSEMAP_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewOpensensemapSDK(core.ToMapAny(mergedOpts))
 	}

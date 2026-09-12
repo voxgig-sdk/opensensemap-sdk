@@ -61,18 +61,6 @@ Create a new `Box` entity instance.
 
 **Returns:** `BoxEntity` instance.
 
-#### `Measurement(data?: object)`
-
-Create a new `Measurement` entity instance.
-
-**Parameters:**
-
-| Name | Type | Description |
-| --- | --- | --- |
-| `data` | `object` | Initial entity data. |
-
-**Returns:** `MeasurementEntity` instance.
-
 #### `Sensor(data?: object)`
 
 Create a new `Sensor` entity instance.
@@ -193,6 +181,26 @@ const box = client.Box()
 | `updatedAt` | - | - | - | - | - |
 | `value` | - | - | - | - | - |
 
+### Actions
+
+This entity exposes custom API actions in addition to the standard
+operations. Select one with `$action` in the call's argument; the
+remaining keys are sent as that action's payload.
+
+| Action | Route | Call |
+| --- | --- | --- |
+| `data` | `/boxes/{boxId}/data` | `client.Box().create({ $action: 'data', ... })` |
+
+An action returns that action's OWN response, which is not necessarily a
+Box record — check the API definition for its shape.
+
+```ts
+const result = await client.Box().create({
+  $action: 'data',
+  /* ...the action's own arguments */
+})
+```
+
 ### Operations
 
 #### `create(data: object, ctrl?: object)`
@@ -254,52 +262,6 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `BoxEntity` instance with the same client and
-options.
-
-#### `client()`
-
-Return the parent `OpensensemapSDK` instance.
-
-#### `entopts()`
-
-Return a copy of the entity options.
-
-
----
-
-## MeasurementEntity
-
-```ts
-const measurement = client.Measurement()
-```
-
-### Operations
-
-#### `create(data: object, ctrl?: object)`
-
-Create a new entity with the given data.
-
-```ts
-const result = await client.Measurement().create({
-  box_id: 'example_box_id',
-})
-```
-
-### Common Methods
-
-#### `data(data?: object)`
-
-Get or set the entity data. When called with data, sets the entity's
-internal data and returns the current data. When called without
-arguments, returns a copy of the current data.
-
-#### `match(match?: object)`
-
-Get or set the entity match criteria. Works the same as `data()`.
-
-#### `make()`
-
-Create a new `MeasurementEntity` instance with the same client and
 options.
 
 #### `client()`

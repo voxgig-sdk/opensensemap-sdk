@@ -46,10 +46,6 @@ client = OpensensemapSDK.test()
 
 Create a new `BoxEntity` instance. Pass `None` for no initial data.
 
-#### `Measurement(data=None)`
-
-Create a new `MeasurementEntity` instance. Pass `None` for no initial data.
-
 #### `Sensor(data=None)`
 
 Create a new `SensorEntity` instance. Pass `None` for no initial data.
@@ -201,53 +197,6 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `BoxEntity` instance with the same options.
-
-#### `get_name() -> str`
-
-Return the entity name.
-
-
----
-
-## MeasurementEntity
-
-```python
-measurement = client.Measurement()
-```
-
-### Operations
-
-#### `create(reqdata, ctrl=None) -> dict`
-
-Create a new entity with the given data. Returns the created entity data and raises on error.
-
-```python
-result = client.Measurement().create({
-    "box_id": "example_box_id",  # str
-})
-```
-
-### Common Methods
-
-#### `data_get() -> dict`
-
-Get the entity data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> dict`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `MeasurementEntity` instance with the same options.
 
 #### `get_name() -> str`
 

@@ -29,7 +29,6 @@ local function make_config()
       },
       entity = {
         ["box"] = {},
-        ["measurement"] = {},
         ["sensor"] = {},
         ["statistic"] = {},
         ["user"] = {},
@@ -39,6 +38,7 @@ local function make_config()
       ["box"] = {
         ["fields"] = {
           {
+            ["format"] = "date-time",
             ["name"] = "createdAt",
             ["short"] = "Creation timestamp",
             ["type"] = "`$STRING`",
@@ -112,6 +112,7 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "updatedAt",
             ["short"] = "Last update timestamp",
             ["type"] = "`$STRING`",
@@ -122,6 +123,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "box",
         ["op"] = {
           ["create"] = {
@@ -129,17 +134,69 @@ local function make_config()
             ["name"] = "create",
             ["points"] = {
               {
+                ["args"] = {
+                  ["params"] = {
+                    {
+                      ["kind"] = "param",
+                      ["name"] = "id",
+                      ["orig"] = "box_id",
+                      ["reqd"] = true,
+                      ["type"] = "`$STRING`",
+                    },
+                  },
+                },
+                ["kind"] = "http",
+                ["method"] = "POST",
+                ["orig"] = "/boxes/{boxId}/data",
+                ["rename"] = {
+                  ["param"] = {
+                    ["boxId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "boxes",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
+                  {
+                    ["lit"] = "data",
+                  },
+                },
+                ["select"] = {
+                  ["$action"] = "data",
+                  ["exist"] = {
+                    "id",
+                  },
+                },
+                ["transform"] = {
+                  ["req"] = "`reqdata`",
+                  ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "boxes",
+                  "{id}",
+                  "data",
+                },
+              },
+              {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/boxes",
-                ["parts"] = {
-                  "boxes",
+                ["segments"] = {
+                  {
+                    ["lit"] = "boxes",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "boxes",
                 },
               },
             },
@@ -191,15 +248,21 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/boxes/{boxId}/{sensorId}",
-                ["parts"] = {
-                  "boxes",
-                  "{box_id}",
-                  "{sensor_id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["boxId"] = "box_id",
                     ["sensorId"] = "sensor_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "boxes",
+                  },
+                  {
+                    ["var"] = "box_id",
+                  },
+                  {
+                    ["var"] = "sensor_id",
                   },
                 },
                 ["select"] = {
@@ -214,6 +277,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "boxes",
+                  "{box_id}",
+                  "{sensor_id}",
                 },
               },
               {
@@ -249,8 +317,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/boxes",
-                ["parts"] = {
-                  "boxes",
+                ["segments"] = {
+                  {
+                    ["lit"] = "boxes",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -263,6 +333,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "boxes",
                 },
               },
             },
@@ -295,13 +368,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/boxes/{boxId}",
-                ["parts"] = {
-                  "boxes",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["boxId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "boxes",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -313,6 +390,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "boxes",
+                  "{id}",
                 },
               },
             },
@@ -336,13 +417,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/boxes/{boxId}",
-                ["parts"] = {
-                  "boxes",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["boxId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "boxes",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -353,6 +438,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "boxes",
+                  "{id}",
                 },
               },
             },
@@ -376,13 +465,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "PUT",
                 ["orig"] = "/boxes/{boxId}",
-                ["parts"] = {
-                  "boxes",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["boxId"] = "id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "boxes",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -394,59 +487,9 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
-              },
-            },
-          },
-        },
-        ["relations"] = {
-          ["ancestors"] = {
-            {
-              "box",
-            },
-          },
-        },
-      },
-      ["measurement"] = {
-        ["fields"] = {},
-        ["name"] = "measurement",
-        ["op"] = {
-          ["create"] = {
-            ["input"] = "data",
-            ["name"] = "create",
-            ["points"] = {
-              {
-                ["args"] = {
-                  ["params"] = {
-                    {
-                      ["kind"] = "param",
-                      ["name"] = "box_id",
-                      ["orig"] = "box_id",
-                      ["reqd"] = true,
-                      ["type"] = "`$STRING`",
-                    },
-                  },
-                },
-                ["kind"] = "http",
-                ["method"] = "POST",
-                ["orig"] = "/boxes/{boxId}/data",
                 ["parts"] = {
                   "boxes",
-                  "{box_id}",
-                  "data",
-                },
-                ["rename"] = {
-                  ["param"] = {
-                    ["boxId"] = "box_id",
-                  },
-                },
-                ["select"] = {
-                  ["exist"] = {
-                    "box_id",
-                  },
-                },
-                ["transform"] = {
-                  ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  "{id}",
                 },
               },
             },
@@ -492,6 +535,10 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "sensor",
         ["op"] = {
           ["list"] = {
@@ -513,14 +560,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/boxes/{boxId}/sensors",
-                ["parts"] = {
-                  "boxes",
-                  "{box_id}",
-                  "sensors",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["boxId"] = "box_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["lit"] = "boxes",
+                  },
+                  {
+                    ["var"] = "box_id",
+                  },
+                  {
+                    ["lit"] = "sensors",
                   },
                 },
                 ["select"] = {
@@ -531,6 +584,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "boxes",
+                  "{box_id}",
+                  "sensors",
                 },
               },
             },
@@ -615,9 +673,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/statistics/descriptive",
-                ["parts"] = {
-                  "statistics",
-                  "descriptive",
+                ["segments"] = {
+                  {
+                    ["lit"] = "statistics",
+                  },
+                  {
+                    ["lit"] = "descriptive",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "descriptive",
@@ -631,6 +693,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "statistics",
+                  "descriptive",
                 },
               },
             },
@@ -648,11 +714,13 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
           {
+            ["format"] = "date-time",
             ["name"] = "createdAt",
             ["short"] = "Account creation timestamp",
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "email",
             ["name"] = "email",
             ["op"] = {
               ["create"] = {
@@ -686,6 +754,7 @@ local function make_config()
             ["type"] = "`$STRING`",
           },
           {
+            ["format"] = "password",
             ["name"] = "password",
             ["req"] = true,
             ["short"] = "User's password",
@@ -696,6 +765,10 @@ local function make_config()
             ["short"] = "User's role",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "user",
         ["op"] = {
@@ -708,9 +781,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/users/register",
-                ["parts"] = {
-                  "users",
-                  "register",
+                ["segments"] = {
+                  {
+                    ["lit"] = "users",
+                  },
+                  {
+                    ["lit"] = "register",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "register",
@@ -719,15 +796,23 @@ local function make_config()
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
                 },
+                ["parts"] = {
+                  "users",
+                  "register",
+                },
               },
               {
                 ["args"] = {},
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/users/sign-in",
-                ["parts"] = {
-                  "users",
-                  "sign-in",
+                ["segments"] = {
+                  {
+                    ["lit"] = "users",
+                  },
+                  {
+                    ["lit"] = "sign-in",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "sign_in",
@@ -735,6 +820,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.user`",
+                },
+                ["parts"] = {
+                  "users",
+                  "sign-in",
                 },
               },
             },
@@ -748,9 +837,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/users/me",
-                ["parts"] = {
-                  "users",
-                  "me",
+                ["segments"] = {
+                  {
+                    ["lit"] = "users",
+                  },
+                  {
+                    ["lit"] = "me",
+                  },
                 },
                 ["select"] = {
                   ["$action"] = "me",
@@ -758,6 +851,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.boxes`",
+                },
+                ["parts"] = {
+                  "users",
+                  "me",
                 },
               },
             },

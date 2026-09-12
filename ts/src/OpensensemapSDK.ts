@@ -1,7 +1,6 @@
 // Opensensemap Ts SDK
 
 import { BoxEntity } from './entity/BoxEntity'
-import { MeasurementEntity } from './entity/MeasurementEntity'
 import { SensorEntity } from './entity/SensorEntity'
 import { StatisticEntity } from './entity/StatisticEntity'
 import { UserEntity } from './entity/UserEntity'
@@ -21,6 +20,7 @@ import { Utility } from './utility/Utility'
 import { BaseFeature } from './feature/base/BaseFeature'
 
 
+
 const stdutil = new Utility()
 
 
@@ -30,6 +30,7 @@ class OpensensemapSDK {
   _utility = new Utility()
   _features: Feature[]
   _rootctx: Context
+  
 
   constructor(options?: any) {
 
@@ -102,6 +103,8 @@ class OpensensemapSDK {
     return this._utility.struct.clone(this._utility)
   }
 
+  
+
 
   async prepare(fetchargs?: any) {
     const utility = this._utility
@@ -147,6 +150,8 @@ class OpensensemapSDK {
         spec.headers[key] = uheaders[key]
       }
     }
+
+    
 
     // Apply SDK auth (apikey, auth prefix, etc.)
     const authResult = prepareAuth(ctx)
@@ -304,15 +309,6 @@ class OpensensemapSDK {
   }
 
 
-  // Entity access: `client.Measurement().list()` / `client.Measurement().load({ id })`.
-  // The argument is the entity OPTIONS object (passed to the entity
-  // constructor as entopts), not initial entity data.
-  Measurement(entopts?: Record<string, any>) {
-    const self = this
-    return new MeasurementEntity(self, entopts)
-  }
-
-
   // Entity access: `client.Sensor().list()` / `client.Sensor().load({ id })`.
   // The argument is the entity OPTIONS object (passed to the entity
   // constructor as entopts), not initial entity data.
@@ -389,6 +385,7 @@ const SDK = OpensensemapSDK
 export {
   stdutil,
   config,
+  
 
   BaseFeature,
   OpensensemapEntityBase,

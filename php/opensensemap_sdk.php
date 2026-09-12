@@ -359,24 +359,6 @@ class OpensensemapSDK
     }
 
 
-    private $_measurement = null;
-
-    // Canonical facade: $client->Measurement()->list() / ->load(["id" => ...]).
-    // PHP method names are case-insensitive, so lowercase $client->measurement()
-    // resolves here too.
-    public function Measurement($data = null)
-    {
-        require_once __DIR__ . '/entity/measurement_entity.php';
-        if ($data === null) {
-            if ($this->_measurement === null) {
-                $this->_measurement = new MeasurementEntity($this, null);
-            }
-            return $this->_measurement;
-        }
-        return new MeasurementEntity($this, $data);
-    }
-
-
     private $_sensor = null;
 
     // Canonical facade: $client->Sensor()->list() / ->load(["id" => ...]).

@@ -228,7 +228,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Box` | `(data) -> BoxEntity` | Create a Box entity instance. |
-| `Measurement` | `(data) -> MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor` | `(data) -> SensorEntity` | Create a Sensor entity instance. |
 | `Statistic` | `(data) -> StatisticEntity` | Create a Statistic entity instance. |
 | `User` | `(data) -> UserEntity` | Create an User entity instance. |
@@ -287,15 +286,6 @@ returns a result `Hash` with these keys:
 | `value` | Measurement value |
 
 Operations: Create, List, Load, Remove, Update.
-
-API path: `/boxes`
-
-#### Measurement
-
-| Field | Description |
-| --- | --- |
-
-Operations: Create.
 
 API path: `/boxes/{boxId}/data`
 
@@ -398,25 +388,6 @@ boxs = client.Box.list
 
 ```ruby
 box = client.Box.create({
-})
-```
-
-
-### Measurement
-
-Create an instance: `measurement = client.Measurement`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Example: Create
-
-```ruby
-measurement = client.Measurement.create({
-  "box_id" => "example_box_id", # String
 })
 ```
 

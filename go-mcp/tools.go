@@ -16,7 +16,7 @@ import (
 // reqdata map passed through to the SDK. For load, `query` should be
 // `{"id": <value>}`. For list, omit `query` or pass an empty map.
 type Args struct {
-	Entity string         `json:"entity" jsonschema:"box | measurement | sensor | statistic | user"`
+	Entity string         `json:"entity" jsonschema:"box | sensor | statistic | user"`
 	Query  map[string]any `json:"query,omitempty" jsonschema:"optional match map e.g. {\"id\":1} for load, omit for list"`
 }
 
@@ -79,8 +79,6 @@ func entityFor(client *sdk.OpensensemapSDK, name string) (sdk.OpensensemapEntity
 	switch strings.ToLower(name) {
 	case "box":
 		return client.Box(nil), nil
-	case "measurement":
-		return client.Measurement(nil), nil
 	case "sensor":
 		return client.Sensor(nil), nil
 	case "statistic":

@@ -41,7 +41,6 @@ module OpensensemapConfig
         },
         "entity" => {
           "box" => {},
-          "measurement" => {},
           "sensor" => {},
           "statistic" => {},
           "user" => {},
@@ -51,6 +50,7 @@ module OpensensemapConfig
         "box" => {
           "fields" => [
             {
+              "format" => "date-time",
               "name" => "createdAt",
               "short" => "Creation timestamp",
               "type" => "`$STRING`",
@@ -124,6 +124,7 @@ module OpensensemapConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "date-time",
               "name" => "updatedAt",
               "short" => "Last update timestamp",
               "type" => "`$STRING`",
@@ -134,6 +135,10 @@ module OpensensemapConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "box",
           "op" => {
             "create" => {
@@ -141,18 +146,70 @@ module OpensensemapConfig
               "name" => "create",
               "points" => [
                 {
+                  "args" => {
+                    "params" => [
+                      {
+                        "kind" => "param",
+                        "name" => "id",
+                        "orig" => "box_id",
+                        "reqd" => true,
+                        "type" => "`$STRING`",
+                      },
+                    ],
+                  },
+                  "kind" => "http",
+                  "method" => "POST",
+                  "orig" => "/boxes/{boxId}/data",
+                  "rename" => {
+                    "param" => {
+                      "boxId" => "id",
+                    },
+                  },
+                  "segments" => [
+                    {
+                      "lit" => "boxes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                    {
+                      "lit" => "data",
+                    },
+                  ],
+                  "select" => {
+                    "$action" => "data",
+                    "exist" => [
+                      "id",
+                    ],
+                  },
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "parts" => [
+                    "boxes",
+                    "{id}",
+                    "data",
+                  ],
+                },
+                {
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/boxes",
-                  "parts" => [
-                    "boxes",
+                  "segments" => [
+                    {
+                      "lit" => "boxes",
+                    },
                   ],
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "boxes",
+                  ],
                 },
               ],
             },
@@ -203,17 +260,23 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/boxes/{boxId}/{sensorId}",
-                  "parts" => [
-                    "boxes",
-                    "{box_id}",
-                    "{sensor_id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "boxId" => "box_id",
                       "sensorId" => "sensor_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "boxes",
+                    },
+                    {
+                      "var" => "box_id",
+                    },
+                    {
+                      "var" => "sensor_id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "box_id",
@@ -227,6 +290,11 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "boxes",
+                    "{box_id}",
+                    "{sensor_id}",
+                  ],
                 },
                 {
                   "args" => {
@@ -261,8 +329,10 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/boxes",
-                  "parts" => [
-                    "boxes",
+                  "segments" => [
+                    {
+                      "lit" => "boxes",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -276,6 +346,9 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "boxes",
+                  ],
                 },
               ],
             },
@@ -307,15 +380,19 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/boxes/{boxId}",
-                  "parts" => [
-                    "boxes",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "boxId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "boxes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "format",
@@ -326,6 +403,10 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "boxes",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -348,15 +429,19 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/boxes/{boxId}",
-                  "parts" => [
-                    "boxes",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "boxId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "boxes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -366,6 +451,10 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "boxes",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -388,15 +477,19 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "PUT",
                   "orig" => "/boxes/{boxId}",
-                  "parts" => [
-                    "boxes",
-                    "{id}",
-                  ],
                   "rename" => {
                     "param" => {
                       "boxId" => "id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "boxes",
+                    },
+                    {
+                      "var" => "id",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "id",
@@ -406,60 +499,10 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
-                },
-              ],
-            },
-          },
-          "relations" => {
-            "ancestors" => [
-              [
-                "box",
-              ],
-            ],
-          },
-        },
-        "measurement" => {
-          "fields" => [],
-          "name" => "measurement",
-          "op" => {
-            "create" => {
-              "input" => "data",
-              "name" => "create",
-              "points" => [
-                {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "box_id",
-                        "orig" => "box_id",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
-                  "kind" => "http",
-                  "method" => "POST",
-                  "orig" => "/boxes/{boxId}/data",
                   "parts" => [
                     "boxes",
-                    "{box_id}",
-                    "data",
+                    "{id}",
                   ],
-                  "rename" => {
-                    "param" => {
-                      "boxId" => "box_id",
-                    },
-                  },
-                  "select" => {
-                    "exist" => [
-                      "box_id",
-                    ],
-                  },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
                 },
               ],
             },
@@ -504,6 +547,10 @@ module OpensensemapConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "sensor",
           "op" => {
             "list" => {
@@ -525,16 +572,22 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/boxes/{boxId}/sensors",
-                  "parts" => [
-                    "boxes",
-                    "{box_id}",
-                    "sensors",
-                  ],
                   "rename" => {
                     "param" => {
                       "boxId" => "box_id",
                     },
                   },
+                  "segments" => [
+                    {
+                      "lit" => "boxes",
+                    },
+                    {
+                      "var" => "box_id",
+                    },
+                    {
+                      "lit" => "sensors",
+                    },
+                  ],
                   "select" => {
                     "exist" => [
                       "box_id",
@@ -544,6 +597,11 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "boxes",
+                    "{box_id}",
+                    "sensors",
+                  ],
                 },
               ],
             },
@@ -627,9 +685,13 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/statistics/descriptive",
-                  "parts" => [
-                    "statistics",
-                    "descriptive",
+                  "segments" => [
+                    {
+                      "lit" => "statistics",
+                    },
+                    {
+                      "lit" => "descriptive",
+                    },
                   ],
                   "select" => {
                     "$action" => "descriptive",
@@ -644,6 +706,10 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "statistics",
+                    "descriptive",
+                  ],
                 },
               ],
             },
@@ -660,11 +726,13 @@ module OpensensemapConfig
               "type" => "`$ARRAY`",
             },
             {
+              "format" => "date-time",
               "name" => "createdAt",
               "short" => "Account creation timestamp",
               "type" => "`$STRING`",
             },
             {
+              "format" => "email",
               "name" => "email",
               "op" => {
                 "create" => {
@@ -698,6 +766,7 @@ module OpensensemapConfig
               "type" => "`$STRING`",
             },
             {
+              "format" => "password",
               "name" => "password",
               "req" => true,
               "short" => "User's password",
@@ -709,6 +778,10 @@ module OpensensemapConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "user",
           "op" => {
             "create" => {
@@ -720,9 +793,13 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/users/register",
-                  "parts" => [
-                    "users",
-                    "register",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
+                    {
+                      "lit" => "register",
+                    },
                   ],
                   "select" => {
                     "$action" => "register",
@@ -731,15 +808,23 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "users",
+                    "register",
+                  ],
                 },
                 {
                   "args" => {},
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/users/sign-in",
-                  "parts" => [
-                    "users",
-                    "sign-in",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
+                    {
+                      "lit" => "sign-in",
+                    },
                   ],
                   "select" => {
                     "$action" => "sign_in",
@@ -748,6 +833,10 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body.user`",
                   },
+                  "parts" => [
+                    "users",
+                    "sign-in",
+                  ],
                 },
               ],
             },
@@ -760,9 +849,13 @@ module OpensensemapConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/users/me",
-                  "parts" => [
-                    "users",
-                    "me",
+                  "segments" => [
+                    {
+                      "lit" => "users",
+                    },
+                    {
+                      "lit" => "me",
+                    },
                   ],
                   "select" => {
                     "$action" => "me",
@@ -771,6 +864,10 @@ module OpensensemapConfig
                     "req" => "`reqdata`",
                     "res" => "`body.boxes`",
                   },
+                  "parts" => [
+                    "users",
+                    "me",
+                  ],
                 },
               ],
             },

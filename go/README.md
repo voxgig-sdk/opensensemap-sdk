@@ -254,7 +254,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
 | `Box` | `(data map[string]any) OpensensemapEntity` | Create a Box entity instance. |
-| `Measurement` | `(data map[string]any) OpensensemapEntity` | Create a Measurement entity instance. |
 | `Sensor` | `(data map[string]any) OpensensemapEntity` | Create a Sensor entity instance. |
 | `Statistic` | `(data map[string]any) OpensensemapEntity` | Create a Statistic entity instance. |
 | `User` | `(data map[string]any) OpensensemapEntity` | Create an User entity instance. |
@@ -315,15 +314,6 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"value"` | Measurement value |
 
 Operations: Create, List, Load, Remove, Update.
-
-API path: `/boxes`
-
-#### Measurement
-
-| Field | Description |
-| --- | --- |
-
-Operations: Create.
 
 API path: `/boxes/{boxId}/data`
 
@@ -432,29 +422,6 @@ fmt.Println(boxs) // the array of records
 
 ```go
 result, err := client.Box(nil).Create(map[string]any{
-}, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(result)
-```
-
-
-### Measurement
-
-Create an instance: `measurement := client.Measurement(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
-
-#### Example: Create
-
-```go
-result, err := client.Measurement(nil).Create(map[string]any{
-    "box_id": "example_box_id",
 }, nil)
 if err != nil {
     panic(err)

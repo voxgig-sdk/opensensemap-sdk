@@ -83,17 +83,6 @@ class BoxRemoveMatch
     public string $id;
 }
 
-/** Measurement entity data model. */
-class Measurement
-{
-}
-
-/** Request payload for Measurement#create. */
-class MeasurementCreateData
-{
-    public string $box_id;
-}
-
 /** Sensor entity data model. */
 class Sensor
 {

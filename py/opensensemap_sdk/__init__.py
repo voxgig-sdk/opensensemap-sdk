@@ -313,12 +313,6 @@ class OpensensemapSDK:
         return BoxEntity(self, data)
 
 
-    def Measurement(self, data=None) -> "MeasurementEntity":
-        """Entity factory: client.Measurement().list() / client.Measurement().load({"id": ...})."""
-        from opensensemap_sdk.entity.measurement_entity import MeasurementEntity
-        return MeasurementEntity(self, data)
-
-
     def Sensor(self, data=None) -> "SensorEntity":
         """Entity factory: client.Sensor().list() / client.Sensor().load({"id": ...})."""
         from opensensemap_sdk.entity.sensor_entity import SensorEntity
@@ -365,7 +359,6 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from opensensemap_sdk.entity.box_entity import BoxEntity
-    from opensensemap_sdk.entity.measurement_entity import MeasurementEntity
     from opensensemap_sdk.entity.sensor_entity import SensorEntity
     from opensensemap_sdk.entity.statistic_entity import StatisticEntity
     from opensensemap_sdk.entity.user_entity import UserEntity

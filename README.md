@@ -20,7 +20,7 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as a small set of **semantic entities** — Box, Measurement, Sensor, Statistic and User — that you
+This SDK exposes the API as a small set of **semantic entities** — Box, Sensor, Statistic and User — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
 support (`list`, `load`, `create`, `update`, `remove`):
@@ -166,12 +166,11 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 5 entities:
+The API exposes 4 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
 | **Box** | The Box entity (create, list, load, remove, update). | `/boxes/{boxId}/{sensorId}` |
-| **Measurement** | The Measurement entity (create). | `/boxes/{boxId}/data` |
 | **Sensor** | The Sensor entity (list). | `/boxes/{boxId}/sensors` |
 | **Statistic** | The Statistic entity (load). | `/statistics/descriptive` |
 | **User** | The User entity (create, list). | `/users/me` |
@@ -383,7 +382,7 @@ customizable without forking any upstream tool:
 
 - **The model** (`.sdk/model/`) declares everything this project owns:
   package names, versions, active features, per-target settings. It is
-  written in [aontu](https://github.com/aontu-lang/aontu), a JSON-based
+  written in [aontu](https://aontu.dev), a JSON-based
   specification language designed for building ontologies: easy to edit
   by hand, and files unify rather than override, so small declarations
   compose into one model. Regeneration re-reads it every time.

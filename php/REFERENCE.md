@@ -46,10 +46,6 @@ $client = OpensensemapSDK::test();
 
 Create a new `BoxEntity` instance. Pass `null` for no initial data.
 
-#### `Measurement($data = null)`
-
-Create a new `MeasurementEntity` instance. Pass `null` for no initial data.
-
 #### `Sensor($data = null)`
 
 Create a new `SensorEntity` instance. Pass `null` for no initial data.
@@ -204,54 +200,6 @@ Set the entity match criteria.
 #### `make(): BoxEntity`
 
 Create a new `BoxEntity` instance with the same client and
-options.
-
-#### `get_name(): string`
-
-Return the entity name.
-
-
----
-
-## MeasurementEntity
-
-```php
-$measurement = $client->Measurement();
-```
-
-### Operations
-
-#### `create(array $reqdata, ?array $ctrl = null): mixed`
-
-Create a new entity with the given data. Throws on error.
-
-```php
-$result = $client->Measurement()->create([
-  "box_id" => null, // string
-]);
-```
-
-### Common Methods
-
-#### `data_get(): array`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set($data): void`
-
-Set the entity data.
-
-#### `match_get(): array`
-
-Get the entity match criteria.
-
-#### `match_set($match): void`
-
-Set the entity match criteria.
-
-#### `make(): MeasurementEntity`
-
-Create a new `MeasurementEntity` instance with the same client and
 options.
 
 #### `get_name(): string`

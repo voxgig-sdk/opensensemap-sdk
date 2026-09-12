@@ -45,10 +45,6 @@ local client = sdk.test()
 
 Create a new `Box` entity instance. Pass `nil` for no initial data.
 
-#### `Measurement(data)`
-
-Create a new `Measurement` entity instance. Pass `nil` for no initial data.
-
 #### `Sensor(data)`
 
 Create a new `Sensor` entity instance. Pass `nil` for no initial data.
@@ -202,54 +198,6 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `BoxEntity` instance with the same client and
-options.
-
-#### `get_name() -> string`
-
-Return the entity name.
-
-
----
-
-## MeasurementEntity
-
-```lua
-local measurement = client:Measurement(nil)
-```
-
-### Operations
-
-#### `create(reqdata, ctrl) -> any, err`
-
-Create a new entity with the given data.
-
-```lua
-local result, err = client:Measurement():create({
-  box_id = --[[ string ]],
-})
-```
-
-### Common Methods
-
-#### `data_get() -> table`
-
-Get the entity data. Returns a copy of the current data.
-
-#### `data_set(data)`
-
-Set the entity data.
-
-#### `match_get() -> table`
-
-Get the entity match criteria.
-
-#### `match_set(match)`
-
-Set the entity match criteria.
-
-#### `make() -> Entity`
-
-Create a new `MeasurementEntity` instance with the same client and
 options.
 
 #### `get_name() -> string`

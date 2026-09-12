@@ -1,7 +1,7 @@
 # Guide
 
 guide: {
-  metrics: count: entity: 5
+  metrics: count: entity: 4
   metrics: count: path: 9
   metrics: count: method: 12
 
@@ -16,17 +16,15 @@ guide: {
       op: remove: method: *DELETE
       op: update: method: *PUT
     }
+    path: "/boxes/{boxId}/data": {
+      action: "data": {}
+      rename: param: "boxId": *"id"
+      op: create: method: *POST
+    }
     path: "/boxes/{boxId}/{sensorId}": {
       rename: param: "boxId": *"box_id"
       rename: param: "sensorId": *"sensor_id"
       op: list: method: *GET
-    }
-  }
-
-  entity: measurement: {
-    path: "/boxes/{boxId}/data": {
-      rename: param: "boxId": *"box_id"
-      op: create: method: *POST
     }
   }
 

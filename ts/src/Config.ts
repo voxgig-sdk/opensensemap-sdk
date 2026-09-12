@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -63,9 +74,6 @@ class Config {
       box: {
       },
 
-      measurement: {
-      },
-
       sensor: {
       },
 
@@ -83,6 +91,7 @@ class Config {
     "box": {
       "fields": [
         {
+          "format": "date-time",
           "name": "createdAt",
           "short": "Creation timestamp",
           "type": "`$STRING`"
@@ -156,6 +165,7 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "date-time",
           "name": "updatedAt",
           "short": "Last update timestamp",
           "type": "`$STRING`"
@@ -166,6 +176,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "box",
       "op": {
         "create": {
@@ -173,18 +187,70 @@ class Config {
           "name": "create",
           "points": [
             {
+              "args": {
+                "params": [
+                  {
+                    "kind": "param",
+                    "name": "id",
+                    "orig": "box_id",
+                    "reqd": true,
+                    "type": "`$STRING`"
+                  }
+                ]
+              },
+              "kind": "http",
+              "method": "POST",
+              "orig": "/boxes/{boxId}/data",
+              "rename": {
+                "param": {
+                  "boxId": "id"
+                }
+              },
+              "segments": [
+                {
+                  "lit": "boxes"
+                },
+                {
+                  "var": "id"
+                },
+                {
+                  "lit": "data"
+                }
+              ],
+              "select": {
+                "$action": "data",
+                "exist": [
+                  "id"
+                ]
+              },
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "parts": [
+                "boxes",
+                "{id}",
+                "data"
+              ]
+            },
+            {
               "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/boxes",
-              "parts": [
-                "boxes"
+              "segments": [
+                {
+                  "lit": "boxes"
+                }
               ],
               "select": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "boxes"
+              ]
             }
           ]
         },
@@ -235,17 +301,23 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/boxes/{boxId}/{sensorId}",
-              "parts": [
-                "boxes",
-                "{box_id}",
-                "{sensor_id}"
-              ],
               "rename": {
                 "param": {
                   "boxId": "box_id",
                   "sensorId": "sensor_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "boxes"
+                },
+                {
+                  "var": "box_id"
+                },
+                {
+                  "var": "sensor_id"
+                }
+              ],
               "select": {
                 "exist": [
                   "box_id",
@@ -258,7 +330,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "boxes",
+                "{box_id}",
+                "{sensor_id}"
+              ]
             },
             {
               "args": {
@@ -293,8 +370,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/boxes",
-              "parts": [
-                "boxes"
+              "segments": [
+                {
+                  "lit": "boxes"
+                }
               ],
               "select": {
                 "exist": [
@@ -307,7 +386,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "boxes"
+              ]
             }
           ]
         },
@@ -339,15 +421,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/boxes/{boxId}",
-              "parts": [
-                "boxes",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "boxId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "boxes"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "format",
@@ -357,7 +443,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "boxes",
+                "{id}"
+              ]
             }
           ]
         },
@@ -380,15 +470,19 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/boxes/{boxId}",
-              "parts": [
-                "boxes",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "boxId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "boxes"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -397,7 +491,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "boxes",
+                "{id}"
+              ]
             }
           ]
         },
@@ -420,15 +518,19 @@ class Config {
               "kind": "http",
               "method": "PUT",
               "orig": "/boxes/{boxId}",
-              "parts": [
-                "boxes",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "boxId": "id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "boxes"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "id"
@@ -437,61 +539,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
-            }
-          ]
-        }
-      },
-      "relations": {
-        "ancestors": [
-          [
-            "box"
-          ]
-        ]
-      }
-    },
-    "measurement": {
-      "fields": [],
-      "name": "measurement",
-      "op": {
-        "create": {
-          "input": "data",
-          "name": "create",
-          "points": [
-            {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "box_id",
-                    "orig": "box_id",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
               },
-              "kind": "http",
-              "method": "POST",
-              "orig": "/boxes/{boxId}/data",
               "parts": [
                 "boxes",
-                "{box_id}",
-                "data"
-              ],
-              "rename": {
-                "param": {
-                  "boxId": "box_id"
-                }
-              },
-              "select": {
-                "exist": [
-                  "box_id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              }
+                "{id}"
+              ]
             }
           ]
         }
@@ -536,6 +588,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "sensor",
       "op": {
         "list": {
@@ -557,16 +613,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/boxes/{boxId}/sensors",
-              "parts": [
-                "boxes",
-                "{box_id}",
-                "sensors"
-              ],
               "rename": {
                 "param": {
                   "boxId": "box_id"
                 }
               },
+              "segments": [
+                {
+                  "lit": "boxes"
+                },
+                {
+                  "var": "box_id"
+                },
+                {
+                  "lit": "sensors"
+                }
+              ],
               "select": {
                 "exist": [
                   "box_id"
@@ -575,7 +637,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "boxes",
+                "{box_id}",
+                "sensors"
+              ]
             }
           ]
         }
@@ -659,9 +726,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/statistics/descriptive",
-              "parts": [
-                "statistics",
-                "descriptive"
+              "segments": [
+                {
+                  "lit": "statistics"
+                },
+                {
+                  "lit": "descriptive"
+                }
               ],
               "select": {
                 "$action": "descriptive",
@@ -675,7 +746,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "statistics",
+                "descriptive"
+              ]
             }
           ]
         }
@@ -692,11 +767,13 @@ class Config {
           "type": "`$ARRAY`"
         },
         {
+          "format": "date-time",
           "name": "createdAt",
           "short": "Account creation timestamp",
           "type": "`$STRING`"
         },
         {
+          "format": "email",
           "name": "email",
           "op": {
             "create": {
@@ -730,6 +807,7 @@ class Config {
           "type": "`$STRING`"
         },
         {
+          "format": "password",
           "name": "password",
           "req": true,
           "short": "User's password",
@@ -741,6 +819,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "user",
       "op": {
         "create": {
@@ -752,9 +834,13 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/users/register",
-              "parts": [
-                "users",
-                "register"
+              "segments": [
+                {
+                  "lit": "users"
+                },
+                {
+                  "lit": "register"
+                }
               ],
               "select": {
                 "$action": "register"
@@ -762,16 +848,24 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "users",
+                "register"
+              ]
             },
             {
               "args": {},
               "kind": "http",
               "method": "POST",
               "orig": "/users/sign-in",
-              "parts": [
-                "users",
-                "sign-in"
+              "segments": [
+                {
+                  "lit": "users"
+                },
+                {
+                  "lit": "sign-in"
+                }
               ],
               "select": {
                 "$action": "sign_in"
@@ -779,7 +873,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.user`"
-              }
+              },
+              "parts": [
+                "users",
+                "sign-in"
+              ]
             }
           ]
         },
@@ -792,9 +890,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/users/me",
-              "parts": [
-                "users",
-                "me"
+              "segments": [
+                {
+                  "lit": "users"
+                },
+                {
+                  "lit": "me"
+                }
               ],
               "select": {
                 "$action": "me"
@@ -802,7 +904,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.boxes`"
-              }
+              },
+              "parts": [
+                "users",
+                "me"
+              ]
             }
           ]
         }
@@ -818,6 +924,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

@@ -202,19 +202,6 @@ BoxRemoveMatch = Struct.new(
   keyword_init: true
 )
 
-# Measurement entity data model.
-class Measurement
-end
-
-# Request payload for Measurement#create.
-#
-# @!attribute [rw] box_id
-#   @return [String]
-MeasurementCreateData = Struct.new(
-  :box_id,
-  keyword_init: true
-)
-
 # Sensor entity data model.
 #
 # @!attribute [rw] icon

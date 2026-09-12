@@ -77,15 +77,6 @@ type BoxRemoveMatch struct {
 	Id string `json:"id"`
 }
 
-// Measurement is the typed data model for the measurement entity.
-type Measurement struct {
-}
-
-// MeasurementCreateData is the typed request payload for Measurement.CreateTyped.
-type MeasurementCreateData struct {
-	BoxId string `json:"box_id"`
-}
-
 // Sensor is the typed data model for the sensor entity.
 type Sensor struct {
 	Icon *string `json:"icon,omitempty"`

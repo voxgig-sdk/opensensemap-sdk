@@ -35,9 +35,6 @@ func init() {
 	core.NewBoxEntityFunc = func(client *core.OpensensemapSDK, entopts map[string]any) core.OpensensemapEntity {
 		return entity.NewBoxEntity(client, entopts)
 	}
-	core.NewMeasurementEntityFunc = func(client *core.OpensensemapSDK, entopts map[string]any) core.OpensensemapEntity {
-		return entity.NewMeasurementEntity(client, entopts)
-	}
 	core.NewSensorEntityFunc = func(client *core.OpensensemapSDK, entopts map[string]any) core.OpensensemapEntity {
 		return entity.NewSensorEntity(client, entopts)
 	}

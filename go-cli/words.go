@@ -91,8 +91,6 @@ func entityFor(client *sdk.OpensensemapSDK, name string) (sdk.OpensensemapEntity
 	switch strings.ToLower(name) {
 	case "box":
 		return client.Box(nil), nil
-	case "measurement":
-		return client.Measurement(nil), nil
 	case "sensor":
 		return client.Sensor(nil), nil
 	case "statistic":

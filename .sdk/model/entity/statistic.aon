@@ -83,9 +83,13 @@ main: kit: entity: statistic: {
           }
           method: "GET"
           orig: "/statistics/descriptive"
-          parts: [
-            "statistics"
-            "descriptive"
+          segments: [
+            {
+              lit: "statistics"
+            }
+            {
+              lit: "descriptive"
+            }
           ]
           select: {
             "$action": "descriptive"

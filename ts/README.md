@@ -259,7 +259,6 @@ new OpensensemapSDK(options?: {
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
 | `Box(data?)` | `BoxEntity` | Create a Box entity instance. |
-| `Measurement(data?)` | `MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor(data?)` | `SensorEntity` | Create a Sensor entity instance. |
 | `Statistic(data?)` | `StatisticEntity` | Create a Statistic entity instance. |
 | `User(data?)` | `UserEntity` | Create an User entity instance. |
@@ -351,15 +350,6 @@ The `prepare()` method returns:
 | `value` | Measurement value |
 
 Operations: create, list, load, remove, update.
-
-API path: `/boxes`
-
-#### Measurement
-
-| Field | Description |
-| --- | --- |
-
-Operations: create.
 
 API path: `/boxes/{boxId}/data`
 
@@ -460,25 +450,6 @@ const boxs = await client.Box().list({ box_id: "example", sensor_id: "example" }
 
 ```ts
 const box = await client.Box().create({
-})
-```
-
-
-### Measurement
-
-Create an instance: `const measurement = client.Measurement()`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Example: Create
-
-```ts
-const measurement = await client.Measurement().create({
-  box_id: 'example_box_id',
 })
 ```
 

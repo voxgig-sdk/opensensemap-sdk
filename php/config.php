@@ -55,7 +55,6 @@ class OpensensemapConfig
         ],
                 "entity" => [
                     "box" => [],
-                    "measurement" => [],
                     "sensor" => [],
                     "statistic" => [],
                     "user" => [],
@@ -65,6 +64,7 @@ class OpensensemapConfig
         'box' => [
           'fields' => [
             [
+              'format' => 'date-time',
               'name' => 'createdAt',
               'short' => 'Creation timestamp',
               'type' => '`$STRING`',
@@ -138,6 +138,7 @@ class OpensensemapConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'updatedAt',
               'short' => 'Last update timestamp',
               'type' => '`$STRING`',
@@ -148,6 +149,10 @@ class OpensensemapConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'box',
           'op' => [
             'create' => [
@@ -155,17 +160,69 @@ class OpensensemapConfig
               'name' => 'create',
               'points' => [
                 [
+                  'args' => [
+                    'params' => [
+                      [
+                        'kind' => 'param',
+                        'name' => 'id',
+                        'orig' => 'box_id',
+                        'reqd' => true,
+                        'type' => '`$STRING`',
+                      ],
+                    ],
+                  ],
+                  'kind' => 'http',
+                  'method' => 'POST',
+                  'orig' => '/boxes/{boxId}/data',
+                  'rename' => [
+                    'param' => [
+                      'boxId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'boxes',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
+                    [
+                      'lit' => 'data',
+                    ],
+                  ],
+                  'select' => [
+                    '$action' => 'data',
+                    'exist' => [
+                      'id',
+                    ],
+                  ],
+                  'transform' => [
+                    'req' => '`reqdata`',
+                    'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'boxes',
+                    '{id}',
+                    'data',
+                  ],
+                ],
+                [
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/boxes',
-                  'parts' => [
-                    'boxes',
+                  'segments' => [
+                    [
+                      'lit' => 'boxes',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'boxes',
                   ],
                 ],
               ],
@@ -217,15 +274,21 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/boxes/{boxId}/{sensorId}',
-                  'parts' => [
-                    'boxes',
-                    '{box_id}',
-                    '{sensor_id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'boxId' => 'box_id',
                       'sensorId' => 'sensor_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'boxes',
+                    ],
+                    [
+                      'var' => 'box_id',
+                    ],
+                    [
+                      'var' => 'sensor_id',
                     ],
                   ],
                   'select' => [
@@ -240,6 +303,11 @@ class OpensensemapConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'boxes',
+                    '{box_id}',
+                    '{sensor_id}',
                   ],
                 ],
                 [
@@ -275,8 +343,10 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/boxes',
-                  'parts' => [
-                    'boxes',
+                  'segments' => [
+                    [
+                      'lit' => 'boxes',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -289,6 +359,9 @@ class OpensensemapConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'boxes',
                   ],
                 ],
               ],
@@ -321,13 +394,17 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/boxes/{boxId}',
-                  'parts' => [
-                    'boxes',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'boxId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'boxes',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -339,6 +416,10 @@ class OpensensemapConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'boxes',
+                    '{id}',
                   ],
                 ],
               ],
@@ -362,13 +443,17 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/boxes/{boxId}',
-                  'parts' => [
-                    'boxes',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'boxId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'boxes',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -379,6 +464,10 @@ class OpensensemapConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'boxes',
+                    '{id}',
                   ],
                 ],
               ],
@@ -402,13 +491,17 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'PUT',
                   'orig' => '/boxes/{boxId}',
-                  'parts' => [
-                    'boxes',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'boxId' => 'id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'boxes',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -420,59 +513,9 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                ],
-              ],
-            ],
-          ],
-          'relations' => [
-            'ancestors' => [
-              [
-                'box',
-              ],
-            ],
-          ],
-        ],
-        'measurement' => [
-          'fields' => [],
-          'name' => 'measurement',
-          'op' => [
-            'create' => [
-              'input' => 'data',
-              'name' => 'create',
-              'points' => [
-                [
-                  'args' => [
-                    'params' => [
-                      [
-                        'kind' => 'param',
-                        'name' => 'box_id',
-                        'orig' => 'box_id',
-                        'reqd' => true,
-                        'type' => '`$STRING`',
-                      ],
-                    ],
-                  ],
-                  'kind' => 'http',
-                  'method' => 'POST',
-                  'orig' => '/boxes/{boxId}/data',
                   'parts' => [
                     'boxes',
-                    '{box_id}',
-                    'data',
-                  ],
-                  'rename' => [
-                    'param' => [
-                      'boxId' => 'box_id',
-                    ],
-                  ],
-                  'select' => [
-                    'exist' => [
-                      'box_id',
-                    ],
-                  ],
-                  'transform' => [
-                    'req' => '`reqdata`',
-                    'res' => '`body`',
+                    '{id}',
                   ],
                 ],
               ],
@@ -518,6 +561,10 @@ class OpensensemapConfig
               'type' => '`$STRING`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'sensor',
           'op' => [
             'list' => [
@@ -539,14 +586,20 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/boxes/{boxId}/sensors',
-                  'parts' => [
-                    'boxes',
-                    '{box_id}',
-                    'sensors',
-                  ],
                   'rename' => [
                     'param' => [
                       'boxId' => 'box_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'lit' => 'boxes',
+                    ],
+                    [
+                      'var' => 'box_id',
+                    ],
+                    [
+                      'lit' => 'sensors',
                     ],
                   ],
                   'select' => [
@@ -557,6 +610,11 @@ class OpensensemapConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'boxes',
+                    '{box_id}',
+                    'sensors',
                   ],
                 ],
               ],
@@ -641,9 +699,13 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/statistics/descriptive',
-                  'parts' => [
-                    'statistics',
-                    'descriptive',
+                  'segments' => [
+                    [
+                      'lit' => 'statistics',
+                    ],
+                    [
+                      'lit' => 'descriptive',
+                    ],
                   ],
                   'select' => [
                     '$action' => 'descriptive',
@@ -657,6 +719,10 @@ class OpensensemapConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'statistics',
+                    'descriptive',
                   ],
                 ],
               ],
@@ -674,11 +740,13 @@ class OpensensemapConfig
               'type' => '`$ARRAY`',
             ],
             [
+              'format' => 'date-time',
               'name' => 'createdAt',
               'short' => 'Account creation timestamp',
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'email',
               'name' => 'email',
               'op' => [
                 'create' => [
@@ -712,6 +780,7 @@ class OpensensemapConfig
               'type' => '`$STRING`',
             ],
             [
+              'format' => 'password',
               'name' => 'password',
               'req' => true,
               'short' => 'User\'s password',
@@ -722,6 +791,10 @@ class OpensensemapConfig
               'short' => 'User\'s role',
               'type' => '`$STRING`',
             ],
+          ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
           ],
           'name' => 'user',
           'op' => [
@@ -734,9 +807,13 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/users/register',
-                  'parts' => [
-                    'users',
-                    'register',
+                  'segments' => [
+                    [
+                      'lit' => 'users',
+                    ],
+                    [
+                      'lit' => 'register',
+                    ],
                   ],
                   'select' => [
                     '$action' => 'register',
@@ -745,15 +822,23 @@ class OpensensemapConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
+                  'parts' => [
+                    'users',
+                    'register',
+                  ],
                 ],
                 [
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/users/sign-in',
-                  'parts' => [
-                    'users',
-                    'sign-in',
+                  'segments' => [
+                    [
+                      'lit' => 'users',
+                    ],
+                    [
+                      'lit' => 'sign-in',
+                    ],
                   ],
                   'select' => [
                     '$action' => 'sign_in',
@@ -761,6 +846,10 @@ class OpensensemapConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.user`',
+                  ],
+                  'parts' => [
+                    'users',
+                    'sign-in',
                   ],
                 ],
               ],
@@ -774,9 +863,13 @@ class OpensensemapConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/users/me',
-                  'parts' => [
-                    'users',
-                    'me',
+                  'segments' => [
+                    [
+                      'lit' => 'users',
+                    ],
+                    [
+                      'lit' => 'me',
+                    ],
                   ],
                   'select' => [
                     '$action' => 'me',
@@ -784,6 +877,10 @@ class OpensensemapConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.boxes`',
+                  ],
+                  'parts' => [
+                    'users',
+                    'me',
                   ],
                 ],
               ],

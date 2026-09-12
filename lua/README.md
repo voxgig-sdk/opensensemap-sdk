@@ -218,7 +218,6 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
 | `Box` | `(data) -> BoxEntity` | Create a Box entity instance. |
-| `Measurement` | `(data) -> MeasurementEntity` | Create a Measurement entity instance. |
 | `Sensor` | `(data) -> SensorEntity` | Create a Sensor entity instance. |
 | `Statistic` | `(data) -> StatisticEntity` | Create a Statistic entity instance. |
 | `User` | `(data) -> UserEntity` | Create an User entity instance. |
@@ -279,15 +278,6 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `value` | Measurement value |
 
 Operations: Create, List, Load, Remove, Update.
-
-API path: `/boxes`
-
-#### Measurement
-
-| Field | Description |
-| --- | --- |
-
-Operations: Create.
 
 API path: `/boxes/{boxId}/data`
 
@@ -388,25 +378,6 @@ local boxs, err = client:Box():list()
 
 ```lua
 local box, err = client:Box():create({
-})
-```
-
-
-### Measurement
-
-Create an instance: `local measurement = client:Measurement(nil)`
-
-#### Operations
-
-| Method | Description |
-| --- | --- |
-| `create(data)` | Create a new entity with the given data. |
-
-#### Example: Create
-
-```lua
-local measurement, err = client:Measurement():create({
-  box_id = "example_box_id", -- string
 })
 ```
 

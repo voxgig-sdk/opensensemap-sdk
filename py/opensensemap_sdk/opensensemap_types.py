@@ -84,14 +84,6 @@ class BoxRemoveMatch(TypedDict):
     id: str
 
 
-class Measurement(TypedDict):
-    pass
-
-
-class MeasurementCreateData(TypedDict):
-    box_id: str
-
-
 class Sensor(TypedDict, total=False):
     icon: str
     id: str

@@ -105,7 +105,7 @@ local results, err = client:Sensor():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
+| TypeScript | `@voxgig-sdk/opensensemap-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
 | Python | `voxgig-sdk-opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
 | PHP | `voxgig-sdk/opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/opensensemap-sdk/go` | `go get github.com/voxgig-sdk/opensensemap-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Sensor():list()
 ### TypeScript
 
 ```ts
-import { OpensensemapSDK } from '@voxgig-sdk/opensensemap'
+import { OpensensemapSDK } from '@voxgig-sdk/opensensemap-sdk'
 
 const client = new OpensensemapSDK({
   apikey: process.env.OPENSENSEMAP_APIKEY,

@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { OpensensemapSDK } from '@voxgig-sdk/opensensemap'
+import { OpensensemapSDK } from '@voxgig-sdk/opensensemap-sdk'
 
 const client = new OpensensemapSDK({
   apikey: process.env.OPENSENSEMAP_APIKEY,
@@ -632,7 +632,7 @@ opensensemap/
 Import the SDK from the package root:
 
 ```ts
-import { OpensensemapSDK } from '@voxgig-sdk/opensensemap'
+import { OpensensemapSDK } from '@voxgig-sdk/opensensemap-sdk'
 ```
 
 ### Entity state

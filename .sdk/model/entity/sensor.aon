@@ -64,6 +64,12 @@ main: kit: entity: sensor: {
               }
             ]
           }
+          contract: {
+            id: "GET /boxes/{boxId}/sensors"
+            json: "{\"operationId\":\"getBoxSensors\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"path\",\"name\":\"boxId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the sensor\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"lastMeasurement\":{\"properties\":{\"createdAt\":{\"description\":\"Timestamp of the measurement\",\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"description\":\"Measurement value\",\"type\":\"string\"}},\"type\":\"object\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response\"},\"404\":{\"description\":\"SenseBox not found\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/boxes/{boxId}/sensors"
           rename: {

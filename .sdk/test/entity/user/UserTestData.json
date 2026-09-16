@@ -41,5 +41,279 @@
         "role": "s11e"
       }
     }
+  },
+  "requests": {
+    "POST /users/register": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "registerUser",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "description": "User's email address",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "name": {
+                    "description": "User's name",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "User's password",
+                    "format": "password",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "_id": {
+                      "description": "Unique identifier for the user",
+                      "type": "string"
+                    },
+                    "boxes": {
+                      "description": "Array of senseBox IDs owned by the user",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "createdAt": {
+                      "description": "Account creation timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "email": {
+                      "description": "User's email address",
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "User's name",
+                      "type": "string"
+                    },
+                    "role": {
+                      "description": "User's role",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "User registered successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "409": {
+            "description": "User already exists"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "POST /users/sign-in": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "signInUser",
+        "parameters": [],
+        "protocol": "http",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "description": "User's email address",
+                    "format": "email",
+                    "type": "string"
+                  },
+                  "password": {
+                    "description": "User's password",
+                    "format": "password",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "token": {
+                      "description": "JWT access token",
+                      "type": "string"
+                    },
+                    "user": {
+                      "properties": {
+                        "_id": {
+                          "description": "Unique identifier for the user",
+                          "type": "string"
+                        },
+                        "boxes": {
+                          "description": "Array of senseBox IDs owned by the user",
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "createdAt": {
+                          "description": "Account creation timestamp",
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "email": {
+                          "description": "User's email address",
+                          "format": "email",
+                          "type": "string"
+                        },
+                        "name": {
+                          "description": "User's name",
+                          "type": "string"
+                        },
+                        "role": {
+                          "description": "User's role",
+                          "type": "string"
+                        }
+                      },
+                      "type": "object"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Sign in successful"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    },
+    "GET /users/me": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getCurrentUser",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "_id": {
+                      "description": "Unique identifier for the user",
+                      "type": "string"
+                    },
+                    "boxes": {
+                      "description": "Array of senseBox IDs owned by the user",
+                      "items": {
+                        "type": "string"
+                      },
+                      "type": "array"
+                    },
+                    "createdAt": {
+                      "description": "Account creation timestamp",
+                      "format": "date-time",
+                      "type": "string"
+                    },
+                    "email": {
+                      "description": "User's email address",
+                      "format": "email",
+                      "type": "string"
+                    },
+                    "name": {
+                      "description": "User's name",
+                      "type": "string"
+                    },
+                    "role": {
+                      "description": "User's role",
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "operation"
+      }
+    }
   }
 }

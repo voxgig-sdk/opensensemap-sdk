@@ -1,12 +1,18 @@
 # Opensensemap SDK feature factory
 
 from opensensemap_sdk.feature.base_feature import OpensensemapBaseFeature
+from opensensemap_sdk.feature.ratelimit_feature import OpensensemapRatelimitFeature
+from opensensemap_sdk.feature.retry_feature import OpensensemapRetryFeature
 from opensensemap_sdk.feature.test_feature import OpensensemapTestFeature
+from opensensemap_sdk.feature.timeout_feature import OpensensemapTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: OpensensemapBaseFeature(),
+    "ratelimit": lambda: OpensensemapRatelimitFeature(),
+    "retry": lambda: OpensensemapRetryFeature(),
     "test": lambda: OpensensemapTestFeature(),
+    "timeout": lambda: OpensensemapTimeoutFeature(),
 }
 
 

@@ -24,7 +24,71 @@
         "repr": "auto"
       },
       "contributor": {},
-      "docs": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "box": {
           "active": true,
@@ -164,6 +228,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "POST /boxes/{boxId}/data",
+                    "json": "{\"operationId\":\"postMeasurements\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"path\",\"name\":\"boxId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"additionalProperties\":{\"oneOf\":[{\"type\":\"string\"},{\"type\":\"number\"},{\"items\":{\"properties\":{\"createdAt\":{\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}]},\"example\":{\"sensor1\":\"23.5\",\"sensor2\":[{\"createdAt\":\"2023-01-01T12:00:00Z\",\"value\":\"23.5\"}]},\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"description\":\"Measurements posted successfully\"},\"400\":{\"description\":\"Invalid input\"},\"401\":{\"description\":\"Unauthorized\"},\"404\":{\"description\":\"SenseBox not found\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"operation\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/boxes/{boxId}/data",
@@ -197,6 +267,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "POST /boxes",
+                    "json": "{\"operationId\":\"createBox\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"description\":{\"description\":\"Description of the senseBox\",\"type\":\"string\"},\"exposure\":{\"description\":\"Exposure type of the senseBox\",\"enum\":[\"indoor\",\"outdoor\",\"mobile\"],\"type\":\"string\"},\"grouptag\":{\"description\":\"Group tag for categorization\",\"type\":\"string\"},\"location\":{\"properties\":{\"coordinates\":{\"description\":\"Longitude and latitude coordinates [lng, lat]\",\"items\":{\"type\":\"number\"},\"maxItems\":2,\"minItems\":2,\"type\":\"array\"},\"type\":{\"enum\":[\"Point\"],\"type\":\"string\"}},\"required\":[\"type\",\"coordinates\"],\"type\":\"object\"},\"model\":{\"description\":\"Model of the senseBox\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the senseBox\",\"type\":\"string\"},\"sensors\":{\"items\":{\"properties\":{\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"required\":[\"title\",\"unit\",\"sensorType\"],\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"name\",\"exposure\",\"location\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the senseBox\",\"type\":\"string\"},\"createdAt\":{\"description\":\"Creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"description\":{\"description\":\"Description of the senseBox\",\"type\":\"string\"},\"exposure\":{\"description\":\"Exposure type of the senseBox\",\"enum\":[\"indoor\",\"outdoor\",\"mobile\"],\"type\":\"string\"},\"grouptag\":{\"description\":\"Group tag for categorization\",\"type\":\"string\"},\"location\":{\"properties\":{\"coordinates\":{\"description\":\"Longitude and latitude coordinates [lng, lat]\",\"items\":{\"type\":\"number\"},\"maxItems\":2,\"minItems\":2,\"type\":\"array\"},\"type\":{\"enum\":[\"Point\"],\"type\":\"string\"}},\"type\":\"object\"},\"model\":{\"description\":\"Model of the senseBox\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the senseBox\",\"type\":\"string\"},\"sensors\":{\"items\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the sensor\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"lastMeasurement\":{\"properties\":{\"createdAt\":{\"description\":\"Timestamp of the measurement\",\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"description\":\"Measurement value\",\"type\":\"string\"}},\"type\":\"object\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"updatedAt\":{\"description\":\"Last update timestamp\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"SenseBox created successfully\"},\"400\":{\"description\":\"Invalid input\"},\"401\":{\"description\":\"Unauthorized\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"operation\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/boxes",
@@ -265,6 +341,12 @@
                         "type": "`$STRING`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "GET /boxes/{boxId}/{sensorId}",
+                    "json": "{\"operationId\":\"getSensorMeasurements\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"path\",\"name\":\"boxId\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"ID of the sensor\",\"in\":\"path\",\"name\":\"sensorId\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Start date for filtering measurements (ISO 8601 format)\",\"in\":\"query\",\"name\":\"from-date\",\"required\":false,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End date for filtering measurements (ISO 8601 format)\",\"in\":\"query\",\"name\":\"to-date\",\"required\":false,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"Response format (json or csv)\",\"in\":\"query\",\"name\":\"format\",\"required\":false,\"schema\":{\"default\":\"json\",\"enum\":[\"json\",\"csv\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"createdAt\":{\"description\":\"Timestamp of the measurement\",\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"description\":\"Measurement value\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"text/csv\":{\"schema\":{\"type\":\"string\"}}},\"description\":\"Successful response\"},\"404\":{\"description\":\"SenseBox or sensor not found\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "GET",
@@ -339,6 +421,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /boxes",
+                    "json": "{\"operationId\":\"getBoxes\",\"parameters\":[{\"description\":\"Response format (json or csv)\",\"in\":\"query\",\"name\":\"format\",\"required\":false,\"schema\":{\"default\":\"json\",\"enum\":[\"json\",\"csv\"],\"type\":\"string\"}},{\"description\":\"Bounding box to filter senseBoxes (format: lng1,lat1,lng2,lat2)\",\"in\":\"query\",\"name\":\"bbox\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Filter by exposure type\",\"in\":\"query\",\"name\":\"exposure\",\"required\":false,\"schema\":{\"enum\":[\"indoor\",\"outdoor\",\"mobile\"],\"type\":\"string\"}},{\"description\":\"Filter by group tag\",\"in\":\"query\",\"name\":\"grouptag\",\"required\":false,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the senseBox\",\"type\":\"string\"},\"createdAt\":{\"description\":\"Creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"description\":{\"description\":\"Description of the senseBox\",\"type\":\"string\"},\"exposure\":{\"description\":\"Exposure type of the senseBox\",\"enum\":[\"indoor\",\"outdoor\",\"mobile\"],\"type\":\"string\"},\"grouptag\":{\"description\":\"Group tag for categorization\",\"type\":\"string\"},\"location\":{\"properties\":{\"coordinates\":{\"description\":\"Longitude and latitude coordinates [lng, lat]\",\"items\":{\"type\":\"number\"},\"maxItems\":2,\"minItems\":2,\"type\":\"array\"},\"type\":{\"enum\":[\"Point\"],\"type\":\"string\"}},\"type\":\"object\"},\"model\":{\"description\":\"Model of the senseBox\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the senseBox\",\"type\":\"string\"},\"sensors\":{\"items\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the sensor\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"lastMeasurement\":{\"properties\":{\"createdAt\":{\"description\":\"Timestamp of the measurement\",\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"description\":\"Measurement value\",\"type\":\"string\"}},\"type\":\"object\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"updatedAt\":{\"description\":\"Last update timestamp\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}},\"text/csv\":{\"schema\":{\"type\":\"string\"}}},\"description\":\"Successful response\"},\"400\":{\"description\":\"Bad request\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/boxes",
@@ -391,6 +479,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /boxes/{boxId}",
+                    "json": "{\"operationId\":\"getBoxById\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"path\",\"name\":\"boxId\",\"required\":true,\"schema\":{\"type\":\"string\"}},{\"description\":\"Response format (json or csv)\",\"in\":\"query\",\"name\":\"format\",\"required\":false,\"schema\":{\"default\":\"json\",\"enum\":[\"json\",\"csv\"],\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the senseBox\",\"type\":\"string\"},\"createdAt\":{\"description\":\"Creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"description\":{\"description\":\"Description of the senseBox\",\"type\":\"string\"},\"exposure\":{\"description\":\"Exposure type of the senseBox\",\"enum\":[\"indoor\",\"outdoor\",\"mobile\"],\"type\":\"string\"},\"grouptag\":{\"description\":\"Group tag for categorization\",\"type\":\"string\"},\"location\":{\"properties\":{\"coordinates\":{\"description\":\"Longitude and latitude coordinates [lng, lat]\",\"items\":{\"type\":\"number\"},\"maxItems\":2,\"minItems\":2,\"type\":\"array\"},\"type\":{\"enum\":[\"Point\"],\"type\":\"string\"}},\"type\":\"object\"},\"model\":{\"description\":\"Model of the senseBox\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the senseBox\",\"type\":\"string\"},\"sensors\":{\"items\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the sensor\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"lastMeasurement\":{\"properties\":{\"createdAt\":{\"description\":\"Timestamp of the measurement\",\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"description\":\"Measurement value\",\"type\":\"string\"}},\"type\":\"object\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"updatedAt\":{\"description\":\"Last update timestamp\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"},\"404\":{\"description\":\"SenseBox not found\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/boxes/{boxId}",
@@ -438,6 +532,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "DELETE /boxes/{boxId}",
+                    "json": "{\"operationId\":\"deleteBox\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"path\",\"name\":\"boxId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"description\":\"SenseBox deleted successfully\"},\"401\":{\"description\":\"Unauthorized\"},\"404\":{\"description\":\"SenseBox not found\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"operation\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "DELETE",
                   "orig": "/boxes/{boxId}",
@@ -483,6 +583,12 @@
                         "type": "`$STRING`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "PUT /boxes/{boxId}",
+                    "json": "{\"operationId\":\"updateBox\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"path\",\"name\":\"boxId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"description\":{\"description\":\"Description of the senseBox\",\"type\":\"string\"},\"exposure\":{\"description\":\"Exposure type of the senseBox\",\"enum\":[\"indoor\",\"outdoor\",\"mobile\"],\"type\":\"string\"},\"grouptag\":{\"description\":\"Group tag for categorization\",\"type\":\"string\"},\"location\":{\"properties\":{\"coordinates\":{\"description\":\"Longitude and latitude coordinates [lng, lat]\",\"items\":{\"type\":\"number\"},\"maxItems\":2,\"minItems\":2,\"type\":\"array\"},\"type\":{\"enum\":[\"Point\"],\"type\":\"string\"}},\"required\":[\"type\",\"coordinates\"],\"type\":\"object\"},\"model\":{\"description\":\"Model of the senseBox\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the senseBox\",\"type\":\"string\"},\"sensors\":{\"items\":{\"properties\":{\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"required\":[\"title\",\"unit\",\"sensorType\"],\"type\":\"object\"},\"type\":\"array\"}},\"required\":[\"name\",\"exposure\",\"location\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the senseBox\",\"type\":\"string\"},\"createdAt\":{\"description\":\"Creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"description\":{\"description\":\"Description of the senseBox\",\"type\":\"string\"},\"exposure\":{\"description\":\"Exposure type of the senseBox\",\"enum\":[\"indoor\",\"outdoor\",\"mobile\"],\"type\":\"string\"},\"grouptag\":{\"description\":\"Group tag for categorization\",\"type\":\"string\"},\"location\":{\"properties\":{\"coordinates\":{\"description\":\"Longitude and latitude coordinates [lng, lat]\",\"items\":{\"type\":\"number\"},\"maxItems\":2,\"minItems\":2,\"type\":\"array\"},\"type\":{\"enum\":[\"Point\"],\"type\":\"string\"}},\"type\":\"object\"},\"model\":{\"description\":\"Model of the senseBox\",\"type\":\"string\"},\"name\":{\"description\":\"Name of the senseBox\",\"type\":\"string\"},\"sensors\":{\"items\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the sensor\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"lastMeasurement\":{\"properties\":{\"createdAt\":{\"description\":\"Timestamp of the measurement\",\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"description\":\"Measurement value\",\"type\":\"string\"}},\"type\":\"object\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"},\"updatedAt\":{\"description\":\"Last update timestamp\",\"format\":\"date-time\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"SenseBox updated successfully\"},\"400\":{\"description\":\"Invalid input\"},\"401\":{\"description\":\"Unauthorized\"},\"404\":{\"description\":\"SenseBox not found\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"operation\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "PUT",
@@ -592,6 +698,12 @@
                         "type": "`$STRING`"
                       }
                     ]
+                  },
+                  "contract": {
+                    "id": "GET /boxes/{boxId}/sensors",
+                    "json": "{\"operationId\":\"getBoxSensors\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"path\",\"name\":\"boxId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the sensor\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"lastMeasurement\":{\"properties\":{\"createdAt\":{\"description\":\"Timestamp of the measurement\",\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"description\":\"Measurement value\",\"type\":\"string\"}},\"type\":\"object\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response\"},\"404\":{\"description\":\"SenseBox not found\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
                   },
                   "kind": "http",
                   "method": "GET",
@@ -726,6 +838,12 @@
                       }
                     ]
                   },
+                  "contract": {
+                    "id": "GET /statistics/descriptive",
+                    "json": "{\"operationId\":\"getDescriptiveStatistics\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"query\",\"name\":\"boxId\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"ID of the sensor\",\"in\":\"query\",\"name\":\"sensorId\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Start date for statistics (ISO 8601 format)\",\"in\":\"query\",\"name\":\"from-date\",\"required\":false,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End date for statistics (ISO 8601 format)\",\"in\":\"query\",\"name\":\"to-date\",\"required\":false,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"count\":{\"description\":\"Number of measurements\",\"type\":\"integer\"},\"max\":{\"description\":\"Maximum value\",\"type\":\"number\"},\"mean\":{\"description\":\"Mean value\",\"type\":\"number\"},\"median\":{\"description\":\"Median value\",\"type\":\"number\"},\"min\":{\"description\":\"Minimum value\",\"type\":\"number\"},\"sum\":{\"description\":\"Sum of all values\",\"type\":\"number\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"},\"400\":{\"description\":\"Bad request\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/statistics/descriptive",
@@ -850,6 +968,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "POST /users/register",
+                    "json": "{\"operationId\":\"registerUser\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"name\":{\"description\":\"User's name\",\"type\":\"string\"},\"password\":{\"description\":\"User's password\",\"format\":\"password\",\"type\":\"string\"}},\"required\":[\"name\",\"email\",\"password\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the user\",\"type\":\"string\"},\"boxes\":{\"description\":\"Array of senseBox IDs owned by the user\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"createdAt\":{\"description\":\"Account creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"name\":{\"description\":\"User's name\",\"type\":\"string\"},\"role\":{\"description\":\"User's role\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"User registered successfully\"},\"400\":{\"description\":\"Invalid input\"},\"409\":{\"description\":\"User already exists\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/users/register",
@@ -872,6 +996,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "POST /users/sign-in",
+                    "json": "{\"operationId\":\"signInUser\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"password\":{\"description\":\"User's password\",\"format\":\"password\",\"type\":\"string\"}},\"required\":[\"email\",\"password\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"token\":{\"description\":\"JWT access token\",\"type\":\"string\"},\"user\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the user\",\"type\":\"string\"},\"boxes\":{\"description\":\"Array of senseBox IDs owned by the user\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"createdAt\":{\"description\":\"Account creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"name\":{\"description\":\"User's name\",\"type\":\"string\"},\"role\":{\"description\":\"User's role\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Sign in successful\"},\"401\":{\"description\":\"Invalid credentials\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "POST",
                   "orig": "/users/sign-in",
@@ -900,6 +1030,12 @@
                 {
                   "active": true,
                   "args": {},
+                  "contract": {
+                    "id": "GET /users/me",
+                    "json": "{\"operationId\":\"getCurrentUser\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the user\",\"type\":\"string\"},\"boxes\":{\"description\":\"Array of senseBox IDs owned by the user\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"createdAt\":{\"description\":\"Account creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"name\":{\"description\":\"User's name\",\"type\":\"string\"},\"role\":{\"description\":\"User's role\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"},\"401\":{\"description\":\"Unauthorized\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"operation\"}",
+                    "source": "openapi3",
+                    "version": 1
+                  },
                   "kind": "http",
                   "method": "GET",
                   "orig": "/users/me",
@@ -928,13 +1064,223 @@
         }
       },
       "feature": {
+        "ratelimit": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "burst": 5,
+              "rate": 5
+            },
+            "optspec": {
+              "now": "`$FUNCTION`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "ratelimit",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Client-side rate limiting via a token bucket",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
+        "retry": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "factor": 2,
+              "maxDelay": 2000,
+              "minDelay": 50,
+              "retries": 2,
+              "statuses": [
+                408,
+                425,
+                429,
+                500,
+                502,
+                503,
+                504
+              ]
+            },
+            "optspec": {
+              "jitter": "`$BOOLEAN`",
+              "sleep": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "retry",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Automatic retry of transient failures with exponential backoff",
+          "transport": "wrap",
+          "version": "0.0.1"
+        },
         "test": {
           "active": true,
           "base": "node_modules/@voxgig/sdkgen/project/.sdk",
           "config": {
             "options": {
               "active": false
-            }
+            },
+            "optspec": {
+              "entity": "`$MAP`",
+              "net": "`$MAP`"
+            },
+            "strict": false
           },
           "hook": {
             "GetData": {
@@ -1024,6 +1370,102 @@
           },
           "title": "In-memory mock transport for testing without a live server",
           "transport": "base",
+          "version": "0.0.1"
+        },
+        "timeout": {
+          "active": true,
+          "base": "node_modules/@voxgig/sdkgen/project/.sdk",
+          "config": {
+            "options": {
+              "active": false,
+              "ms": 30000
+            },
+            "optspec": {
+              "clearTimer": "`$FUNCTION`",
+              "setTimer": "`$FUNCTION`"
+            },
+            "strict": false
+          },
+          "hook": {
+            "GetData": {
+              "active": false,
+              "await": false
+            },
+            "GetMatch": {
+              "active": false,
+              "await": false
+            },
+            "PostConstruct": {
+              "active": false,
+              "await": false
+            },
+            "PostConstructEntity": {
+              "active": false,
+              "await": false
+            },
+            "PostOperation": {
+              "active": false,
+              "await": false
+            },
+            "PreRequest": {
+              "active": false,
+              "await": false
+            },
+            "PreResponse": {
+              "active": false,
+              "await": false
+            },
+            "PreResult": {
+              "active": false,
+              "await": false
+            },
+            "PreSpec": {
+              "active": false,
+              "await": false
+            },
+            "PreTarget": {
+              "active": false,
+              "await": false
+            },
+            "SetData": {
+              "active": false,
+              "await": false
+            }
+          },
+          "name": "timeout",
+          "needs": {},
+          "origname": "",
+          "package": "@voxgig/sdkgen",
+          "plugin": {},
+          "spec": {},
+          "target": {
+            "go": {
+              "deps": {}
+            },
+            "go-cli": {
+              "deps": {}
+            },
+            "go-mcp": {
+              "deps": {}
+            },
+            "lua": {
+              "deps": {}
+            },
+            "php": {
+              "deps": {}
+            },
+            "py": {
+              "deps": {}
+            },
+            "rb": {
+              "deps": {}
+            },
+            "ts": {
+              "deps": {}
+            }
+          },
+          "title": "Per-request timeout with transport abort",
+          "transport": "wrap",
           "version": "0.0.1"
         }
       },
@@ -1265,6 +1707,48 @@
         "website": "https://opensensemap.org"
       },
       "option": {},
+      "optspec": {
+        "allow": {
+          "method": "GET,PUT,POST,PATCH,DELETE,OPTIONS",
+          "op": "create,update,load,list,remove,command,direct,graphql"
+        },
+        "apikey": "",
+        "auth": {
+          "basic": false,
+          "prefix": ""
+        },
+        "base": "http://localhost:8000",
+        "clean": {
+          "keys": "key,token,id"
+        },
+        "entity": {
+          "`$CHILD`": {
+            "`$OPEN`": true,
+            "active": false,
+            "alias": {}
+          }
+        },
+        "extend": "`$ANY`",
+        "headers": {
+          "`$CHILD`": "`$STRING`"
+        },
+        "prefix": "",
+        "secret": "",
+        "server": {
+          "`$CHILD`": ""
+        },
+        "suffix": "",
+        "system": {
+          "fetch": "`$ANY`"
+        },
+        "test": {
+          "active": false,
+          "entity": {
+            "`$OPEN`": true
+          }
+        },
+        "utility": {}
+      },
       "repo": {
         "host": "github.com",
         "path": ""
@@ -1819,6 +2303,7 @@
           },
           "package": "@voxgig/sdkgen",
           "provides": {
+            "schema": true,
             "sekreto": true
           },
           "publish": {
@@ -1860,7 +2345,7 @@
         "live": {
           "app": false,
           "base": "",
-          "strict": false
+          "strict": true
         }
       }
     }

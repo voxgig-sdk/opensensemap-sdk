@@ -2,7 +2,7 @@
   "existing": {
     "statistic": {
       "STATISTIC00": {
-        "count": "s3c",
+        "count": 60,
         "max": 61,
         "mean": 62,
         "median": 63,
@@ -11,7 +11,7 @@
         "id": "STATISTIC00"
       },
       "STATISTIC01": {
-        "count": "s78",
+        "count": 120,
         "max": 121,
         "mean": 122,
         "median": 123,
@@ -20,7 +20,7 @@
         "id": "STATISTIC01"
       },
       "STATISTIC02": {
-        "count": "sb4",
+        "count": 180,
         "max": 181,
         "mean": 182,
         "median": 183,
@@ -33,12 +33,114 @@
   "new": {
     "statistic": {
       "statistic_ref01": {
-        "count": "sf0",
+        "count": 240,
         "max": 241,
         "mean": 242,
         "median": 243,
         "min": 244,
         "sum": 245
+      }
+    }
+  },
+  "requests": {
+    "GET /statistics/descriptive": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "getDescriptiveStatistics",
+        "parameters": [
+          {
+            "description": "ID of the senseBox",
+            "in": "query",
+            "name": "boxId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "ID of the sensor",
+            "in": "query",
+            "name": "sensorId",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "description": "Start date for statistics (ISO 8601 format)",
+            "in": "query",
+            "name": "from-date",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "description": "End date for statistics (ISO 8601 format)",
+            "in": "query",
+            "name": "to-date",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          }
+        ],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "count": {
+                      "description": "Number of measurements",
+                      "type": "integer"
+                    },
+                    "max": {
+                      "description": "Maximum value",
+                      "type": "number"
+                    },
+                    "mean": {
+                      "description": "Mean value",
+                      "type": "number"
+                    },
+                    "median": {
+                      "description": "Median value",
+                      "type": "number"
+                    },
+                    "min": {
+                      "description": "Minimum value",
+                      "type": "number"
+                    },
+                    "sum": {
+                      "description": "Sum of all values",
+                      "type": "number"
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful response"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "securitySchemes": {
+          "bearerAuth": {
+            "bearerFormat": "JWT",
+            "description": "JWT authentication token",
+            "scheme": "bearer",
+            "type": "http"
+          }
+        },
+        "securitySource": "unspecified"
       }
     }
   }

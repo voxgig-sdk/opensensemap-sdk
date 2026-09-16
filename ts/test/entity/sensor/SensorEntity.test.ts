@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { OpensensemapSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('SensorEntity', async () => {
 
     const live = 'TRUE' === process.env.OPENSENSEMAP_TEST_LIVE
     for (const op of ['list']) {
-      if (maybeSkipControl(t, 'entityOp', 'sensor.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'sensor.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set OPENSENSEMAP_TEST_SENSOR_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"icon","req":false,"short":"Icon identifier for the sensor","type":"`$STRING`","index$":0},{"active":true,"name":"id","req":false,"short":"Unique identifier for the sensor","type":"`$STRING`","index$":1},{"active":true,"name":"lastMeasurement","req":false,"type":"`$OBJECT`","index$":2},{"active":true,"name":"sensorType","req":false,"short":"Type of sensor","type":"`$STRING`","index$":3},{"active":true,"name":"title","req":false,"short":"Title of the sensor","type":"`$STRING`","index$":4},{"active":true,"name":"unit","req":false,"short":"Unit of measurement","type":"`$STRING`","index$":5}],"id":{"field":"id","name":"id"},"name":"sensor","op":{"list":{"input":"data","name":"list","points":[{"active":true,"args":{"params":[{"active":true,"kind":"param","name":"box_id","orig":"box_id","reqd":true,"type":"`$STRING`","index$":0}]},"contract":{"id":"GET /boxes/{boxId}/sensors","json":"{\"operationId\":\"getBoxSensors\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"path\",\"name\":\"boxId\",\"required\":true,\"schema\":{\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"items\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the sensor\",\"type\":\"string\"},\"icon\":{\"description\":\"Icon identifier for the sensor\",\"type\":\"string\"},\"lastMeasurement\":{\"properties\":{\"createdAt\":{\"description\":\"Timestamp of the measurement\",\"format\":\"date-time\",\"type\":\"string\"},\"value\":{\"description\":\"Measurement value\",\"type\":\"string\"}},\"type\":\"object\"},\"sensorType\":{\"description\":\"Type of sensor\",\"type\":\"string\"},\"title\":{\"description\":\"Title of the sensor\",\"type\":\"string\"},\"unit\":{\"description\":\"Unit of measurement\",\"type\":\"string\"}},\"type\":\"object\"},\"type\":\"array\"}}},\"description\":\"Successful response\"},\"404\":{\"description\":\"SenseBox not found\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/boxes/{boxId}/sensors","rename":{"param":{"boxId":"box_id"}},"segments":[{"lit":"boxes"},{"var":"box_id"},{"lit":"sensors"}],"select":{"exist":["box_id"]},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[["box"]]},"key$":"sensor","name__orig":"sensor","Name":"Sensor","name_":"sensor","name-":"sensor","NAME":"SENSOR","index$":1}, {"active":true,"entity":"sensor","key$":"BasicSensorFlow","kind":"basic","name":"BasicSensorFlow","param":{},"step":[{"active":true,"data":{},"input":{},"match":{"box_id":"box01"},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"sensor_ref01"}}],"index$":0}]}, 'Sensor')
     }
     const client = setup.client
     const struct = setup.struct
@@ -110,13 +109,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['OPENSENSEMAP_TEST_SENSOR_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'OPENSENSEMAP_TEST_SENSOR_ENTID': idmap,
     'OPENSENSEMAP_TEST_LIVE': 'FALSE',
@@ -128,7 +120,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.OPENSENSEMAP_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['OPENSENSEMAP_TEST_SENSOR_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new OpensensemapSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -141,7 +139,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -154,7 +153,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.OPENSENSEMAP_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

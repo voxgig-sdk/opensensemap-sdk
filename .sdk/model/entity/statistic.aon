@@ -81,6 +81,12 @@ main: kit: entity: statistic: {
               }
             ]
           }
+          contract: {
+            id: "GET /statistics/descriptive"
+            json: "{\"operationId\":\"getDescriptiveStatistics\",\"parameters\":[{\"description\":\"ID of the senseBox\",\"in\":\"query\",\"name\":\"boxId\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"ID of the sensor\",\"in\":\"query\",\"name\":\"sensorId\",\"required\":false,\"schema\":{\"type\":\"string\"}},{\"description\":\"Start date for statistics (ISO 8601 format)\",\"in\":\"query\",\"name\":\"from-date\",\"required\":false,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}},{\"description\":\"End date for statistics (ISO 8601 format)\",\"in\":\"query\",\"name\":\"to-date\",\"required\":false,\"schema\":{\"format\":\"date-time\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"count\":{\"description\":\"Number of measurements\",\"type\":\"integer\"},\"max\":{\"description\":\"Maximum value\",\"type\":\"number\"},\"mean\":{\"description\":\"Mean value\",\"type\":\"number\"},\"median\":{\"description\":\"Median value\",\"type\":\"number\"},\"min\":{\"description\":\"Minimum value\",\"type\":\"number\"},\"sum\":{\"description\":\"Sum of all values\",\"type\":\"number\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"},\"400\":{\"description\":\"Bad request\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}"
+            source: "openapi3"
+            version: 1
+          }
           method: "GET"
           orig: "/statistics/descriptive"
           segments: [

@@ -5,6 +5,8 @@ import * as Fs from 'node:fs'
 
 import { test, describe, afterEach } from 'node:test'
 import assert from 'node:assert'
+import { createLiveTransport } from '../../live-runner'
+import { runLiveEntity } from '../../live-entity'
 
 
 import { OpensensemapSDK, BaseFeature, stdutil } from '../../..'
@@ -47,16 +49,13 @@ describe('UserEntity', async () => {
 
     const live = 'TRUE' === process.env.OPENSENSEMAP_TEST_LIVE
     for (const op of ['create', 'list']) {
-      if (maybeSkipControl(t, 'entityOp', 'user.' + op, live)) return
+      if (!live && maybeSkipControl(t, 'entityOp', 'user.' + op, live)) return
     }
 
+    
     const setup = basicSetup()
-    // The basic flow consumes synthetic IDs and field values from the
-    // fixture (entity TestData.json). Those don't exist on the live API.
-    // Skip live runs unless the user provided a real ENTID env override.
-    if (setup.syntheticOnly) {
-      t.skip('live entity test uses synthetic IDs from fixture — set OPENSENSEMAP_TEST_USER_ENTID JSON to run live')
-      return
+    if (setup.live) {
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"boxes","req":false,"short":"Array of senseBox IDs owned by the user","type":"`$ARRAY`","index$":0},{"active":true,"format":"date-time","name":"createdAt","req":false,"short":"Account creation timestamp","type":"`$STRING`","index$":1},{"active":true,"format":"email","name":"email","op":{"create":{"req":false,"type":"`$STRING`"},"list":{"req":false,"type":"`$STRING`"}},"req":true,"short":"User's email address","type":"`$STRING`","index$":2},{"active":true,"name":"id","req":false,"short":"Unique identifier for the user","type":"`$STRING`","index$":3},{"active":true,"name":"name","op":{"create":{"req":false,"type":"`$STRING`"},"list":{"req":false,"type":"`$STRING`"}},"req":true,"short":"User's name","type":"`$STRING`","index$":4},{"active":true,"format":"password","name":"password","req":true,"short":"User's password","type":"`$STRING`","index$":5},{"active":true,"name":"role","req":false,"short":"User's role","type":"`$STRING`","index$":6}],"id":{"field":"id","name":"id"},"name":"user","op":{"create":{"input":"data","name":"create","points":[{"active":true,"args":{},"contract":{"id":"POST /users/register","json":"{\"operationId\":\"registerUser\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"name\":{\"description\":\"User's name\",\"type\":\"string\"},\"password\":{\"description\":\"User's password\",\"format\":\"password\",\"type\":\"string\"}},\"required\":[\"name\",\"email\",\"password\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"201\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the user\",\"type\":\"string\"},\"boxes\":{\"description\":\"Array of senseBox IDs owned by the user\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"createdAt\":{\"description\":\"Account creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"name\":{\"description\":\"User's name\",\"type\":\"string\"},\"role\":{\"description\":\"User's role\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"User registered successfully\"},\"400\":{\"description\":\"Invalid input\"},\"409\":{\"description\":\"User already exists\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/users/register","segments":[{"lit":"users"},{"lit":"register"}],"select":{"$action":"register"},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0},{"active":true,"args":{},"contract":{"id":"POST /users/sign-in","json":"{\"operationId\":\"signInUser\",\"parameters\":[],\"protocol\":\"http\",\"requestBody\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"password\":{\"description\":\"User's password\",\"format\":\"password\",\"type\":\"string\"}},\"required\":[\"email\",\"password\"],\"type\":\"object\"}}},\"required\":true},\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"token\":{\"description\":\"JWT access token\",\"type\":\"string\"},\"user\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the user\",\"type\":\"string\"},\"boxes\":{\"description\":\"Array of senseBox IDs owned by the user\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"createdAt\":{\"description\":\"Account creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"name\":{\"description\":\"User's name\",\"type\":\"string\"},\"role\":{\"description\":\"User's role\",\"type\":\"string\"}},\"type\":\"object\"}},\"type\":\"object\"}}},\"description\":\"Sign in successful\"},\"401\":{\"description\":\"Invalid credentials\"},\"500\":{\"description\":\"Internal server error\"}},\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"POST","orig":"/users/sign-in","segments":[{"lit":"users"},{"lit":"sign-in"}],"select":{"$action":"sign_in"},"transform":{"req":"`reqdata`","res":"`body.user`"},"index$":1}],"key$":"create"},"list":{"input":"data","name":"list","points":[{"active":true,"args":{},"contract":{"id":"GET /users/me","json":"{\"operationId\":\"getCurrentUser\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"_id\":{\"description\":\"Unique identifier for the user\",\"type\":\"string\"},\"boxes\":{\"description\":\"Array of senseBox IDs owned by the user\",\"items\":{\"type\":\"string\"},\"type\":\"array\"},\"createdAt\":{\"description\":\"Account creation timestamp\",\"format\":\"date-time\",\"type\":\"string\"},\"email\":{\"description\":\"User's email address\",\"format\":\"email\",\"type\":\"string\"},\"name\":{\"description\":\"User's name\",\"type\":\"string\"},\"role\":{\"description\":\"User's role\",\"type\":\"string\"}},\"type\":\"object\"}}},\"description\":\"Successful response\"},\"401\":{\"description\":\"Unauthorized\"},\"500\":{\"description\":\"Internal server error\"}},\"security\":[{\"bearerAuth\":[]}],\"securitySchemes\":{\"bearerAuth\":{\"bearerFormat\":\"JWT\",\"description\":\"JWT authentication token\",\"scheme\":\"bearer\",\"type\":\"http\"}},\"securitySource\":\"operation\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/users/me","segments":[{"lit":"users"},{"lit":"me"}],"select":{"$action":"me"},"transform":{"req":"`reqdata`","res":"`body.boxes`"},"index$":0}],"key$":"list"}},"relations":{"ancestors":[]},"key$":"user","name__orig":"user","Name":"User","name_":"user","name-":"user","NAME":"USER","index$":3}, {"active":true,"entity":"user","key$":"BasicUserFlow","kind":"basic","name":"BasicUserFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"user_ref01"},"match":{},"op":"create","spec":[],"valid":[],"index$":0},{"active":true,"data":{},"input":{},"match":{},"op":"list","spec":[],"valid":[{"apply":"ItemExists","def":{"ref":"user_ref01"}}],"index$":1}]}, 'User')
     }
     const client = setup.client
     const struct = setup.struct
@@ -117,13 +116,6 @@ function basicSetup(extra?: any) {
       }]
     })
 
-  // Detect whether the user provided a real ENTID JSON via env var. The
-  // basic flow consumes synthetic IDs from the fixture file; without an
-  // override those synthetic IDs reach the live API and 4xx. Surface this
-  // to the test so it can skip rather than fail.
-  const idmapEnvVal = process.env['OPENSENSEMAP_TEST_USER_ENTID']
-  const idmapOverridden = null != idmapEnvVal && idmapEnvVal.trim().startsWith('{')
-
   const env = envOverride({
     'OPENSENSEMAP_TEST_USER_ENTID': idmap,
     'OPENSENSEMAP_TEST_LIVE': 'FALSE',
@@ -135,7 +127,13 @@ function basicSetup(extra?: any) {
 
   const live = 'TRUE' === env.OPENSENSEMAP_TEST_LIVE
 
+  const transport = createLiveTransport()
   if (live) {
+    const rawIds = process.env['OPENSENSEMAP_TEST_USER_ENTID']
+    idmap = rawIds && rawIds.trim() ? JSON.parse(rawIds) : {}
+    if (!idmap || Array.isArray(idmap) || typeof idmap !== 'object') {
+      throw new Error('Live ENTID must be a JSON object')
+    }
     client = new OpensensemapSDK(merge([
       // FIRST, so the generated fields below win: sdk-test-control.json's
       // test.client.options adds to the live client, it does not redirect it.
@@ -148,7 +146,8 @@ function basicSetup(extra?: any) {
       // argument at all - so a bare 'extra' silently discarded the apikey
       // and server values above and handed the SDK undefined. Harmless
       // while there was nothing in that object; not harmless now.
-      extra || {}
+      extra || {},
+      { system: { fetch: transport.fetch } }
     ]))
   }
 
@@ -161,7 +160,7 @@ function basicSetup(extra?: any) {
     data: entityData,
     explain: 'TRUE' === env.OPENSENSEMAP_TEST_EXPLAIN,
     live,
-    syntheticOnly: live && !idmapOverridden,
+    transport,
     now: Date.now(),
   }
 

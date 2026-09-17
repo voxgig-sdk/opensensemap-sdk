@@ -3,30 +3,27 @@
     "user": {
       "USER00": {
         "boxes": [],
-        "createdAt": "s47",
-        "email": "s48",
+        "createdAt": "s3d",
+        "email": "s3e",
         "id": "USER00",
-        "name": "s4a",
-        "password": "s4b",
-        "role": "s4c"
+        "name": "s40",
+        "role": "s41"
       },
       "USER01": {
         "boxes": [],
-        "createdAt": "s8d",
-        "email": "s8e",
+        "createdAt": "s79",
+        "email": "s7a",
         "id": "USER01",
-        "name": "s90",
-        "password": "s91",
-        "role": "s92"
+        "name": "s7c",
+        "role": "s7d"
       },
       "USER02": {
         "boxes": [],
-        "createdAt": "sd3",
-        "email": "sd4",
+        "createdAt": "sb5",
+        "email": "sb6",
         "id": "USER02",
-        "name": "sd6",
-        "password": "sd7",
-        "role": "sd8"
+        "name": "sb8",
+        "role": "sb9"
       }
     }
   },
@@ -34,11 +31,10 @@
     "user": {
       "user_ref01": {
         "boxes": [],
-        "createdAt": "s119",
-        "email": "s11a",
-        "name": "s11c",
-        "password": "s11d",
-        "role": "s11e"
+        "createdAt": "sf1",
+        "email": "sf2",
+        "name": "sf4",
+        "role": "sf5"
       }
     }
   },

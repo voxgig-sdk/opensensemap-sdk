@@ -331,23 +331,10 @@ user = client.User()
 | --- | --- | --- | --- |
 | `boxes` | `list` | No | Array of senseBox IDs owned by the user |
 | `createdAt` | `str` | No | Account creation timestamp |
-| `email` | `str` | Yes | User's email address |
+| `email` | `str` | No | User's email address |
 | `id` | `str` | No | Unique identifier for the user |
-| `name` | `str` | Yes | User's name |
-| `password` | `str` | Yes | User's password |
+| `name` | `str` | No | User's name |
 | `role` | `str` | No | User's role |
-
-### Field Usage by Operation
-
-| Field | list | create |
-| --- | --- | --- |
-| `boxes` | - | - |
-| `createdAt` | - | - |
-| `email` | Yes | Yes |
-| `id` | - | - |
-| `name` | Yes | Yes |
-| `password` | - | - |
-| `role` | - | - |
 
 ### Operations
 
@@ -357,9 +344,6 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.User().create({
-    "email": "example_email",  # str
-    "name": "example_name",  # str
-    "password": "example_password",  # str
 })
 ```
 

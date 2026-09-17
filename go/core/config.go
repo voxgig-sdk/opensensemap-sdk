@@ -780,15 +780,6 @@ func MakeConfig() map[string]any {
 					map[string]any{
 						"format": "email",
 						"name": "email",
-						"op": map[string]any{
-							"create": map[string]any{
-								"type": "`$STRING`",
-							},
-							"list": map[string]any{
-								"type": "`$STRING`",
-							},
-						},
-						"req": true,
 						"short": "User's email address",
 						"type": "`$STRING`",
 					},
@@ -799,23 +790,7 @@ func MakeConfig() map[string]any {
 					},
 					map[string]any{
 						"name": "name",
-						"op": map[string]any{
-							"create": map[string]any{
-								"type": "`$STRING`",
-							},
-							"list": map[string]any{
-								"type": "`$STRING`",
-							},
-						},
-						"req": true,
 						"short": "User's name",
-						"type": "`$STRING`",
-					},
-					map[string]any{
-						"format": "password",
-						"name": "password",
-						"req": true,
-						"short": "User's password",
 						"type": "`$STRING`",
 					},
 					map[string]any{

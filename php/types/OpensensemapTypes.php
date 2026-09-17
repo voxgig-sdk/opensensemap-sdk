@@ -125,10 +125,9 @@ class User
 {
     public ?array $boxes = null;
     public ?string $createdAt = null;
-    public string $email;
+    public ?string $email = null;
     public ?string $id = null;
-    public string $name;
-    public string $password;
+    public ?string $name = null;
     public ?string $role = null;
 }
 
@@ -140,7 +139,6 @@ class UserListMatch
     public ?string $email = null;
     public ?string $id = null;
     public ?string $name = null;
-    public ?string $password = null;
     public ?string $role = null;
 }
 
@@ -149,10 +147,9 @@ class UserCreateData
 {
     public ?array $boxes = null;
     public ?string $createdAt = null;
-    public string $email;
+    public ?string $email = null;
     public ?string $id = null;
-    public string $name;
-    public string $password;
+    public ?string $name = null;
     public ?string $role = null;
 }
 

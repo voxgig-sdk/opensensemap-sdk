@@ -336,23 +336,10 @@ user = client.User
 | --- | --- | --- | --- |
 | `boxes` | `Array` | No | Array of senseBox IDs owned by the user |
 | `createdAt` | `String` | No | Account creation timestamp |
-| `email` | `String` | Yes | User's email address |
+| `email` | `String` | No | User's email address |
 | `id` | `String` | No | Unique identifier for the user |
-| `name` | `String` | Yes | User's name |
-| `password` | `String` | Yes | User's password |
+| `name` | `String` | No | User's name |
 | `role` | `String` | No | User's role |
-
-### Field Usage by Operation
-
-| Field | list | create |
-| --- | --- | --- |
-| `boxes` | - | - |
-| `createdAt` | - | - |
-| `email` | Yes | Yes |
-| `id` | - | - |
-| `name` | Yes | Yes |
-| `password` | - | - |
-| `role` | - | - |
 
 ### Operations
 
@@ -362,9 +349,6 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.User.create({
-  "email" => "example_email", # String
-  "name" => "example_name", # String
-  "password" => "example_password", # String
 })
 ```
 

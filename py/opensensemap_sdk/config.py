@@ -805,15 +805,6 @@ def make_config():
           {
             "format": "email",
             "name": "email",
-            "op": {
-              "create": {
-                "type": "`$STRING`",
-              },
-              "list": {
-                "type": "`$STRING`",
-              },
-            },
-            "req": True,
             "short": "User's email address",
             "type": "`$STRING`",
           },
@@ -824,23 +815,7 @@ def make_config():
           },
           {
             "name": "name",
-            "op": {
-              "create": {
-                "type": "`$STRING`",
-              },
-              "list": {
-                "type": "`$STRING`",
-              },
-            },
-            "req": True,
             "short": "User's name",
-            "type": "`$STRING`",
-          },
-          {
-            "format": "password",
-            "name": "password",
-            "req": True,
-            "short": "User's password",
             "type": "`$STRING`",
           },
           {

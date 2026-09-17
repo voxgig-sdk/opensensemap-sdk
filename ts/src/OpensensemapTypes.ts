@@ -108,10 +108,9 @@ export interface StatisticLoadMatch {
 export interface User {
   boxes?: any[]
   createdAt?: string
-  email: string
+  email?: string
   id?: string
-  name: string
-  password: string
+  name?: string
   role?: string
 }
 
@@ -121,7 +120,6 @@ export interface UserListMatch {
   email?: string
   id?: string
   name?: string
-  password?: string
   role?: string
 
   // Selects a custom action instead of the plain list:
@@ -134,10 +132,9 @@ export interface UserListMatch {
 export interface UserCreateData {
   boxes?: any[]
   createdAt?: string
-  email: string
+  email?: string
   id?: string
-  name: string
-  password: string
+  name?: string
   role?: string
 
   // Selects a custom action instead of the plain create:

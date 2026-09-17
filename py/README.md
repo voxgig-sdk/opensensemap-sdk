@@ -335,7 +335,6 @@ API path: `/statistics/descriptive`
 | `email` | User's email address |
 | `id` | Unique identifier for the user |
 | `name` | User's name |
-| `password` | User's password |
 | `role` | User's role |
 
 Operations: Create, List.
@@ -473,7 +472,6 @@ Create an instance: `user = client.User()`
 | `email` | `str` | User's email address |
 | `id` | `str` | Unique identifier for the user |
 | `name` | `str` | User's name |
-| `password` | `str` | User's password |
 | `role` | `str` | User's role |
 
 #### Example: List
@@ -486,9 +484,6 @@ users = client.User().list()
 
 ```python
 user = client.User().create({
-    "email": "example_email",  # str
-    "name": "example_name",  # str
-    "password": "example_password",  # str
 })
 ```
 
@@ -635,6 +630,7 @@ Use `helpers.to_map()` to safely validate that a value is a dict.
 py/
 ├── opensensemap_sdk.py         -- Main SDK module
 ├── config.py                    -- Configuration
+├── schema.py                    -- Generated option + entity specs
 ├── features.py                  -- Feature factory
 ├── core/                        -- Core types and context
 ├── entity/                      -- Entity implementations

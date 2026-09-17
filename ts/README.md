@@ -397,7 +397,6 @@ API path: `/statistics/descriptive`
 | `email` | User's email address |
 | `id` | Unique identifier for the user |
 | `name` | User's name |
-| `password` | User's password |
 | `role` | User's role |
 
 Operations: create, list.
@@ -535,7 +534,6 @@ Create an instance: `const user = client.User()`
 | `email` | `string` | User's email address |
 | `id` | `string` | Unique identifier for the user |
 | `name` | `string` | User's name |
-| `password` | `string` | User's password |
 | `role` | `string` | User's role |
 
 #### Example: List
@@ -548,9 +546,6 @@ const users = await client.User().list()
 
 ```ts
 const user = await client.User().create({
-  email: 'example_email',
-  name: 'example_name',
-  password: 'example_password',
 })
 ```
 

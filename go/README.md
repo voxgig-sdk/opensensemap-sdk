@@ -356,7 +356,6 @@ API path: `/statistics/descriptive`
 | `"email"` | User's email address |
 | `"id"` | Unique identifier for the user |
 | `"name"` | User's name |
-| `"password"` | User's password |
 | `"role"` | User's role |
 
 Operations: Create, List.
@@ -514,7 +513,6 @@ Create an instance: `user := client.User(nil)`
 | `email` | `string` | User's email address |
 | `id` | `string` | Unique identifier for the user |
 | `name` | `string` | User's name |
-| `password` | `string` | User's password |
 | `role` | `string` | User's role |
 
 #### Example: List
@@ -531,9 +529,6 @@ fmt.Println(users) // the array of records
 
 ```go
 result, err := client.User(nil).Create(map[string]any{
-    "email": "example_email",
-    "name": "example_name",
-    "password": "example_password",
 }, nil)
 if err != nil {
     panic(err)

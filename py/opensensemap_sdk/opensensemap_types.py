@@ -113,16 +113,12 @@ class StatisticLoadMatch(TypedDict, total=False):
     to_date: str
 
 
-class UserRequired(TypedDict):
-    email: str
-    name: str
-    password: str
-
-
-class User(UserRequired, total=False):
+class User(TypedDict, total=False):
     boxes: list
     createdAt: str
+    email: str
     id: str
+    name: str
     role: str
 
 
@@ -132,18 +128,13 @@ class UserListMatch(TypedDict, total=False):
     email: str
     id: str
     name: str
-    password: str
     role: str
 
 
-class UserCreateDataRequired(TypedDict):
-    email: str
-    name: str
-    password: str
-
-
-class UserCreateData(UserCreateDataRequired, total=False):
+class UserCreateData(TypedDict, total=False):
     boxes: list
     createdAt: str
+    email: str
     id: str
+    name: str
     role: str

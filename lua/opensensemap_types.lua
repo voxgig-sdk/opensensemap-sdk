@@ -87,10 +87,9 @@
 ---@class User
 ---@field boxes? table
 ---@field createdAt? string
----@field email string
+---@field email? string
 ---@field id? string
----@field name string
----@field password string
+---@field name? string
 ---@field role? string
 
 ---@class UserListMatch
@@ -99,16 +98,14 @@
 ---@field email? string
 ---@field id? string
 ---@field name? string
----@field password? string
 ---@field role? string
 
 ---@class UserCreateData
 ---@field boxes? table
 ---@field createdAt? string
----@field email string
+---@field email? string
 ---@field id? string
----@field name string
----@field password string
+---@field name? string
 ---@field role? string
 
 local M = {}

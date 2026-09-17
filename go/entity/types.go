@@ -114,10 +114,9 @@ type StatisticLoadMatch struct {
 type User struct {
 	Boxes *[]any `json:"boxes,omitempty"`
 	CreatedAt *string `json:"createdAt,omitempty"`
-	Email string `json:"email"`
+	Email *string `json:"email,omitempty"`
 	Id *string `json:"id,omitempty"`
-	Name string `json:"name"`
-	Password string `json:"password"`
+	Name *string `json:"name,omitempty"`
 	Role *string `json:"role,omitempty"`
 }
 
@@ -128,7 +127,6 @@ type UserListMatch struct {
 	Email *string `json:"email,omitempty"`
 	Id *string `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
-	Password *string `json:"password,omitempty"`
 	Role *string `json:"role,omitempty"`
 }
 
@@ -136,10 +134,9 @@ type UserListMatch struct {
 type UserCreateData struct {
 	Boxes *[]any `json:"boxes,omitempty"`
 	CreatedAt *string `json:"createdAt,omitempty"`
-	Email string `json:"email"`
+	Email *string `json:"email,omitempty"`
 	Id *string `json:"id,omitempty"`
-	Name string `json:"name"`
-	Password string `json:"password"`
+	Name *string `json:"name,omitempty"`
 	Role *string `json:"role,omitempty"`
 }
 

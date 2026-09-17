@@ -105,12 +105,12 @@ local results, err = client:Sensor():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/opensensemap-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
-| Python | `voxgig-sdk-opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
-| PHP | `voxgig-sdk/opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
+| TypeScript | `@voxgig-sdk/opensensemap-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/tags) |
+| Python | `voxgig-sdk-opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/tags) |
+| PHP | `voxgig-sdk/opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/opensensemap-sdk/go` | `go get github.com/voxgig-sdk/opensensemap-sdk/go@latest` |
-| Ruby | `voxgig-sdk-opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
-| Lua | `voxgig-sdk-opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/releases) |
+| Ruby | `voxgig-sdk-opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/tags) |
+| Lua | `voxgig-sdk-opensensemap` | publish pending — [install from git tag](https://github.com/voxgig-sdk/opensensemap-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/opensensemap-sdk/go-cli` | `go install github.com/voxgig-sdk/opensensemap-sdk/go-cli/cmd/opensensemap@latest` |
 | Go MCP server | `github.com/voxgig-sdk/opensensemap-sdk/go-mcp` | `go get github.com/voxgig-sdk/opensensemap-sdk/go-mcp@latest` |
 

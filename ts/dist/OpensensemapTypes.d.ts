@@ -83,10 +83,9 @@ export interface StatisticLoadMatch {
 export interface User {
     boxes?: any[];
     createdAt?: string;
-    email: string;
+    email?: string;
     id?: string;
-    name: string;
-    password: string;
+    name?: string;
     role?: string;
 }
 export interface UserListMatch {
@@ -95,7 +94,6 @@ export interface UserListMatch {
     email?: string;
     id?: string;
     name?: string;
-    password?: string;
     role?: string;
     $action?: string;
     [action: string]: any;
@@ -103,10 +101,9 @@ export interface UserListMatch {
 export interface UserCreateData {
     boxes?: any[];
     createdAt?: string;
-    email: string;
+    email?: string;
     id?: string;
-    name: string;
-    password: string;
+    name?: string;
     role?: string;
     $action?: string;
     [action: string]: any;

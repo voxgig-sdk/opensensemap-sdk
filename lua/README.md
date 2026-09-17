@@ -320,7 +320,6 @@ API path: `/statistics/descriptive`
 | `email` | User's email address |
 | `id` | Unique identifier for the user |
 | `name` | User's name |
-| `password` | User's password |
 | `role` | User's role |
 
 Operations: Create, List.
@@ -458,7 +457,6 @@ Create an instance: `local user = client:User(nil)`
 | `email` | `string` | User's email address |
 | `id` | `string` | Unique identifier for the user |
 | `name` | `string` | User's name |
-| `password` | `string` | User's password |
 | `role` | `string` | User's role |
 
 #### Example: List
@@ -471,9 +469,6 @@ local users, err = client:User():list()
 
 ```lua
 local user, err = client:User():create({
-  email = "example_email", -- string
-  name = "example_name", -- string
-  password = "example_password", -- string
 })
 ```
 
@@ -620,6 +615,7 @@ Use `helpers.to_map()` to safely validate that a value is a table.
 lua/
 ├── opensensemap_sdk.lua    -- Main SDK module
 ├── config.lua               -- Configuration
+├── schema.lua               -- Generated option + entity specs
 ├── features.lua             -- Feature factory
 ├── core/                    -- Core types and context
 ├── entity/                  -- Entity implementations

@@ -328,7 +328,6 @@ API path: `/statistics/descriptive`
 | `email` | User's email address |
 | `id` | Unique identifier for the user |
 | `name` | User's name |
-| `password` | User's password |
 | `role` | User's role |
 
 Operations: Create, List.
@@ -470,7 +469,6 @@ Create an instance: `user = client.User`
 | `email` | `String` | User's email address |
 | `id` | `String` | Unique identifier for the user |
 | `name` | `String` | User's name |
-| `password` | `String` | User's password |
 | `role` | `String` | User's role |
 
 #### Example: List
@@ -484,9 +482,6 @@ users = client.User.list
 
 ```ruby
 user = client.User.create({
-  "email" => "example_email", # String
-  "name" => "example_name", # String
-  "password" => "example_password", # String
 })
 ```
 
@@ -633,6 +628,7 @@ Use `Helpers.to_map()` to safely validate that a value is a hash.
 rb/
 ├── Opensensemap_sdk.rb       -- Main SDK module
 ├── config.rb                  -- Configuration
+├── schema.rb                  -- Generated option + entity specs
 ├── features.rb                -- Feature factory
 ├── core/                      -- Core types and context
 ├── entity/                    -- Entity implementations

@@ -803,15 +803,6 @@ class Config {
                 {
                     "format": "email",
                     "name": "email",
-                    "op": {
-                        "create": {
-                            "type": "`$STRING`"
-                        },
-                        "list": {
-                            "type": "`$STRING`"
-                        }
-                    },
-                    "req": true,
                     "short": "User's email address",
                     "type": "`$STRING`"
                 },
@@ -822,23 +813,7 @@ class Config {
                 },
                 {
                     "name": "name",
-                    "op": {
-                        "create": {
-                            "type": "`$STRING`"
-                        },
-                        "list": {
-                            "type": "`$STRING`"
-                        }
-                    },
-                    "req": true,
                     "short": "User's name",
-                    "type": "`$STRING`"
-                },
-                {
-                    "format": "password",
-                    "name": "password",
-                    "req": true,
-                    "short": "User's password",
                     "type": "`$STRING`"
                 },
                 {

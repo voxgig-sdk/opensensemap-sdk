@@ -1,6 +1,6 @@
 # Entity Models
 
-@"box.aon"
-@"sensor.aon"
-@"statistic.aon"
-@"user.aon"
+@"./box.aon"
+@"./sensor.aon"
+@"./statistic.aon"
+@"./user.aon"

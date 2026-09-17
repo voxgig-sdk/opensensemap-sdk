@@ -342,7 +342,6 @@ API path: `/statistics/descriptive`
 | `email` | User's email address |
 | `id` | Unique identifier for the user |
 | `name` | User's name |
-| `password` | User's password |
 | `role` | User's role |
 
 Operations: Create, List.
@@ -484,7 +483,6 @@ Create an instance: `$user = $client->User();`
 | `email` | `string` | User's email address |
 | `id` | `string` | Unique identifier for the user |
 | `name` | `string` | User's name |
-| `password` | `string` | User's password |
 | `role` | `string` | User's role |
 
 #### Example: List
@@ -498,9 +496,6 @@ $users = $client->User()->list();
 
 ```php
 $user = $client->User()->create([
-    "email" => null, // string
-    "name" => null, // string
-    "password" => null, // string
 ]);
 ```
 
@@ -647,6 +642,7 @@ Use `Helpers::to_map()` to safely validate that a value is an array.
 php/
 ├── opensensemap_sdk.php          -- Main SDK class
 ├── config.php                     -- Configuration
+├── schema.php                     -- Generated option + entity specs
 ├── features.php                   -- Feature factory
 ├── core/                          -- Core types and context
 ├── entity/                        -- Entity implementations

@@ -1,6 +1,6 @@
 # Flows
 
-@"BasicBoxFlow.aon"
-@"BasicSensorFlow.aon"
-@"BasicStatisticFlow.aon"
-@"BasicUserFlow.aon"
+@"./BasicBoxFlow.aon"
+@"./BasicSensorFlow.aon"
+@"./BasicStatisticFlow.aon"
+@"./BasicUserFlow.aon"

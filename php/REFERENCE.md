@@ -335,23 +335,10 @@ $user = $client->User();
 | --- | --- | --- | --- |
 | `boxes` | `array` | No | Array of senseBox IDs owned by the user |
 | `createdAt` | `string` | No | Account creation timestamp |
-| `email` | `string` | Yes | User's email address |
+| `email` | `string` | No | User's email address |
 | `id` | `string` | No | Unique identifier for the user |
-| `name` | `string` | Yes | User's name |
-| `password` | `string` | Yes | User's password |
+| `name` | `string` | No | User's name |
 | `role` | `string` | No | User's role |
-
-### Field Usage by Operation
-
-| Field | list | create |
-| --- | --- | --- |
-| `boxes` | - | - |
-| `createdAt` | - | - |
-| `email` | Yes | Yes |
-| `id` | - | - |
-| `name` | Yes | Yes |
-| `password` | - | - |
-| `role` | - | - |
 
 ### Operations
 
@@ -361,9 +348,6 @@ Create a new entity with the given data. Throws on error.
 
 ```php
 $result = $client->User()->create([
-  "email" => null, // string
-  "name" => null, // string
-  "password" => null, // string
 ]);
 ```
 

@@ -299,16 +299,13 @@ StatisticLoadMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] email
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] id
 #   @return [String, nil]
 #
 # @!attribute [rw] name
-#   @return [String]
-#
-# @!attribute [rw] password
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] role
 #   @return [String, nil]
@@ -318,7 +315,6 @@ User = Struct.new(
   :email,
   :id,
   :name,
-  :password,
   :role,
   keyword_init: true
 )
@@ -340,9 +336,6 @@ User = Struct.new(
 # @!attribute [rw] name
 #   @return [String, nil]
 #
-# @!attribute [rw] password
-#   @return [String, nil]
-#
 # @!attribute [rw] role
 #   @return [String, nil]
 UserListMatch = Struct.new(
@@ -351,7 +344,6 @@ UserListMatch = Struct.new(
   :email,
   :id,
   :name,
-  :password,
   :role,
   keyword_init: true
 )
@@ -365,16 +357,13 @@ UserListMatch = Struct.new(
 #   @return [String, nil]
 #
 # @!attribute [rw] email
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] id
 #   @return [String, nil]
 #
 # @!attribute [rw] name
-#   @return [String]
-#
-# @!attribute [rw] password
-#   @return [String]
+#   @return [String, nil]
 #
 # @!attribute [rw] role
 #   @return [String, nil]
@@ -384,7 +373,6 @@ UserCreateData = Struct.new(
   :email,
   :id,
   :name,
-  :password,
   :role,
   keyword_init: true
 )

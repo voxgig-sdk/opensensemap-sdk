@@ -511,50 +511,11 @@ declare class Config {
                 short: string;
                 type: string;
                 format?: undefined;
-                op?: undefined;
-                req?: undefined;
             } | {
                 format: string;
                 name: string;
                 short: string;
                 type: string;
-                op?: undefined;
-                req?: undefined;
-            } | {
-                format: string;
-                name: string;
-                op: {
-                    create: {
-                        type: string;
-                    };
-                    list: {
-                        type: string;
-                    };
-                };
-                req: boolean;
-                short: string;
-                type: string;
-            } | {
-                name: string;
-                op: {
-                    create: {
-                        type: string;
-                    };
-                    list: {
-                        type: string;
-                    };
-                };
-                req: boolean;
-                short: string;
-                type: string;
-                format?: undefined;
-            } | {
-                format: string;
-                name: string;
-                req: boolean;
-                short: string;
-                type: string;
-                op?: undefined;
             })[];
             id: {
                 field: string;
